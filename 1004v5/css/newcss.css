@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 15, 2014, 12:03:21 PM
+    Author     : Guogen
+*/
+
+.slick-prev:before, .slick-next:before { 
+    color:black !important;
+}
+
+.carousel{
+    align: center;
+}
+
+.carousel img{
+    width: 100%;
+}
+
+.container
+{
+    margin-top: 50px;
+}
+.navbar-fixed-top
+{
+    margin-top:-50px;
+}
+
+
+.modal-content
+{
+    padding: 3%;
+}
