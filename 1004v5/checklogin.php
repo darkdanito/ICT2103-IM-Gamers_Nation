@@ -13,7 +13,7 @@
 
 	if ($error != null) 
 	{
-		$output = "<p>Unable to connect to database<p>" . $error;
+		$output = "<p>checklogin.php - Unable to connect to database<p>" . $error;
 		exit($output);
 	}
 

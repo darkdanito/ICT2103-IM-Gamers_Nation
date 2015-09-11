@@ -1,116 +1,124 @@
 <?php
-session_start();
-/**
- * This example shows settings to use when sending via Google's Gmail servers.
- */
+	session_start();
+	
+	// This example shows settings to use when sending via Google's Gmail servers.
+	// SMTP needs accurate times, and the PHP time zone MUST be set
+	// This should be done in your php.ini, but this is how to do it if you don't have access to that
+	
+	date_default_timezone_set('Etc/UTC');
 
-//SMTP needs accurate times, and the PHP time zone MUST be set
-//This should be done in your php.ini, but this is how to do it if you don't have access to that
-date_default_timezone_set('Etc/UTC');
+	require './PHPMailer-master/PHPMailerAutoload.php';
+	
+	// Create a new PHPMailer instance
+	$mail = new PHPMailer;
 
-require './PHPMailer-master/PHPMailerAutoload.php';
+	// Tell PHPMailer to use SMTP
+	$mail->isSMTP();
 
-//Create a new PHPMailer instance
-$mail = new PHPMailer;
+	// Enable SMTP debugging
+	// 0 = off (for production use)
+	// 1 = client messages
+	// 2 = client and server messages
+	$mail->SMTPDebug = 0;
 
-//Tell PHPMailer to use SMTP
-$mail->isSMTP();
+	// Ask for HTML-friendly debug output
+	$mail->Debugoutput = 'html';
+	
+	// Set the hostname of the mail server
+	$mail->Host = 'smtp.gmail.com';
+	
+	// Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+	$mail->Port = 587;
+	
+	// Set the encryption system to use - ssl (deprecated) or tls
+	$mail->SMTPSecure = 'tls';
+	
+	// Whether to use SMTP authentication
+	$mail->SMTPAuth = true;
+	
+	// Username to use for SMTP authentication - use full email address for gmail
+	$mail->Username = "noreply.makanexpress@gmail.com";
+	
+	// Password to use for SMTP authentication
+	$mail->Password = "OOOO0000";
+	
+	// Set who the message is to be sent from
+	$mail->setFrom('noreply@makanexpress.com', 'Makan Express');
 
-//Enable SMTP debugging
-// 0 = off (for production use)
-// 1 = client messages
-// 2 = client and server messages
-$mail->SMTPDebug = 0;
+	//Connect to DB to get email
+	require_once('../../../protected/team11/config_grp.php');
 
-//Ask for HTML-friendly debug output
-$mail->Debugoutput = 'html';
+	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
-//Set the hostname of the mail server
-$mail->Host = 'smtp.gmail.com';
+	$error = mysqli_connect_error();
 
-//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
-$mail->Port = 587;
+	if ($error != null) 
+	{
+		$output = "<p>mailOrder.php - Unable to connect to database<p>" . $error;
+		exit($output);
+	}
+	
+	// Username from session
+	$myusername = $_SESSION['username'];
 
-//Set the encryption system to use - ssl (deprecated) or tls
-$mail->SMTPSecure = 'tls';
+	$sql = "SELECT * FROM `user` WHERE mID='".$myusername."'";
 
-//Whether to use SMTP authentication
-$mail->SMTPAuth = true;
+	if($result = mysqli_query($connection, $sql))
+	{
+		while($row = mysqli_fetch_assoc($result))
+		{
+			$email = $row['email'];
+			break;
+		}
+	}
+	
+	// Set who the message is to be sent to
+	$mail->addAddress($email);
+	
+	// Set the subject line
+	$mail->Subject = 'Order Confirmation';
+	
+	// SQL statement to get total cost and time
+	$sql = "SELECT totalCost, time FROM `order` WHERE `MatrixNo` = '".$myusername."' AND orderStatus = 'In Process'";
+	
+	if($result = mysqli_query($connection, $sql))
+	{
+		while($row = mysqli_fetch_assoc($result))
+		{
+			$totalCost = $row['totalCost'];
+			$time = $row['time'];
+		}
+	}
+	
+	$_SESSION['totalCost'] = $totalCost;
+	$_SESSION['time'] = $time;
 
-//Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = "noreply.makanexpress@gmail.com";
-
-//Password to use for SMTP authentication
-$mail->Password = "OOOO0000";
-
-//Set who the message is to be sent from
-$mail->setFrom('noreply@makanexpress.com', 'Makan Express');
-
-//Connect to DB to get email
-require_once('../../../protected/team11/config_grp.php');
-$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-$error = mysqli_connect_error();
-if ($error != null) {
-$output = "<p>Unable to connect to database<p>" . $error;
-exit($output);
-}
-
-//Username from session
-$myusername = $_SESSION['username'];
-
-$sql = "SELECT * FROM `user` WHERE mID='".$myusername."'";
-
-if($result = mysqli_query($connection, $sql)){
-while($row = mysqli_fetch_assoc($result)){
-    $email = $row['email'];
-    break;
-}
-}
-
-//Set who the message is to be sent to
-$mail->addAddress($email);
-
-//Set the subject line
-$mail->Subject = 'Order Confirmation';
-
-//SQL statement to get total cost and time
-$sql = "SELECT totalCost, time FROM `order` WHERE `MatrixNo` = '".$myusername."' AND orderStatus = 'In Process'";
-
-if($result = mysqli_query($connection, $sql)){
-while($row = mysqli_fetch_assoc($result)){
-    $totalCost = $row['totalCost'];
-    $time = $row['time'];
-}
-}
-
-$_SESSION['totalCost'] = $totalCost;
-$_SESSION['time'] = $time;
-
-
-//Format mail according to HTML
-$mail->isHTML(true); 
-
-$mail->msgHTML(file_get_contents('./contents.html'), dirname(__FILE__));
-$mail->Body .='<div align="center" style="width: 640px; font-family: Arial, Helvetica, sans-serif; font-size: 11px;">
+	// Format mail according to HTML
+	$mail->isHTML(true); 
+	
+	$mail->msgHTML(file_get_contents('./contents.html'), dirname(__FILE__));
+	$mail->Body .='<div align="center" style="width: 640px; font-family: Arial, Helvetica, sans-serif; font-size: 11px;">
     
     <div align="center">
      
     </div>
-      <p>You have made $';
+    <p>You have made $';
         
-$mail->Body .=$totalCost;
-$mail->Body .=' worth of order at ';
-$mail->Body .=$time;
-$mail->Body .='. </p>
+	$mail->Body .=$totalCost;
+	$mail->Body .=' worth of order at ';
+	$mail->Body .=$time;
+	$mail->Body .='. </p>
     
     <p>Thank you for shopping with <strong>Makan Express</strong>!</p>
   </div>';
 
-
-//send the message, check for errors
-if (!$mail->send()) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-    echo "Message sent!";
-    header("location:index.php");
-}
+	//send the message, check for errors
+	if (!$mail->send()) 
+	{
+		echo "Mailer Error: " . $mail->ErrorInfo;
+	} 
+	else 
+	{
+		echo "Message sent!";
+		header("location:index.php");
+	}
