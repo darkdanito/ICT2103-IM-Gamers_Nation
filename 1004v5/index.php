@@ -38,15 +38,11 @@
     
 	<?php 
 	
-		/*	
-			THe bugged HTTPS portion
-		
-            if (empty($_SERVER['HTTPS'])) 
+		    if (!empty($_SERVER['HTTPS'])) 
 			{
                 header('Location: index.php');
             }	
-		*/
-	
+		
         require_once('../../../protected/team11/config_grp.php');
 		
         $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);;
