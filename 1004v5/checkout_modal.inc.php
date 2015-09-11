@@ -1,10 +1,14 @@
 <?php 
-include 'db.php';
-$total = 0.0000;
-$remark ="";
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+
+	include 'db.php';
+
+	$total = 0.0000;
+	$remark ="";
+
+	if (session_status() == PHP_SESSION_NONE) 
+	{
+		session_start();
+	}
 
 if(ISSET ($_SESSION['cart'])){
     if (ISSET($_POST["command"])){

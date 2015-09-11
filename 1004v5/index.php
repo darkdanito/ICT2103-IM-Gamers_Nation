@@ -54,7 +54,7 @@
 		$error = mysqli_connect_error();
         if($error != null)
 		{
-            $output = "<p>Unable to connect to database 2<p>".$error;
+            $output = "<p>index.php - Unable to connect to database<p>".$error;
             exit($output);
         }
         
@@ -170,7 +170,7 @@
             </div>
         </div>
     </div>
-        
+        `
     </div>
     <!-- /.container -->
     
@@ -197,25 +197,25 @@
     <script>
 
 $('.full-img').click(function() {
-        var src = $(this).attr('src');
+		var src = $(this).attr('src');
         var alt = $(this).attr('alt');
-       var data = alt;
+       	var data = alt;
       
-     //  alert(alt);
-         //$('.showPic').attr('src', src);
+		//alert(alt);
+        //$('.showPic').attr('src', src);
         //$('.showPic').attr('alt', alt);
-         // $('.tb1').attr('value', alt);
-        //    $('#myModal1').modal('show');
+        //$('.tb1').attr('value', alt);
+        //$('#myModal1').modal('show');
           $.ajax({
               type: 'post',
               url: 'do_menu.php',
               data: 'id='+ alt,
               success: function(data){
               if(data){
-            //  alert(data);
-            //  $('body').append(data);    
-              $("#myModal1").modal('show'); 
-              $(".test").show().html(data);
+		//alert(data);
+        //$('body').append(data);    
+          $("#myModal1").modal('show'); 
+          $(".test").show().html(data);
           }
               },
               error: function(){
@@ -227,81 +227,86 @@ $('.full-img').click(function() {
 
 <?php
 
+	if(isset($_SESSION['error']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#loginModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['error']);
+	}
 
-if(isset($_SESSION['error'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#loginModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['error']);
-}
+	if(isset($_SESSION['forgetPWErr']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#ForgetPwModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['forgetPWErr']);
+	}
 
-if(isset($_SESSION['forgetPWErr'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#ForgetPwModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['forgetPWErr']);
-}
+	if(isset($_SESSION['recovery']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['recovery']);
+	}
 
+	if(isset($_SESSION['changepwsuccess']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['changepwsuccess']);
+	}
 
-if(isset($_SESSION['recovery'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['recovery']);
-}
+	if(isset($_SESSION['changepwfail']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['changepwfail']);
+	}
 
+	if(isset($_SESSION['invoice']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['invoice']);
+	}
 
-if(isset($_SESSION['changepwsuccess'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['changepwsuccess']);
-}
+	if(isset($_SESSION['noLogin']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['noLogin']);
+	}
 
+	if(isset($_SESSION['noCart']))
+	{
+	echo '<script type="text/javascript">';
+	echo '$(window).load(function(){';
+	echo "$('#feedbackModal').modal('show');";
+	echo "});";
+	echo "</script>";
+	unset($_SESSION['noCart']);
+	}
 
-if(isset($_SESSION['changepwfail'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['changepwfail']);
-}
-
-if(isset($_SESSION['invoice'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['invoice']);
-}
-
-if(isset($_SESSION['noLogin'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['noLogin']);
-}
-
-if(isset($_SESSION['noCart'])){
-echo '<script type="text/javascript">';
-echo '$(window).load(function(){';
-echo "$('#feedbackModal').modal('show');";
-echo "});";
-echo "</script>";
-unset($_SESSION['noCart']);
-}
 ?>
 
 </body>
