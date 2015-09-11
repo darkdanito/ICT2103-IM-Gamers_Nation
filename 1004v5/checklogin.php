@@ -20,7 +20,7 @@
 	// Username and password sent from form 
 	$myusername=$_POST['username']; 
 	$mypassword=$_POST['password']; 
-	
+
 	echo $myusername;
 	
 	$_SESSION["username"] = $_POST["username"];
