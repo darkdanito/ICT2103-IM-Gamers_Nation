@@ -38,10 +38,10 @@
     
 	<?php 
 	
-		    if (!empty($_SERVER['HTTPS'])) 
-			{
-                header('Location: index.php');
-            }	
+		if (!empty($_SERVER['HTTPS'])) 
+		{
+			header('Location: index.php');
+		}	
 		
         require_once('../../../protected/team11/config_grp.php');
 		

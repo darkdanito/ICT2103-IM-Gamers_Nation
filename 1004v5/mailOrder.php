@@ -40,7 +40,7 @@
 	$mail->Username = "noreply.makanexpress@gmail.com";
 	
 	// Password to use for SMTP authentication
-	$mail->Password = "OOOO0000";
+	$mail->Password = "asdf1234!";
 	
 	// Set who the message is to be sent from
 	$mail->setFrom('noreply@makanexpress.com', 'Makan Express');
