@@ -1,0 +1,183 @@
+/* Cover Page */
+body{
+    font-family: 'PT Sans Narrow', Arial, sans-serif;
+}
+.main 
+{
+    top: 900px;
+    position: relative;
+    background: white;
+    
+}
+.cover 
+{
+    top: 0;
+    left: 0;
+    background-size: cover;	
+    position: fixed;
+}
+.jumbotron 
+{
+    padding: 0;
+}
+.cover h1 
+{
+    top: 90px; 
+    margin-top: 2.4em;
+    margin-left: 4.4em;
+    position: absolute;
+    font-family: Brush Script MT;
+    font-style: italic;
+    font-size: 110px;
+    background: linear-gradient(#ff9900, #ffff33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#cover
+{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+/* footer */
+.footer
+{
+    padding: 0;
+}
+
+/* navbar */
+.nav.navbar-nav.navbar-right
+{
+    margin-right: 16px;
+}
+ title 
+.navbar-inverse .navbar-brand 
+{
+    color: white;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus 
+{
+    color: #ffcc33;
+    font-weight: bold;
+}
+ link 
+.navbar-inverse .navbar-nav > li > a 
+{
+    color: white;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus 
+{
+    color: #ffcc33;
+    font-weight: bold;
+}
+
+.content .container 
+{
+    margin: 0;
+    max-width: 1300px;
+}
+.content .container .row
+{
+    margin: 0;
+    width: 1300px;
+}
+/* Primary Structure */
+.container 
+{
+    max-width: 1300px;
+    margin: 0 auto;
+}
+/* Sections */
+.main section.module:last-child 
+{
+    margin-bottom: 0;
+}
+.main section.module h1 {
+/*  margin-bottom: 40px;
+  font-family: "Roboto Slab", serif;
+  font-size: 30px;*/
+}
+.main section.module p 
+{
+    font-size: 16px;
+    font-weight: 300;
+}
+.main section.module p:last-child 
+{
+    margin-bottom: 0;
+}
+.main section.module.content 
+{
+    padding: 40px 0;
+}
+.main section.module.parallax 
+{
+    height: 600px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.main section.module.parallax h1 
+{
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 48px;
+    line-height: 600px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.main section.module.parallax-1 
+{
+    background-image: url("../Images/film.jpg");
+}
+.main section.module.parallax-2 
+{
+    background-image: url("../Images/photos.jpg");
+}
+.main section.module.parallax-3 
+{
+    background-image: url("../Images/camera.jpg");
+}
+
+#login, #newAcc, #profile
+{
+    margin-top: 5em;
+    min-height: 556px;
+}
+
+/* Login Page */
+#loginForm
+{
+    margin-left: 28em;
+    margin-top: 1em;
+}
+
+/* New Account Page */
+/*#newAccForm
+{
+    margin-top: 10em;
+}*/
+#ready
+{
+    /*font-family: Segoe Print;*/
+    color: #ff3366;
+}
+
+/* Profile Page */
+/*.page-header h1
+{
+    color: #0000ff;
+    font-weight: bold;
+}
+
+
+textarea {
+    resize: none;
+    width: 100%;
+}*/
+
+
