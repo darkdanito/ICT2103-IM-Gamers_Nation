@@ -1,12 +1,12 @@
 <?php
-require_once('../../../protected/config1.php');
-
-$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
-//mysqli_connect_errno returns the last error code
-if (mysqli_connect_errno()) {
-    die(mysqli_connect_error()); //die() is equivalent to exit()	
-}
+	require_once('../../../protected/config1.php');
+	
+	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+						
+	if (mysqli_connect_errno()) 				// mysqli_connect_errno returns the last error code
+	{
+		die(mysqli_connect_error()); 			// die() is equivalent to exit()	
+	}
 ?>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' />
