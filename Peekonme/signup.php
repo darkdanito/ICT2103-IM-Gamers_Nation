@@ -1,13 +1,9 @@
 <?php
-session_start();
+	session_start();
 ?>
 
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -24,100 +20,131 @@ and open the template in the editor.
                 <img src="Images/cute-baby.jpg" alt="Cute Baby" class="img-responsive img-circle"/>
                 <h1 class="text-center" id="ready">Ready to peek?</h1>
             </div>
-            <?php
-            // define variables and set to empty values
-            $uname = $pword1 = $pword2 = "";
-
-            $unameErr = $pword1Err = $pword2Err = "";
-
-            $unamevalid = $pword1valid = $pword2valid = $policyvalid = "";
-
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $uname = test_input($_POST["uname"]);
-                $pword1 = test_input($_POST["pword1"]);
-                $pword2 = test_input($_POST["pword2"]);
-
-                if (empty($uname)) {
-                    $unameErr = "Please do not leave your User Name empty.";
-                    $unamevalid = false;
-                } else {
-                    $sql = "SELECT userName FROM users";
-                    if ($result = mysqli_query($connection, $sql)) {
-                        $unamevalid = true; //Needed when there is no entry in the table yet
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            if ($row['userName'] == $uname) {
-                                $unameErr = "Username had been taken";
-                                $unamevalid = false;
-                                break;
-                            } else {
-                                $unameErr = "";
-                                $unamevalid = true;
-                            }
-                        }
-                    }
-                }
-
-                if (empty($pword1)) {
-                    $pword1Err = "Please do not leave you Password empty.";
-                    $pword1valid = false;
-                } else {
-                    if (!preg_match("/^\w{8,}$/", $pword1)) {
-                        $pword1Err = "Please enter a Password with at least 8 alphanumeric characters.";
-                        $pword1valid = false;
-                    } else {
-                        $pword1valid = true;
-                    }
-                }
-
-                if (empty($pword2)) {
-                    $pword2Err = "Please do not leave you Password Confirm empty.";
-                    $pword2valid = false;
-                } else {
-                    if ($pword2 != $pword1) {
-                        $pword2Err = "Please enter a matching Password as above.";
-                        $pword2valid = false;
-                    } else {
-                        $pword2valid = true;
-                    }
-                }
-
-                //If all valid it will goes to welcome.php
-                if ($unamevalid && $pword1valid && $pword2valid) {
-
-                    /* randomly generate 12-byte salt */
-                    $salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
-                    $hashpwd = hash('sha256', $pword1 . $salt);
-                    $sql = "INSERT INTO users (userName,password,salt) VALUES (?,?,?)";
-                    if ($statement = mysqli_prepare($connection, $sql)) {
-                        mysqli_stmt_bind_param($statement, 'sss', $uname, $hashpwd, $salt);
-                        mysqli_stmt_execute($statement);
-                    }
-
-                    $_SESSION['username'] = $uname;
-
-                    header('Location: usergallery.php');
-                }
-            }
-
-            function test_input($data) {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
+            
+			<?php
+				// define variables and set to empty values
+				$uname = $pword1 = $pword2 = $email ="";
+	
+				$unameErr = $pword1Err = $pword2Err = $emailErr = "";
+	
+				$unamevalid = $pword1valid = $pword2valid = $policyvalid = $emailvalid = "";
+	
+				if ($_SERVER["REQUEST_METHOD"] == "POST") 
+				{
+					$uname = test_input($_POST["uname"]);
+					$pword1 = test_input($_POST["pword1"]);
+					$pword2 = test_input($_POST["pword2"]);
+					$email = test_input($_POST["email"]);
+	
+					if (empty($uname)) 
+					{
+						$unameErr = "Please do not leave your User Name empty.";
+						$unamevalid = false;
+					} else 
+					{
+						$sql = "SELECT userName FROM users";
+						if ($result = mysqli_query($connection, $sql)) 
+						{
+							$unamevalid = true; //Needed when there is no entry in the table yet
+							while ($row = mysqli_fetch_assoc($result)) 
+							{
+								if ($row['userName'] == $uname) 
+								{
+									$unameErr = "Username had been taken";
+									$unamevalid = false;
+									break;
+								} else 
+								{
+									$unameErr = "";
+									$unamevalid = true;
+								}
+							}
+						}
+					}
+	
+					if (empty($pword1)) 
+					{
+						$pword1Err = "Please do not leave you Password empty.";
+						$pword1valid = false;
+					} else 
+					{
+						if (!preg_match("/^\w{8,}$/", $pword1)) 
+						{
+							$pword1Err = "Please enter a Password with at least 8 alphanumeric characters.";
+							$pword1valid = false;
+						} else 
+						{
+							$pword1valid = true;
+						}
+					}
+	
+					if (empty($pword2)) 
+					{
+						$pword2Err = "Please do not leave you Password Confirm empty.";
+						$pword2valid = false;
+					} else 
+					{
+						if ($pword2 != $pword1) 
+						{
+							$pword2Err = "Please enter a matching Password as above.";
+							$pword2valid = false;
+						} else 
+						{
+							$pword2valid = true;
+						}
+					}
+					
+					
+					if (empty($email)) 
+					{
+						$emailErr = "Please enter a email address.";
+						$emailvalid = false;
+					} else 
+					{
+							$emailvalid = true;
+					}
+	
+					//If all valid it will goes to welcome.php
+					if ($unamevalid && $pword1valid && $pword2valid && $emailvalid) 
+					{
+						/* randomly generate 12-byte salt */
+						$salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
+						$hashpwd = hash('sha256', $pword1 . $salt);
+						$sql = "INSERT INTO users (userName,password,salt,email) VALUES (?,?,?,?)";
+						if ($statement = mysqli_prepare($connection, $sql)) 
+						{
+							mysqli_stmt_bind_param($statement, 'sss', $uname, $hashpwd, $salt,$email);
+							mysqli_stmt_execute($statement);
+						}
+	
+						$_SESSION['username'] = $uname;
+	
+						header('Location: usergallery.php');
+					}
+				}
+	
+				function test_input($data) 
+				{
+					$data = trim($data);
+					$data = stripslashes($data);
+					$data = htmlspecialchars($data);
+					return $data;
+				}
             ?>
             <?php
             $validbox = 'has-success has-feedback';
             $invalidbox = 'has-error has-feedback';
-
             ?>
+            
             <div class="col-md-8 form" style="margin: 0 auto;">
                 <form class="form-horizontal" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <legend>Sign Up</legend>
                     <div class="form-group <?php
-                    if ($unamevalid) {
+                    if ($unamevalid) 
+					{
                         echo $validbox;
-                    } if ($unameErr != "") {
+                    } if ($unameErr != "") 
+					{
                         echo $invalidbox;
                     }
                     ?>">
@@ -136,6 +163,36 @@ and open the template in the editor.
                                    ?>" required>
                         </div>
                     </div>
+                    
+                    
+                    
+                    
+                    
+                    <div class=" form-group <?php
+                    if ($emailvalid) {
+                        echo $validbox;
+                    } if ($emailErr != "") {
+                        echo $invalidbox;
+                    }
+                    ?>">
+                        <label class="col-sm-3 control-label" for="email">Email</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" type="email" name="email" id="email"
+                                   placeholder="<?php
+                                   if ($emailErr != "") {
+                                       echo $emailErr;
+                                   }
+                                   ?>" required
+                                   >
+                        </div>
+                    </div>
+
+                    
+                    
+                    
+                    
+                    
+                    
                     <div class=" form-group <?php
                     if ($pword1valid) {
                         echo $validbox;
