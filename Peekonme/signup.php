@@ -113,7 +113,7 @@
 						$sql = "INSERT INTO users (userName,password,salt,email) VALUES (?,?,?,?)";
 						if ($statement = mysqli_prepare($connection, $sql)) 
 						{
-							mysqli_stmt_bind_param($statement, 'sss', $uname, $hashpwd, $salt,$email);
+							mysqli_stmt_bind_param($statement, 'ssss', $uname, $hashpwd, $salt,$email);
 							mysqli_stmt_execute($statement);
 						}
 	
