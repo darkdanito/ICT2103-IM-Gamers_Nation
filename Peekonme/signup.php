@@ -7,11 +7,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ICT 1004 - Web Systems & Technologies</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>ICT 1004 - Web Systems & Technologies</title>
+        
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
     </head>
+    
     <body>
         <?php include 'header.inc.php'; ?>
         <div class="container " style="margin: 4em auto;">
@@ -152,12 +155,14 @@
                         <div class="col-sm-6">
                             <input class="form-control" type="text" id="uname" name="uname" 
                                    value="<?php
-                                   if ($unamevalid) {
+                                   if ($unamevalid) 
+								   {
                                        echo htmlspecialchars($uname);
                                    }
                                    ?>" 
                                    placeholder="<?php
-                                   if ($unameErr != "") {
+                                   if ($unameErr != "") 
+								   {
                                        echo $unameErr;
                                    }
                                    ?>" required>
@@ -169,9 +174,11 @@
                     
                     
                     <div class=" form-group <?php
-                    if ($emailvalid) {
+                    if ($emailvalid) 
+					{
                         echo $validbox;
-                    } if ($emailErr != "") {
+                    } if ($emailErr != "") 
+					{
                         echo $invalidbox;
                     }
                     ?>">
@@ -179,7 +186,8 @@
                         <div class="col-sm-6">
                             <input class="form-control" type="email" name="email" id="email"
                                    placeholder="<?php
-                                   if ($emailErr != "") {
+                                   if ($emailErr != "") 
+								   {
                                        echo $emailErr;
                                    }
                                    ?>" required

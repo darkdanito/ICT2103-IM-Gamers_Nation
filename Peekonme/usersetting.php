@@ -1,76 +1,87 @@
 <?php
-session_start();
-
-if ((!isset($_SESSION['username']))) {
-    header('Location: login.php');
-}
+	session_start();
+	
+	if ((!isset($_SESSION['username']))) 
+	{
+		header('Location: login.php');
+	}
 ?>
+
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ICT 1004 - Web Systems & Technologies</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>ICT 1004 - Web Systems & Technologies</title>
+        
         <link href="css/bootstrap.min.css" rel="stylesheet">        
         <link href="css/main.css" rel="stylesheet"/>
     </head>
+    
     <?php include 'header.inc.php'; ?>
+    
     <body>
         <div class="container-fluid">
-            <?php include '/include/userdetail.inc.php'; ?>
             <?php
-            $emailErr = $webpageErr = "";
-
-            $emailvalid = $webpagevalid = $namevalid = $aboutvalid = $dobvalid = true;
-
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-                $name = test_input($_POST["name"]);
-                $email = test_input($_POST["email"]);
-                $dob = test_input($_POST["dob"]);
-                $about = test_input($_POST["about"]);
-                $webpage = test_input($_POST["webpage"]);
-
-                if (!empty($email)) {
-                    if (!preg_match("/^(.+)@([^\.].*)\.([a-z]{2,})$/", $email)) {
-                        $emailErr = "Please enter a valid Email address.";
-                        $emailvalid = false;
-                    }
-                }
-
-                if (!empty($webpage)) {
-                    if (!preg_match('/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/', $webpage)) {
-                        $webpageErr = "Please enter a valid Webpage URL.";
-                        $webpagevalid = false;
-                    }
-                }
-
-                //If all valid it will goes to welcome.php
-                if ($emailvalid && $webpagevalid && $namevalid && $aboutvalid) {
-
-                    $sql = "UPDATE users SET name = ?, email = ?, dob = ?, about = ?, webpage = ? WHERE userName=\"" . $username . "\"";
-                    if ($statement = mysqli_prepare($connection, $sql)) {
-                        mysqli_stmt_bind_param($statement, 'sssss', $name, $email, $dob, $about, $webpage);
-                        mysqli_stmt_execute($statement);
-                    }
-
-                    header('Location: usersetting.php');
-                }
-            }
-
-            function test_input($data) {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
-            ?>
-            <?php include '/include/mainNav.inc.php'; ?>
+				include '/include/userdetail.inc.php';
+				
+				$emailErr = $webpageErr = "";
+	
+				$emailvalid = $webpagevalid = $namevalid = $aboutvalid = $dobvalid = true;
+	
+				if ($_SERVER["REQUEST_METHOD"] == "POST") 
+				{
+					$name = test_input($_POST["name"]);
+					$email = test_input($_POST["email"]);
+					$dob = test_input($_POST["dob"]);
+					$about = test_input($_POST["about"]);
+					$webpage = test_input($_POST["webpage"]);
+	
+					if (!empty($email)) 
+					{
+						if (!preg_match("/^(.+)@([^\.].*)\.([a-z]{2,})$/", $email)) 
+						{
+							$emailErr = "Please enter a valid Email address.";
+							$emailvalid = false;
+						}
+					}
+	
+					if (!empty($webpage)) 
+					{
+						if (!preg_match('/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/', $webpage)) 
+						{
+							$webpageErr = "Please enter a valid Webpage URL.";
+							$webpagevalid = false;
+						}
+					}
+	
+					//If all valid it will goes to welcome.php
+					if ($emailvalid && $webpagevalid && $namevalid && $aboutvalid) 
+					{
+						$sql = "UPDATE users SET name = ?, email = ?, dob = ?, about = ?, webpage = ? WHERE userName=\"" . $username . "\"";
+						
+						if ($statement = mysqli_prepare($connection, $sql)) 
+						{
+							mysqli_stmt_bind_param($statement, 'sssss', $name, $email, $dob, $about, $webpage);
+							mysqli_stmt_execute($statement);
+						}
+	
+						header('Location: usersetting.php');
+					}
+				}
+	
+				function test_input($data) 
+				{
+					$data = trim($data);
+					$data = stripslashes($data);
+					$data = htmlspecialchars($data);
+					return $data;
+				}
+            	
+				include '/include/mainNav.inc.php';
+			?>
         </div>
 
         <div class="container">
@@ -83,7 +94,8 @@ and open the template in the editor.
                         <div class="col-sm-8">
                             <input class="form-control" type="text" id="name" name="name" 
                                    value="<?php
-                                   if ($namevalid) {
+                                   if ($namevalid) 
+								   {
                                        echo htmlspecialchars($name);
                                    }
                                    ?>">
@@ -95,12 +107,14 @@ and open the template in the editor.
                         <div class="col-sm-8">
                             <input name="email" type="text" class="form-control" id="email" 
                                    value="<?php
-                                   if ($emailvalid) {
+                                   if ($emailvalid) 
+								   {
                                        echo htmlspecialchars($email);
                                    }
                                    ?>"
                                    placeholder="<?php
-                                   if ($emailErr != "") {
+                                   if ($emailErr != "") 
+								   {
                                        echo $emailErr;
                                    }
                                    ?>"

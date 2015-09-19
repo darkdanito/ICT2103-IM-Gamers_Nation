@@ -1,22 +1,23 @@
 <?php
-session_start();
+	session_start();
 ?>
+
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ICT 1004 - Web Systems & Technologies</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>ICT 1004 - Web Systems & Technologies</title>
+        
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
     </head>
+    
     <body>
         <?php include 'header.inc.php'; ?>
+        
         <div class="container" style="margin-top: 4em ">
             <div class="row">
                 <img src="Images/PeekonME.png" alt="PeekOnMe" class="img-responsive center-block"/>
