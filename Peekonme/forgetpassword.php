@@ -175,14 +175,14 @@
 					$mail->Password = "asdf1234!";
 					
 					//Set who the message is to be sent from
-					$mail->setFrom('noreply@makanexpress.com', 'Makan Express');
+					$mail->setFrom('noreply@makanexpress.com', 'Gamers Nation');
 					
 					//Set who the message is to be sent to
 //					$mail->addAddress($_SESSION['email']);
 					$mail->addAddress($email);
 					
 					//Set the subject line
-					$mail->Subject = 'Password Recovery';
+					$mail->Subject = 'Account Password Recovery';
 					
 					//Read an HTML message body from an external file, convert referenced images to embedded,
 					//convert HTML into a basic plain-text alternative body
@@ -226,7 +226,7 @@
                         mysqli_stmt_execute($statement);
                     }
 
-                    header('Location: login.php');
+					header('Location: login.php');
                 }
             }
 
