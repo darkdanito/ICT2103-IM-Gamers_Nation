@@ -1,12 +1,15 @@
 <?php
-session_start();
+	session_start();
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ICT 1004 - Web Systems & Technologies</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Gamers Nation</title>
+        
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
@@ -18,16 +21,20 @@ session_start();
             <?php
             $count = 0;
             $sql2 = "SELECT * FROM userimages WHERE type_ID = 1 ORDER BY imageLikes DESC";
-            if ($result2 = mysqli_query($connection, $sql2)) {
-                while ($row2 = mysqli_fetch_assoc($result2)) {
-                    if ($count == 5) {
+            if ($result2 = mysqli_query($connection, $sql2)) 
+			{
+                while ($row2 = mysqli_fetch_assoc($result2)) 
+				{
+                    if ($count == 5) 
+					{
                         break;
                     }
                     $count++;
                 }
             }
             
-            if($count != 0){
+            if($count != 0)
+			{
             ?>
             <div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
 

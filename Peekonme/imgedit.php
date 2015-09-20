@@ -1,15 +1,18 @@
 <?php
-session_start();
+	session_start();
 
-if ((!isset($_SESSION['username']))) {
-    header('Location: login.php');
-}
+	if ((!isset($_SESSION['username']))) 
+	{
+		header('Location: login.php');
+	}
 ?>
+
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>ICT 1004 - Web Systems & Technologies</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+        <title>Gamers Nation</title>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet"/>
