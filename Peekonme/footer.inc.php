@@ -1,5 +1,5 @@
 <footer class="text-center">
-    <p>Copyright &COPY; 2014 PeekOnMe</p>
+    <p>Copyright &COPY; 2015 Gamers Nation</p>
 </footer>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

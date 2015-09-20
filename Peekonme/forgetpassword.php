@@ -24,67 +24,204 @@
             </div>
             <?php
             // define variables and set to empty values
-            $username = $pword1 = $pword2 = "";
+            $username = $pword1 = $pword2 = $email = "";
 
-            $usernameErr = $pword1Err = $pword2Err = "";
+            $usernameErr = $pword1Err = $pword2Err = $emailErr = "";
 
-            $usernamevalid = $pword1valid = $pword2valid = "";
+            $usernamevalid = $pword1valid = $pword2valid = $emailvalid = "";
 
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") 
+			{
                 $username = test_input($_POST["username"]);
-                $pword1 = test_input($_POST["pword1"]);
-                $pword2 = test_input($_POST["pword2"]);
+//              $pword1 = test_input($_POST["pword1"]);
+//              $pword2 = test_input($_POST["pword2"]);
+				$email = test_input($_POST["email"]);
 
-                if (empty($username)) {
+                if (empty($username)) 
+				{
                     $usernameErr = "Please do not leave your User Name empty.";
                     $usernamevalid = false;
-                } else {
+                } 
+				else 
+				{
                     $sql = "SELECT userName FROM users";
-                    if ($result = mysqli_query($connection, $sql)) {
+                    if ($result = mysqli_query($connection, $sql)) 
+					{
                         $usernamevalid = true; //Needed when there is no entry in the table yet
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            if ($row['userName'] == $username) {
+                        while ($row = mysqli_fetch_assoc($result)) 
+						{
+                            if ($row['userName'] == $username) 
+							{
                                 $usernameErr = "";
                                 $usernamevalid = true;
-                            } else {
+                            } 
+							else 
+							{
                                 $usernameErr = "Username does not exist";
                                 $usernamevalid = false;
                             }
                         }
                     }
                 }
-
-                if (empty($pword1)) {
-                    $pword1Err = "Please do not leave you Password empty.";
+				
+				if (empty($email)) 
+				{
+                    $emailErr = "Please do not leave your email empty.";
+                    $emailvalid = false;
+                } 
+				else 
+				{
+                        $emailvalid = true;
+                }
+				
+                if (empty($pword1)) 
+				{
+                    $pword1Err = "Please do not leave your Password empty.";
                     $pword1valid = false;
-                } else {
-                    if (!preg_match("/^\w{8,}$/", $pword1)) {
+                } 
+				else 
+				{
+                    if (!preg_match("/^\w{8,}$/", $pword1)) 
+					{
                         $pword1Err = "Please enter a Password with at least 8 alphanumeric characters.";
                         $pword1valid = false;
-                    } else {
+                    } else 
+					{
                         $pword1valid = true;
                     }
                 }
 
-                if (empty($pword2)) {
+                if (empty($pword2)) 
+				{
                     $pword2Err = "Please do not leave you Password Confirm empty.";
                     $pword2valid = false;
-                } else {
-                    if ($pword2 != $pword1) {
+                } 
+				else 
+				{
+                    if ($pword2 != $pword1) 
+					{
                         $pword2Err = "Please enter a matching Password as above.";
                         $pword2valid = false;
-                    } else {
+                    } 
+					else 
+					{
                         $pword2valid = true;
                     }
                 }
 
                 //If all valid it will goes to welcome.php
-                if ($usernamevalid && $pword1valid && $pword2valid) {
+//              if ($usernamevalid && $pword1valid && $pword2valid) 
+				if ($usernamevalid && $emailvalid)
+				{
+// Start of dummy code
 
+					// gen password for user
+					$alpha = "abcdefghijklmnopqrstuvwxyz";
+					$alpha_upper = strtoupper($alpha);
+					$numeric = "0123456789";
+					$special = ".-+=_,!@$#*%<>[]{}";
+					$chars = $alpha . $alpha_upper . $numeric;
+					$length = 16;
+					$pw = '';
+					$len = strlen($chars);
+				
+					for ($i = 0; $i < $length; $i++)
+						$pw .= substr($chars, rand(0, $len - 1), 1);
+						echo '1';
+				
+					// the finished password
+					$pw = str_shuffle($pw);
+					
+					
+					
+					
+					//SMTP needs accurate times, and the PHP time zone MUST be set
+					//This should be done in your php.ini, but this is how to do it if you don't have access to that
+					date_default_timezone_set('Etc/UTC');
+					
+					require './PHPMailer-master/PHPMailerAutoload.php';
+					
+					//Create a new PHPMailer instance
+					$mail = new PHPMailer;
+					
+					//Tell PHPMailer to use SMTP
+					$mail->isSMTP();
+					
+					//Enable SMTP debugging
+					// 0 = off (for production use)
+					// 1 = client messages
+					// 2 = client and server messages
+					$mail->SMTPDebug = 2;
+					
+					//Ask for HTML-friendly debug output
+					$mail->Debugoutput = 'html';
+					
+					//Set the hostname of the mail server
+					$mail->Host = 'smtp.gmail.com';
+					
+					//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+					$mail->Port = 587;
+					
+					//Set the encryption system to use - ssl (deprecated) or tls
+					$mail->SMTPSecure = 'tls';
+					
+					//Whether to use SMTP authentication
+					$mail->SMTPAuth = true;
+					
+					//Username to use for SMTP authentication - use full email address for gmail
+					$mail->Username = "noreply.makanexpress@gmail.com";
+					
+					//Password to use for SMTP authentication
+					$mail->Password = "asdf1234!";
+					
+					//Set who the message is to be sent from
+					$mail->setFrom('noreply@makanexpress.com', 'Makan Express');
+					
+					//Set who the message is to be sent to
+//					$mail->addAddress($_SESSION['email']);
+					$mail->addAddress($email);
+					
+					//Set the subject line
+					$mail->Subject = 'Password Recovery';
+					
+					//Read an HTML message body from an external file, convert referenced images to embedded,
+					//convert HTML into a basic plain-text alternative body
+					
+					//Replace the plain text body with one created manually
+					$mail->AltBody = 'Ahoy from Makan Express!';
+					
+					$mail->isHTML(true);                                  // Set email format to HTML
+					
+					$mail->Body    = 'Your password have been reset to <u><strong>'.$pw.'</strong></u>.';
+
+
+				
+					//send the message, check for errors
+					if (!$mail->send()) 
+					{
+						echo "Mailer Error: " . $mail->ErrorInfo;
+					} else 
+					{
+						echo "Message sent!";
+//						unset($_SESSION['newpw']);
+//						unset($_SESSION['email']);
+						
+//						header("location:index.php");
+					}
+					
+
+// End of dummy code
+					
+					
+					
+					
                     $salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
-                    $hashpwd = hash('sha256', $pword1 . $salt);
+//                  $hashpwd = hash('sha256', $pword1 . $salt);
+					$hashpwd = hash('sha256', $pw . $salt);
+					
                     $sql = "UPDATE users SET password = ?, salt = ? WHERE userName=\"" . $username . "\"";
-                    if ($statement = mysqli_prepare($connection, $sql)) {
+                    if ($statement = mysqli_prepare($connection, $sql)) 
+					{
                         mysqli_stmt_bind_param($statement, 'ss', $hashpwd, $salt);
                         mysqli_stmt_execute($statement);
                     }
@@ -93,7 +230,8 @@
                 }
             }
 
-            function test_input($data) {
+            function test_input($data) 
+			{
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
@@ -110,9 +248,11 @@
                         <legend>Forget Password</legend>
 
                         <div class="form-group <?php
-                        if ($usernamevalid) {
+                        if ($usernamevalid) 
+						{
                             echo $validbox;
-                        } if ($usernameErr != "") {
+                        } if ($usernameErr != "") 
+						{
                             echo $invalidbox;
                         }
                         ?>">
@@ -120,52 +260,101 @@
                             <div class="col-sm-6">
                                 <input class="form-control" type="text" id="username" name="username"
                                        value="<?php
-                        if ($usernamevalid) {
+                        if ($usernamevalid) 
+						{
                             echo htmlspecialchars($username);
                         }
                         ?>"
                                        placeholder="<?php
-                                       if ($usernameErr != "") {
+                                       if ($usernameErr != "") 
+									   {
                                            echo $usernameErr;
                                        }
                         ?>" required>
                             </div>
                         </div>
-                        <div class=" form-group <?php
-                        if ($pword1valid) {
+                        
+                        
+                        
+                        
+                        <div class="form-group <?php
+                        if ($emailvalid) 
+						{
                             echo $validbox;
-                        } if ($pword1Err != "") {
+                        } if ($emailErr != "") 
+						{
+                            echo $invalidbox;
+                        }
+                        ?>">
+                            <label class="col-sm-3 control-label" for="email">Email</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" type="email" id="email" name="email"
+                                       value="<?php
+                        if ($emailvalid) 
+						{
+                            echo htmlspecialchars($email);
+                        }
+                        ?>"
+                                       placeholder="<?php
+                                       if ($emailErr != "") 
+									   {
+                                           echo $emailErr;
+                                       }
+                        ?>" required>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+<!--                        
+                        
+                        <div class=" form-group <xxx
+                        if ($pword1valid) 
+						{
+                            echo $validbox;
+                        } if ($pword1Err != "") 
+						{
                             echo $invalidbox;
                         }
                         ?>">
                             <label class="col-sm-3 control-label" for="pword1">Password</label>
                             <div class="col-sm-6">
                                 <input class="form-control" type="password" name="pword1" id="pword1"
-                                       placeholder="<?php
-                                       if ($pword1Err != "") {
+                                       placeholder="<xxx
+                                       if ($pword1Err != "") 
+									   {
                                            echo $pword1Err;
                                        }
                         ?>" required
                                        pattern="^\w{8,}$" title="Password must at least 8 alphanumeric characters">
                             </div>
                         </div>
-                        <div class=" form-group <?php
-                        if ($pword2valid) {
+                        
+                        
+                        <div class=" form-group <xxx
+                        if ($pword2valid) 
+						{
                             echo $validbox;
-                        } if ($pword2Err != "") {
+                        } if ($pword2Err != "") 
+						{
                             echo $invalidbox;
                         }
                         ?>">
                             <label class="col-sm-3 control-label" for="pword2">Password Confirm</label>
                             <div class="col-sm-6">
                                 <input class="form-control" type="password" name="pword2" id="pword2"
-                                       placeholder="<?php
-                                       if ($pword2Err != "") {
+                                       placeholder="<xxx
+                                       if ($pword2Err != "") 
+									   {
                                            echo $pword2Err;
                                        }
                         ?>" required>
                             </div>
                         </div>
+                        
+-->                        
+                        
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <input type="submit" value="Submit" class="btn btn-primary"/>
