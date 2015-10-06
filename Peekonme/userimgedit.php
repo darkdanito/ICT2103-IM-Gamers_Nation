@@ -27,7 +27,7 @@
         <div class="container">
             
             <div class="content">
-                <h1>Edit your Picture
+                <h1>Edit your Games
                     <span>Correction? No problem!</span></h1>
                 <div>
                     <table align="center">

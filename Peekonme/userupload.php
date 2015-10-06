@@ -29,7 +29,7 @@
                 <?php include '/include/mainNav.inc.php'; ?>
             </div>
                 <div class="content">
-                    <h1>Upload your Photos <span>Share with the rest of the world your amazing adventure!<br>
+                    <h1>Upload your Games <span>Share with the rest of the world your amazing adventure!<br>
                         </span></h1>
 
 

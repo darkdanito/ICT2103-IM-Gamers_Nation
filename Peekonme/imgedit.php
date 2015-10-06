@@ -75,7 +75,7 @@
         
         <div class="container">
         <div class="content">
-            <h1>Edit your Picture
+            <h1>Edit your Games
                 <span>Here, We have the flexibility to edit your Image Properties.</span></h1>
             
             <form class="form-horizontal" id="Updateimage" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . "?id=" . $imgid; ?>">
