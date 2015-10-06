@@ -40,7 +40,12 @@
         ?>
         <div class="container" style="margin: 4em auto;">
             <div class="col-md-8">
-                <img src="<?php echo $imagesrc ?>" width="100%"/>
+                
+                <!---
+                Possible bug fix for the larger than normal image size
+                <img src="<php echo $imagesrc ?>" width="100%"/>
+                -->               
+                <img src="<?php echo $imagesrc ?>" width="50%"/>
             </div>
             
                 <div class="panel panel-transparent col-md-4">
@@ -52,10 +57,24 @@
                                     <strong><?php echo $author ?></strong>
                                 </a>
                             </li>
-                            <li>Image Name: <strong><?php echo $imagename ?></strong></li>
-                            <?php if(!empty($imagedesc)) { ?>
+                            <li>Game Name: <strong><?php echo $imagename ?></strong></li>
+                            
+							<?php if(!empty($imagedesc)) { ?>
                             <li>Description: <strong><?php echo $imagedesc ?></strong></li>
                             <?php } ?>
+                            
+                            
+                            <li>Romanized Title: <strong> XXXXX</strong></li>
+                            <li>Publisher: <strong> XXXXX</strong></li>
+                            <li>Year Released: <strong> XXXXX</strong></li>
+                            <li>Platform: <strong> XXXXX</strong></li>
+                            <li>Rating: <strong> XXXXX</strong></li>
+                            <li>Region: <strong> XXXXX</strong></li>
+                            <li>Review Rating: <strong> XXXXX</strong></li>
+                            <li>Stock: <strong> XXXXX</strong></li>
+                            <li>Price: <strong> XXXXX</strong></li>
+                            
+                            
                             <li><br></li>
                             <?php
                             if ((isset($_SESSION['username']))) {
