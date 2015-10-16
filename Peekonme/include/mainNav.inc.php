@@ -4,7 +4,7 @@
     if ($currentPage == "usergallery.php") {
         echo 'class="active"';
     }
-    ?> role="presentation"><a href="usergallery.php"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> My Image</a>
+    ?> role="presentation"><a href="usergallery.php"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> My Listed Items</a>
     </li>
     <li <?php
     if ($currentPage == "userimgedit.php" || $currentPage == "imgedit.php") {

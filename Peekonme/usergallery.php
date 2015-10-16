@@ -59,7 +59,7 @@
 
             <div class="container">
                 <div class="content">
-                    <h1>PeekOnMe Image Gallery <span>A Place For you to place your Photos</span></h1>
+                    <h1>Your listed items for sale<span>A Place For you to sell your games</span></h1>
                     <?php if ($count != 0) { ?>
                     <div id="rg-gallery" class="rg-gallery">
                         <div class="rg-thumbs">
