@@ -1,8 +1,7 @@
 <?php
-	require_once('../../protected/config1.php');
+	require_once('../../../protected/config1.php');
 	
 	$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-	
 	
 	if (mysqli_connect_errno()) 			// mysqli_connect_errno returns the last error code
 	{
