@@ -102,6 +102,7 @@
                                                 
                                                 $imagedesc = test_input($_POST['imageDesc']);
 												
+												$imageName = test_input($_POST['imageName']);
 												$imagePublisher = test_input($_POST['imagePublisher']);
 												$imageYearReleased = test_input($_POST['imageYearReleased']);
 												$imagePlatform = test_input($_POST['imagePlatform']);
@@ -115,7 +116,7 @@
                `user_name`, `imageName`, `type_ID`,`imagePath`, `imageDesc`, `imageType`, `imageSize`, `imageData`, `imageCreated`, `imageLikes`, `Publisher`, `YearReleased`, `Platform`, `Region` , `Stock`, `Price`
            		 )
             VALUES (
-               '$_SESSION[username]','{$imageNoExts}', '{$_POST['Privacy']}', '{$image}', '{$imagedesc}' , '{$imageType}', {$imageSize}, '{$imageData}', NOW(), 0, '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imageStock}', '{$imagePrice}'
+               '$_SESSION[username]','{$imageName}', '{$_POST['Privacy']}', '{$image}', '{$imagedesc}' , '{$imageType}', {$imageSize}, '{$imageData}', NOW(), 0, '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imageStock}', '{$imagePrice}'
             )";
 
 
