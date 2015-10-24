@@ -26,11 +26,20 @@
 
         $imgname = $imgdesc = $imgtype = "";
         $sql = "SELECT * FROM userimages WHERE image_ID = " . $imgid;
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
+        if ($result = mysqli_query($connection, $sql)) 
+		{
+            while ($row = mysqli_fetch_assoc($result)) 
+			{
                 $imgname = $row['imageName'];
                 $imgdesc = $row['imageDesc'];
                 $imgtype = $row['type_ID'];
+				
+				$imgPublisher = $row['Publisher'];
+				$imgYearReleased = $row['YearReleased'];
+				$imgPlatform = $row['Platform'];
+				$imgRegion = $row['Region'];
+				$imgStock = $row['Stock'];
+				$imgPrice = $row['Price'];
             }
         }
 
@@ -44,22 +53,33 @@
             $imgdesc = test_input($_POST["imgdesc"]);
             $imgtype = test_input($_POST["imgtype"]);
 
-            if (empty($imgname)) {
+			$imgPublisher = test_input($_POST["Publisher"]);
+			$imgYearReleased = test_input($_POST["YearReleased"]);
+			$imgPlatform = test_input($_POST["Platform"]);
+			$imgRegion = test_input($_POST["Region"]);
+			$imgStock = test_input($_POST["Stock"]);
+			$imgPrice = test_input($_POST["Price"]);
+
+            if (empty($imgname)) 
+			{
                 $imgnameErr = "Please do not leave your Image Name empty.";
                 $imgnamevalid = false;
             }
 
-            if ($imgnamevalid && $imgdescvalid && $imgtypevalid) {
-                $sql = "UPDATE userimages SET imageName = ?, imageDesc = ?, type_ID = ? WHERE image_ID = " . $imgid;
-                if ($statement = mysqli_prepare($connection, $sql)) {
-                    mysqli_stmt_bind_param($statement, 'ssi', $imgname, $imgdesc, $imgtype);
+            if ($imgnamevalid && $imgdescvalid && $imgtypevalid) 
+			{
+                $sql = "UPDATE userimages SET imageName = ?, imageDesc = ?, Publisher = ?, YearReleased = ?, Platform = ?, Region = ?, Stock = ?, Price = ?,type_ID = ? WHERE image_ID = " . $imgid;
+                if ($statement = mysqli_prepare($connection, $sql)) 
+				{
+                    mysqli_stmt_bind_param($statement, 'ssssssssi', $imgname, $imgdesc, $imgPublisher,$imgYearReleased, $imgPlatform, $imgRegion, $imgStock, $imgPrice,$imgtype);
                     mysqli_stmt_execute($statement);
                 }
                 header('Location: userimgedit.php');
             }
         }
 
-        function test_input($data) {
+        function test_input($data) 
+		{
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
@@ -128,6 +148,54 @@
                     </div>
                 </div>
 
+<!--
+Start of Code
+-->
+                <div class="form-group">
+                    <label for="Publisher" class="col-sm-2 control-label">Publisher</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Publisher" id="Publisher" form="Updateimage" placeholder="<?php echo ($imgPublisher );?>">      
+                    </div>
+                </div>
+
+				<div class="form-group">
+                    <label for="YearReleased" class="col-sm-2 control-label">Year Released</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="YearReleased" id="YearReleased" form="Updateimage" placeholder="<?php echo ($imgYearReleased );?>">      
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Platform" class="col-sm-2 control-label">Platform</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Platform" id="Platform" form="Updateimage" placeholder="<?php echo ($imgPlatform );?>">      
+                    </div>
+                </div>
+                
+				<div class="form-group">
+                    <label for="Region" class="col-sm-2 control-label">Region</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Region" id="Region" form="Updateimage" placeholder="<?php echo ($imgRegion );?>">      
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Stock" class="col-sm-2 control-label">Stock</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Stock" id="Stock" form="Updateimage" placeholder="<?php echo ($imgStock );?>">      
+                    </div>
+                </div>
+                
+ 				<div class="form-group">
+                    <label for="Price" class="col-sm-2 control-label">Price</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="Price" id="Price" form="Updateimage" placeholder="<?php echo ($imgPrice );?>">      
+                    </div>
+                </div>
+
+<!--
+End of Code
+-->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-8">
                         <input type="submit" value="Update" class="btn btn-primary"/>
