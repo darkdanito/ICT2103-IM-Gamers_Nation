@@ -154,42 +154,42 @@ Start of Code
                 <div class="form-group">
                     <label for="Publisher" class="col-sm-2 control-label">Publisher</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Publisher" id="Publisher" form="Updateimage" placeholder="<?php echo ($imgPublisher );?>">      
+                        <input type="text" name="Publisher" id="Publisher" form="Updateimage" value="<?php echo ($imgPublisher );?>">      
                     </div>
                 </div>
 
 				<div class="form-group">
                     <label for="YearReleased" class="col-sm-2 control-label">Year Released</label>
                     <div class="col-sm-8">
-                        <input type="text" name="YearReleased" id="YearReleased" form="Updateimage" placeholder="<?php echo ($imgYearReleased );?>">      
+                        <input type="text" name="YearReleased" id="YearReleased" form="Updateimage" value="<?php echo ($imgYearReleased );?>">      
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="Platform" class="col-sm-2 control-label">Platform</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Platform" id="Platform" form="Updateimage" placeholder="<?php echo ($imgPlatform );?>">      
+                        <input type="text" name="Platform" id="Platform" form="Updateimage" value="<?php echo ($imgPlatform );?>">      
                     </div>
                 </div>
                 
 				<div class="form-group">
                     <label for="Region" class="col-sm-2 control-label">Region</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Region" id="Region" form="Updateimage" placeholder="<?php echo ($imgRegion );?>">      
+                        <input type="text" name="Region" id="Region" form="Updateimage" value="<?php echo ($imgRegion );?>">      
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="Stock" class="col-sm-2 control-label">Stock</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Stock" id="Stock" form="Updateimage" placeholder="<?php echo ($imgStock );?>">      
+                        <input type="text" name="Stock" id="Stock" form="Updateimage" value="<?php echo ($imgStock );?>">      
                     </div>
                 </div>
                 
  				<div class="form-group">
                     <label for="Price" class="col-sm-2 control-label">Price</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Price" id="Price" form="Updateimage" placeholder="<?php echo ($imgPrice );?>">      
+                        <input type="text" name="Price" id="Price" form="Updateimage" value="<?php echo ($imgPrice );?>">      
                     </div>
                 </div>
 
