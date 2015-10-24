@@ -125,23 +125,23 @@
                                                 // Check if it was successfull
                                                 if ($result) 
 												{
-                                                    $msgSuccess = 'Success! Your file was successfully added!';
+                                                    $msgSuccess = 'Success! Your game was successfully added!';
                                                     echo '<div class="alert alert-success col-lg-12" role="alert">' . $msgSuccess . '</div>';
                                                 } else 
 												{
-                                                    $msgErrorInsert1 = 'Error! Failed to insert the file' . "<pre>{$dbLink->error}</pre>";
+                                                    $msgErrorInsert1 = 'Error! Failed to add the game' . "<pre>{$dbLink->error}</pre>";
                                                     echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert1 . '</div>';
                                                 }
                                             }
                                         } else 
 										{
-                                            $msgErrorUpload = 'An error accured while the file was being uploaded. '
+                                            $msgErrorUpload = 'An error accured while the game was being uploaded. '
                                                     . 'Error code: ' . intval($_FILES['fileToUpload']['error']);
                                             echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorUpload . '</div>';
                                         }
                                     } else 
 									{
-                                        $msgErrorInsert2 = 'Error! Failed to insert the file';
+                                        $msgErrorInsert2 = 'Error! Failed to insert the game';
                                         echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert2 . '</div>';
                                     }
 
@@ -236,7 +236,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
-                                <input class="col-lg-12" type="submit" value="Upload Image" name="submit">    
+                                <input class="col-lg-12" type="submit" value="Upload Game" name="submit">    
                             </div>
                         </div>
                         
