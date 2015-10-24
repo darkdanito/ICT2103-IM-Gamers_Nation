@@ -31,6 +31,17 @@
                 $imagesrc = $row['imagePath'];
                 $imagedesc = $row['imageDesc'];
                 $imagelikes = $row['imageLikes'];
+				
+				
+				$imageRomanizedTitle = $row['RomanizedTitle'];
+				$imagePublisher = $row['Publisher'];
+				$imageYearReleased = $row['YearReleased'];
+				$imagePlatform = $row['Platform'];
+				$imageRating = $row['Rating'];
+				$imageRegion = $row['Region'];
+				$imageReviewRating = $row['ReviewRating'];
+				$imageStock = $row['Stock'];
+				$imagePrice = $row['Price'];
             }
         }
 
@@ -64,15 +75,15 @@
                             <?php } ?>
                             
                             
-                            <li>Romanized Title: <strong> XXXXX</strong></li>
-                            <li>Publisher: <strong> XXXXX</strong></li>
-                            <li>Year Released: <strong> XXXXX</strong></li>
-                            <li>Platform: <strong> XXXXX</strong></li>
-                            <li>Rating: <strong> XXXXX</strong></li>
-                            <li>Region: <strong> XXXXX</strong></li>
-                            <li>Review Rating: <strong> XXXXX</strong></li>
-                            <li>Stock: <strong> XXXXX</strong></li>
-                            <li>Price: <strong> XXXXX</strong></li>
+                            <li>Romanized Title: <strong> <?php echo $imageRomanizedTitle ?></strong></li>
+                            <li>Publisher: <strong> <?php echo $imagePublisher ?></strong></li>
+                            <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
+                            <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
+                            <li>Rating: <strong> <?php echo $imageRating ?></strong></li>
+                            <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
+                            <li>Review Rating: <strong> <?php echo $imageReviewRating ?></strong></li>
+                            <li>Stock: <strong> <?php echo $imageStock ?></strong></li>
+                            <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
                             
                             
                             <li><br></li>
