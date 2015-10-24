@@ -68,20 +68,32 @@
                                     <strong><?php echo $author ?></strong>
                                 </a>
                             </li>
+                            
+                            </br>
+                            
                             <li>Game Name: <strong><?php echo $imagename ?></strong></li>
+                            <li>Romanized Title: <strong> <?php echo $imageRomanizedTitle ?></strong></li>
+                            
+                            </br>
                             
 							<?php if(!empty($imagedesc)) { ?>
                             <li>Description: <strong><?php echo $imagedesc ?></strong></li>
                             <?php } ?>
+							
+                            </br>
                             
-                            
-                            <li>Romanized Title: <strong> <?php echo $imageRomanizedTitle ?></strong></li>
                             <li>Publisher: <strong> <?php echo $imagePublisher ?></strong></li>
                             <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
                             <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
-                            <li>Rating: <strong> <?php echo $imageRating ?></strong></li>
                             <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
+                            
+                            </br>
+                            
+                            <li>Rating: <strong> <?php echo $imageRating ?></strong></li>
                             <li>Review Rating: <strong> <?php echo $imageReviewRating ?></strong></li>
+                            
+                            </br>
+                            
                             <li>Stock: <strong> <?php echo $imageStock ?></strong></li>
                             <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
                             

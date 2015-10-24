@@ -26,12 +26,14 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php
-                if ((!isset($_SESSION['username']))) {
+                if ((!isset($_SESSION['username']))) 
+				{
                     ?>
                     <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     <?php
-                } else {
+                } else 
+				{
                     ?>
                     <li class="dropdown">
                         <a href="usergallery.php" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username'] ?> <span class="caret"></span></a>
