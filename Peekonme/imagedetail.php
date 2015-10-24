@@ -32,8 +32,6 @@
                 $imagedesc = $row['imageDesc'];
                 $imagelikes = $row['imageLikes'];
 				
-				
-				$imageRomanizedTitle = $row['RomanizedTitle'];
 				$imagePublisher = $row['Publisher'];
 				$imageYearReleased = $row['YearReleased'];
 				$imagePlatform = $row['Platform'];
@@ -72,8 +70,7 @@
                             </br>
                             
                             <li>Game Name: <strong><?php echo $imagename ?></strong></li>
-                            <li>Romanized Title: <strong> <?php echo $imageRomanizedTitle ?></strong></li>
-                            
+
                             </br>
                             
 							<?php if(!empty($imagedesc)) { ?>
