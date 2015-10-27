@@ -20,7 +20,7 @@
         <div class="container-fluid" style="margin-top: 4em;">
             <?php
             $count = 0;
-            $sql2 = "SELECT * FROM userimages WHERE type_ID = 1 ORDER BY imageLikes DESC";
+            $sql2 = "SELECT * FROM game ORDER BY GameID DESC";
             if ($result2 = mysqli_query($connection, $sql2)) 
 			{
                 while ($row2 = mysqli_fetch_assoc($result2)) 
@@ -53,7 +53,7 @@
                 <div class="carousel-inner">
                     <?php
                     $count2 = 0;
-                    $sql3 = "SELECT * FROM userimages WHERE type_ID = 1 ORDER BY imageLikes DESC";
+                    $sql3 = "SELECT * FROM game ORDER BY GameID DESC";
                     if ($result3 = mysqli_query($connection, $sql3)) {
                         while ($row3 = mysqli_fetch_assoc($result3)) {
                             if ($count2 == 5) {
@@ -88,11 +88,13 @@
             <!--Display all picture-->
 
             <?php
-            $sql3 = "SELECT * FROM userimages WHERE type_ID = 1";
-            if ($result3 = mysqli_query($connection, $sql3)) {
-                while ($row3 = mysqli_fetch_assoc($result3)) {
+            $sql3 = "SELECT * FROM game";
+            if ($result3 = mysqli_query($connection, $sql3)) 
+			{
+                while ($row3 = mysqli_fetch_assoc($result3)) 
+				{
                     echo '<div class="col-xs-6 col-md-3">';
-                    echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['image_ID'] . '">';
+                    echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
                     echo '<img src="' . $row3['imagePath'] . '" />';
                     echo '</a>';
                     echo '</div>';

@@ -20,30 +20,35 @@
 
         if (isset($_GET['id'])) {
             $imageid = $_GET['id'];
-        } else {
+        } else 
+		{
             header('Location: explore.php');
         }
-        $sql = "SELECT * FROM userimages WHERE image_ID = " . $imageid;
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $author = $row['user_name'];
-                $imagename = $row['imageName'];
+		
+        $sql = "SELECT * FROM game WHERE GameID = " . $imageid;
+        if ($result = mysqli_query($connection, $sql)) 
+		{
+            while ($row = mysqli_fetch_assoc($result)) 
+			{
+//                $author = $row['user_name'];
+                $imagename = $row['title'];
                 $imagesrc = $row['imagePath'];
-                $imagedesc = $row['imageDesc'];
-                $imagelikes = $row['imageLikes'];
+//                $imagedesc = $row['imageDesc'];
+//                $imagelikes = $row['imageLikes'];
 				
 				$imagePublisher = $row['Publisher'];
 				$imageYearReleased = $row['YearReleased'];
 				$imagePlatform = $row['Platform'];
 				$imageRating = $row['Rating'];
 				$imageRegion = $row['Region'];
-				$imageReviewRating = $row['ReviewRating'];
-				$imageStock = $row['Stock'];
+//				$imageReviewRating = $row['ReviewRating'];
+//				$imageStock = $row['Stock'];
 				$imagePrice = $row['Price'];
             }
         }
 
-        if (empty($imagename)) {
+        if (empty($imagename)) 
+		{
             header('Location: explore.php');
         }
         ?>

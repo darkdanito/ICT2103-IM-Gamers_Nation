@@ -52,7 +52,8 @@
 								{
                                     // Connect to the database
                                     $dbLink = new mysqli('127.0.0.1', 'root', '', 'gamernationdb');
-                                    // Make sure the file was sent without errors
+                                    
+									// Make sure the file was sent without errors
                                     if ($_FILES['fileToUpload']['error'] == 0) 
 									{
                                         if (mysqli_connect_errno()) 
@@ -85,16 +86,6 @@
                                                 $image = $imageDir . $_FILES['fileToUpload']['name'];
                                                 move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageDir . $_FILES['fileToUpload']['name']);
 
-                                                  /* 
-												  if(is_dir("$imageDir/".$image)==false)
-												  {
-                                                  	move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageDir. $_FILES['fileToUpload']['name']);
-                                                  }else
-												  {
-                                                  $new_dir="Picture/".$image.time();
-                                                  rename($_FILES['fileToUpload']['tmp_name'],$new_dir);
-                                                  } 
-												  */
 
                                                 $imageBroken = explode('.', $_FILES['fileToUpload']['name']);
                                                 $imageExts = array_pop($imageBroken);
@@ -109,15 +100,25 @@
 												$imageRegion = test_input($_POST['imageRegion']);
 												$imageStock = test_input($_POST['imageStock']);
 												$imagePrice = test_input($_POST['imagePrice']);
-												
+												$imageId = test_input($_POST['imageId']);
                                                 // Create the SQL query
                                                 $query = "
+           	 	INSERT INTO `game` (
+               `GameID`,`Title`, `imagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
+           		 )
+            VALUES (
+               '{$imageId}','{$imageName}', '{$image}', '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imagePrice}'
+            )";
+
+
+/*
            	 	INSERT INTO `userimages` (
                `user_name`, `imageName`, `type_ID`,`imagePath`, `imageDesc`, `imageType`, `imageSize`, `imageData`, `imageCreated`, `imageLikes`, `Publisher`, `YearReleased`, `Platform`, `Region` , `Stock`, `Price`
            		 )
             VALUES (
                '$_SESSION[username]','{$imageName}', '{$_POST['Privacy']}', '{$image}', '{$imagedesc}' , '{$imageType}', {$imageSize}, '{$imageData}', NOW(), 0, '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imageStock}', '{$imagePrice}'
             )";
+*/
 
 
                                                 // Execute the query
@@ -159,20 +160,18 @@
 
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
-                                <select class="col-lg-12" name="Privacy" style="color: #606060">
-                                    <option class="col-lg-12" value="1" selected>Public</option>
-                                    <option class="col-lg-12" value="0">Private</option>
-                                </select>   
-                            </div>
-                        </div>               
+                                 
 <!--
 	Start of new Code
 -->
-                        
+            
+						<div class="form-group">
+                            <label class="col-sm-4 control-label"></label>
+                            <div class="col-sm-4">
+ 								 <input type="text" name="imageId" id="imageId" placeholder="Game ID">
+                            </div>
+                        </div>            
+
 						<div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
@@ -223,8 +222,8 @@
                         </div>
 <!--
 	End of new Code
--->                        
-                        <div class="form-group">
+    
+                            <div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
                                 <div class="col-lg-13">
@@ -232,6 +231,9 @@
                                 </div> 
                             </div>
                         </div>
+    
+-->                        
+
                         
                         <div class="form-group">
                             <label class="col-sm-4 control-label"></label>
