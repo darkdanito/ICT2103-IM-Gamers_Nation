@@ -25,20 +25,19 @@
         $imgid = $_GET['id'];
 
         $imgname = $imgdesc = $imgtype = "";
-        $sql = "SELECT * FROM userimages WHERE image_ID = " . $imgid;
+        $sql = "SELECT * FROM game WHERE GameID = " . $imgid;
         if ($result = mysqli_query($connection, $sql)) 
 		{
             while ($row = mysqli_fetch_assoc($result)) 
 			{
-                $imgname = $row['imageName'];
-                $imgdesc = $row['imageDesc'];
-                $imgtype = $row['type_ID'];
+                $imgname = $row['Title'];
+//                $imgdesc = $row['imageDesc'];
 				
 				$imgPublisher = $row['Publisher'];
-				$imgYearReleased = $row['YearReleased'];
+				$imgYearReleased = $row['Year_Released'];
 				$imgPlatform = $row['Platform'];
 				$imgRegion = $row['Region'];
-				$imgStock = $row['Stock'];
+//				$imgStock = $row['Stock'];
 				$imgPrice = $row['Price'];
             }
         }
@@ -50,8 +49,8 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $imgname = test_input($_POST["imgname"]);
-            $imgdesc = test_input($_POST["imgdesc"]);
-            $imgtype = test_input($_POST["imgtype"]);
+//            $imgdesc = test_input($_POST["imgdesc"]);
+//            $imgtype = test_input($_POST["imgtype"]);
 
 			$imgPublisher = test_input($_POST["Publisher"]);
 			$imgYearReleased = test_input($_POST["YearReleased"]);
@@ -68,10 +67,16 @@
 
             if ($imgnamevalid && $imgdescvalid && $imgtypevalid) 
 			{
-                $sql = "UPDATE userimages SET imageName = ?, imageDesc = ?, Publisher = ?, YearReleased = ?, Platform = ?, Region = ?, Stock = ?, Price = ?,type_ID = ? WHERE image_ID = " . $imgid;
+                $sql = "UPDATE game SET TItle = ?, Publisher = ?, Year_Released = ?, Platform = ?, Region = ?, Price = ? WHERE GameID = " . $imgid;
+/*				
+                $sql = "UPDATE game SET imageName = ?, imageDesc = ?, Publisher = ?, YearReleased = ?, Platform = ?, Region = ?, Stock = ?, Price = ?,type_ID = ? WHERE image_ID = " . $imgid;				
+*/				
                 if ($statement = mysqli_prepare($connection, $sql)) 
 				{
-                    mysqli_stmt_bind_param($statement, 'ssssssssi', $imgname, $imgdesc, $imgPublisher,$imgYearReleased, $imgPlatform, $imgRegion, $imgStock, $imgPrice,$imgtype);
+                    mysqli_stmt_bind_param($statement, 'ssssss', $imgname, $imgPublisher, $imgYearReleased, $imgPlatform, $imgRegion, $imgPrice);
+/*					
+					mysqli_stmt_bind_param($statement, 'ssssssss', $imgname, $imgdesc, $imgPublisher,$imgYearReleased, $imgPlatform, $imgRegion, $imgStock, $imgPrice);
+*/					
                     mysqli_stmt_execute($statement);
                 }
                 header('Location: userimgedit.php');
@@ -117,29 +122,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="imgtype" class="col-sm-2 control-label">Image Type</label>
-                    <div class="col-sm-8">
-                        <select name="imgtype" form="Updateimage" style="color: #606060">
-                            <option value="0" <?php
-                            if ($imgtype == 0) {
-                                echo 'selected="selected"';
-                            }
-                            ?>>Private</option>
-                            <option value="1" <?php
-                            if ($imgtype == 1) {
-                                echo 'selected="selected"';
-                            }
-                            ?>>Public</option>
-                        </select>
-                    </div>
-                </div>
 
-
+<!--
                 <div class="form-group">
                     <label for="imgdesc" class="col-sm-2 control-label">Image Description</label>
                     <div class="col-sm-8">
-                        <textarea rows="3" cols="50" id="imgdesc" name="imgdesc" form="Updateimage" maxlength="100" style="color: #606060"><?php
+                        <textarea rows="3" cols="50" id="imgdesc" name="imgdesc" form="Updateimage" maxlength="100" style="color: #606060"><php
                             if ($imgdescvalid) {
                                 echo htmlspecialchars($imgdesc);
                             }
@@ -148,7 +136,7 @@
                     </div>
                 </div>
 
-<!--
+
 Start of Code
 -->
                 <div class="form-group">
@@ -178,14 +166,14 @@ Start of Code
                         <input type="text" name="Region" id="Region" form="Updateimage" value="<?php echo ($imgRegion );?>">      
                     </div>
                 </div>
-                
+ <!--               
                 <div class="form-group">
                     <label for="Stock" class="col-sm-2 control-label">Stock</label>
                     <div class="col-sm-8">
-                        <input type="text" name="Stock" id="Stock" form="Updateimage" value="<?php echo ($imgStock );?>">      
+                        <input type="text" name="Stock" id="Stock" form="Updateimage" value="<php echo ($imgStock );?>">      
                     </div>
                 </div>
-                
+   -->             
  				<div class="form-group">
                     <label for="Price" class="col-sm-2 control-label">Price</label>
                     <div class="col-sm-8">
