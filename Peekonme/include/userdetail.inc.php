@@ -1,14 +1,12 @@
 <?php
 $username = $_SESSION['username'];
-$name = $email = $dob = $about = $webpage = "";
-$sql = "SELECT * FROM users WHERE userName=\"" . $username . "\"";
-if ($result = mysqli_query($connection, $sql)) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $name = $row['name'];
+$name = $email = "";
+$sql = "SELECT * FROM user WHERE UserID=\"" . $username . "\"";
+if ($result = mysqli_query($connection, $sql)) 
+{
+    while ($row = mysqli_fetch_assoc($result)) 
+	{
         $email = $row['email'];
-        $dob = $row['dob'];
-        $about = $row['about'];
-        $webpage = $row['webpage'];
     }
 }
 ?>
@@ -26,32 +24,6 @@ if ((!empty($name)) || (!empty($email)) || (!empty($webpage)) || (!empty($about)
         <div class = "panel-body">
             <ul class = "list-unstyled">
                 <?php
-                if (!empty($name)) {
-                    ?>
-                    <li >
-                        <label class="col-xs-6 col-md-5">Name : <strong style="color: #ff3366;"><?php echo $name ?></strong></label>
-                    </li>
-                    <?php
-                }
-                if (!empty($dob)) {
-                    ?>
-                    <li>
-                        <label class="col-xs-6 col-md-5">Date of Birth : <strong style="color: #ff3366;"><?php echo $dob ?></strong></label>
-
-                    </li>
-                    <?php
-                }
-                ?>
-            </ul>
-            <ul class = "list-unstyled">
-                <?php
-                if (!empty($about)) {
-                    ?>
-                    <li>
-                        <label class="col-xs-6 col-md-5">About Me : <strong style="color: #ff3366;"><?php echo $about ?></strong></label>
-                    </li>
-                    <?php
-                }
 
                 if (!empty($email)) {
                     ?>
@@ -63,18 +35,6 @@ if ((!empty($name)) || (!empty($email)) || (!empty($webpage)) || (!empty($about)
                 ?>
             </ul>
 
-            <ul class = "list-unstyled">
-                <?php
-                if (!empty($webpage)) {
-                    ?>
-                    <li>
-                        <label class="col-xs-6 col-md-5">Website : <strong style="color: #ff3366;"><?php echo $webpage ?></strong></label>
-
-                    </li>
-                    <?php
-                }
-                ?>
-            </ul>
             <br>
         </div>
     </div>

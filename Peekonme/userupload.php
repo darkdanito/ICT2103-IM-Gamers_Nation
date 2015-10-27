@@ -1,5 +1,5 @@
 <?php
-	require_once('../../../protected/config1.php');
+	require_once('protected/config1.php');
 	session_start();
 	
 	if ((!isset($_SESSION['username']))) 

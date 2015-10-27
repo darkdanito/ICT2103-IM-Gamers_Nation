@@ -39,26 +39,29 @@
                     $passwordErr = "Password is empty.";
                     $passwordvalid = false;
                 } else {
-                    $sql = "SELECT userName, password, salt FROM users";
+                    $sql = "SELECT UserID, Hashed_Password, Salt FROM user";
                     if ($result = mysqli_query($connection, $sql)) {
                         $usernameErr = "Username does not exist";
                         $usernamevalid = false; //Needed when there is no entry in the table yet
                         while ($row = mysqli_fetch_assoc($result)) {
-                            if ($row['userName'] == $username) {
+                            if ($row['UserID'] == $username) {
                                 $usernameErr = "";
                                 $usernamevalid = true;
-                                $salt = $row['salt'];
+                                $salt = $row['Salt'];
                                 $hashpwd = hash('sha256', $password . $salt);
-                                if ($hashpwd == $row['password']) {
+                                if ($hashpwd == $row['Hashed_Password']) 
+								{
                                     $passwordErr = "";
                                     $passwordvalid = true;
                                     break;
-                                } else {
+                                } else 
+								{
                                     $passwordErr = "Invalid password";
                                     $passwordvalid = false;
                                     break;
                                 }
-                            } else {
+                            } else 
+							{
                                 $usernameErr = "Username does not exist";
                                 $usernamevalid = false;
                             }
