@@ -1,6 +1,6 @@
 <?php
 	define('DBHOST', 'localhost');
-	define('DBNAME', 'peekonmedb');
+	define('DBNAME', 'gamernationdb');
 	define('DBUSER', 'root');
 	define('DBPASS', '');
 ?>
