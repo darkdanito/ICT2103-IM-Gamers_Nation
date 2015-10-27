@@ -100,14 +100,14 @@
 												$imageRegion = test_input($_POST['imageRegion']);
 												$imageStock = test_input($_POST['imageStock']);
 												$imagePrice = test_input($_POST['imagePrice']);
-												$imageId = test_input($_POST['imageId']);
+		
                                                 // Create the SQL query
                                                 $query = "
            	 	INSERT INTO `game` (
-               `GameID`,`Title`, `imagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
+               `Title`, `imagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
            		 )
             VALUES (
-               '{$imageId}','{$imageName}', '{$image}', '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imagePrice}'
+               '{$imageName}', '{$image}', '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}', '{$imageRegion}', '{$imagePrice}'
             )";
 
 
@@ -164,14 +164,6 @@
 <!--
 	Start of new Code
 -->
-            
-						<div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imageId" id="imageId" placeholder="Game ID">
-                            </div>
-                        </div>            
-
 						<div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">

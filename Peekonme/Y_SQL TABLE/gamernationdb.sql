@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2015 at 03:46 PM
+-- Generation Time: Oct 27, 2015 at 04:28 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `buyer` (
 --
 
 CREATE TABLE IF NOT EXISTS `game` (
-  `GameID` varchar(255) NOT NULL,
+  `GameID` int(11) NOT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `Publisher` varchar(255) DEFAULT NULL,
   `Year_Released` int(11) DEFAULT NULL,
@@ -46,15 +46,33 @@ CREATE TABLE IF NOT EXISTS `game` (
   `Region` varchar(255) DEFAULT NULL,
   `Price` float DEFAULT NULL,
   `imagePath` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `game`
 --
 
 INSERT INTO `game` (`GameID`, `Title`, `Publisher`, `Year_Released`, `Platform`, `Region`, `Price`, `imagePath`) VALUES
-('2', 'Airplane', 'Air Pub', 2000, 'PC', 'ASIA', 100, 'Picture/Airline_Tycoon_2_Gold_Edition_Cover.jpg'),
-('daaaa', 'daaa', 'daaa', 1111, 'pc', 'asss', 1, 'Picture/diablo_3.jpg');
+(1, 'Diablo 3', 'Blizzard', 2015, 'PC', 'Asia', 100, 'Picture/diablo_3.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `imagetype`
+--
+
+CREATE TABLE IF NOT EXISTS `imagetype` (
+  `typeID` int(11) NOT NULL,
+  `typeName` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `imagetype`
+--
+
+INSERT INTO `imagetype` (`typeID`, `typeName`) VALUES
+(0, 'PUBLIC'),
+(1, 'PRIVATE');
 
 -- --------------------------------------------------------
 
@@ -64,7 +82,7 @@ INSERT INTO `game` (`GameID`, `Title`, `Publisher`, `Year_Released`, `Platform`,
 
 CREATE TABLE IF NOT EXISTS `ordered_product` (
   `Supplier_UserID` varchar(255) NOT NULL DEFAULT '',
-  `GameID` varchar(255) NOT NULL DEFAULT '',
+  `GameID` int(11) NOT NULL,
   `OrderID` varchar(255) NOT NULL DEFAULT '',
   `Buyer_UserID` varchar(255) NOT NULL DEFAULT '',
   `Quantity` int(11) DEFAULT NULL,
@@ -90,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `order_make` (
 --
 
 CREATE TABLE IF NOT EXISTS `review_have` (
-  `GameID` varchar(255) NOT NULL DEFAULT '',
+  `GameID` int(11) NOT NULL,
   `UserID` varchar(255) NOT NULL DEFAULT '',
   `Rating` float DEFAULT NULL,
   `Comment` varchar(255) DEFAULT NULL,
@@ -116,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `supplier` (
 
 CREATE TABLE IF NOT EXISTS `supplier_own_game` (
   `Supplier_UserID` varchar(255) NOT NULL DEFAULT '',
-  `GameID` varchar(255) NOT NULL DEFAULT '',
+  `GameID` int(11) NOT NULL,
   `Stock` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -138,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Hashed_Password`, `Email`, `Salt`) VALUES
-('necrodiverTesting', 'f0392ada0d1bf15c50b522ef11453504bf3871a22f5acd5c007aa273a7bef49f', 'darkdanito@hotmail.com', '5fc1d5eeace697bf3beb0ca1');
+('necrodiverTesting', 'a3c69166757134256ac5b9ea63bc9900fe80698f283e122db12327b86402852a', 'darkdanito@hotmail.com', '25cbdda0f4273d4a3a683522');
 
 --
 -- Indexes for dumped tables
@@ -156,6 +174,12 @@ ALTER TABLE `buyer`
 ALTER TABLE `game`
   ADD PRIMARY KEY (`GameID`),
   ADD UNIQUE KEY `GameID` (`GameID`);
+
+--
+-- Indexes for table `imagetype`
+--
+ALTER TABLE `imagetype`
+  ADD PRIMARY KEY (`typeID`);
 
 --
 -- Indexes for table `ordered_product`
@@ -201,6 +225,15 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `game`
+--
+ALTER TABLE `game`
+  MODIFY `GameID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- Constraints for dumped tables
 --
 
@@ -214,7 +247,7 @@ ALTER TABLE `buyer`
 -- Constraints for table `ordered_product`
 --
 ALTER TABLE `ordered_product`
-  ADD CONSTRAINT `ordered_product_ibfk_1` FOREIGN KEY (`Supplier_UserID`, `GameID`) REFERENCES `supplier_own_game` (`Supplier_UserID`, `GameID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `ordered_product_ibfk_1` FOREIGN KEY (`Supplier_UserID`, `GameID`) REFERENCES `supplier_own_game` (`Supplier_UserID`, `GameID`);
 
 --
 -- Constraints for table `order_make`
