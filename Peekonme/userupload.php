@@ -91,7 +91,7 @@
                                                 $imageExts = array_pop($imageBroken);
                                                 $imageNoExts = implode('.', $imageBroken);
                                                 
-                                                $imagedesc = test_input($_POST['imageDesc']);
+//                                                $imagedesc = test_input($_POST['imageDesc']);
 												
 												$imageName = test_input($_POST['imageName']);
 												$imagePublisher = test_input($_POST['imagePublisher']);
