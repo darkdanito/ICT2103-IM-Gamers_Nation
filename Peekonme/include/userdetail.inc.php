@@ -1,12 +1,13 @@
 <?php
 $username = $_SESSION['username'];
-$name = $email = "";
+$email = "";
+
 $sql = "SELECT * FROM user WHERE UserID=\"" . $username . "\"";
 if ($result = mysqli_query($connection, $sql)) 
 {
     while ($row = mysqli_fetch_assoc($result)) 
 	{
-        $email = $row['email'];
+        $email = $row['Email'];
     }
 }
 ?>
@@ -25,7 +26,8 @@ if ((!empty($name)) || (!empty($email)) || (!empty($webpage)) || (!empty($about)
             <ul class = "list-unstyled">
                 <?php
 
-                if (!empty($email)) {
+                if (!empty($email)) 
+				{
                     ?>
                     <li>
                         <label class="col-xs-6 col-md-5">E-mail : <strong style="color: #ff3366;"><?php echo $email ?></strong></label>                                                
