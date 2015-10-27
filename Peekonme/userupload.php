@@ -51,7 +51,7 @@
                                 if (isset($_FILES['fileToUpload'])) 
 								{
                                     // Connect to the database
-                                    $dbLink = new mysqli('127.0.0.1', 'root', '', 'peekonmedb');
+                                    $dbLink = new mysqli('127.0.0.1', 'root', '', 'gamernationdb');
                                     // Make sure the file was sent without errors
                                     if ($_FILES['fileToUpload']['error'] == 0) 
 									{

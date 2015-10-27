@@ -47,7 +47,7 @@
 					//If all valid it will goes to welcome.php
 					if ($emailvalid) 
 					{
-						$sql = "UPDATE user SET Email = ?, WHERE UserID =\"" . $username . "\"";
+						$sql = "UPDATE user SET Email = ? WHERE UserID =\"" . $username . "\"";
 						
 						if ($statement = mysqli_prepare($connection, $sql)) 
 						{
