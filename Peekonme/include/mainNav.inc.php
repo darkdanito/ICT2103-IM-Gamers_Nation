@@ -1,8 +1,9 @@
 <ul class="nav nav-tabs" role="tablist">
     <?php $currentPage = basename($_SERVER['SCRIPT_FILENAME']); ?>
     <li <?php
-    if ($currentPage == "usergallery.php") {
-        echo 'class="active"';
+    if ($currentPage == "usergallery.php") 
+	{
+		echo 'class="active"';
     }
     ?> role="presentation"><a href="usergallery.php"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> My Listed Items</a>
     </li>
