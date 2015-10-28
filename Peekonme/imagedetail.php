@@ -30,16 +30,16 @@
 		{
             while ($row = mysqli_fetch_assoc($result)) 
 			{
-//                $author = $row['user_name'];
-                $imagename = $row['title'];
+                $author = $row['Title'];
+                $imagename = $row['Title'];
                 $imagesrc = $row['imagePath'];
 //                $imagedesc = $row['imageDesc'];
 //                $imagelikes = $row['imageLikes'];
 				
 				$imagePublisher = $row['Publisher'];
-				$imageYearReleased = $row['YearReleased'];
+				$imageYearReleased = $row['Year_Released'];
 				$imagePlatform = $row['Platform'];
-				$imageRating = $row['Rating'];
+//				$imageRating = $row['Rating'];
 				$imageRegion = $row['Region'];
 //				$imageReviewRating = $row['ReviewRating'];
 //				$imageStock = $row['Stock'];
@@ -90,13 +90,16 @@
                             <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
                             
                             </br>
+<!--                            
+                            <li>Rating: <strong> <php echo $imageRating ?></strong></li>
+                            <li>Review Rating: <strong> <php echo $imageReviewRating ?></strong></li>
+-->
                             
-                            <li>Rating: <strong> <?php echo $imageRating ?></strong></li>
-                            <li>Review Rating: <strong> <?php echo $imageReviewRating ?></strong></li>
                             
                             </br>
-                            
+<!--                            
                             <li>Stock: <strong> <?php echo $imageStock ?></strong></li>
+-->
                             <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
                             
                             
@@ -105,9 +108,11 @@
                             if ((isset($_SESSION['username']))) {
                                 ?>
                                 <li>
+<!--                                
                                     <a class="btn btn-primary" type="button" href="increaselike.php?id=<?php echo $imageid ?>">
-                                        Likes <span class="glyphicon glyphicon-thumbs-up"></span>   <span class="badge"><?php echo $imagelikes ?></span>
+                                        Likes <span class="glyphicon glyphicon-thumbs-up"></span>   <span class="badge"><php echo $imagelikes ?></span>
                                     </a>
+-->
                                 </li>
                                 <?php
                             }
