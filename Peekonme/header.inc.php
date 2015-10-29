@@ -8,6 +8,7 @@
 		die(mysqli_connect_error()); 			// die() is equivalent to exit()	
 	}
 ?>
+
 <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
 <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' />
 
