@@ -47,7 +47,7 @@
         </div>
         <?php
         $count = 0;
-        $sql = "SELECT * FROM userimages WHERE user_name = \"" . $username . "\"";
+        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = \"" . $username . "\"";
         if ($result = mysqli_query($connection, $sql)) 
 		{
             while ($row = mysqli_fetch_assoc($result)) 
@@ -77,7 +77,7 @@
                                         <!-- DESC cannot be empty if not will take from previous value-->
 
                                         <?php
-                                        $sql = "SELECT * FROM userimages WHERE user_name = \"" . $username . "\"";
+                                        $sql = "SELECT * FROM supplier_own_game WHERE user_name = \"" . $username . "\"";
                                         if ($result = mysqli_query($connection, $sql)) 
 										{
                                             while ($row = mysqli_fetch_assoc($result)) 
