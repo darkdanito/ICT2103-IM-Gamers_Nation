@@ -48,8 +48,10 @@
         <?php
         $count = 0;
         $sql = "SELECT * FROM userimages WHERE user_name = \"" . $username . "\"";
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
+        if ($result = mysqli_query($connection, $sql)) 
+		{
+            while ($row = mysqli_fetch_assoc($result)) 
+			{
                 $count++;
             }
         }
@@ -76,8 +78,10 @@
 
                                         <?php
                                         $sql = "SELECT * FROM userimages WHERE user_name = \"" . $username . "\"";
-                                        if ($result = mysqli_query($connection, $sql)) {
-                                            while ($row = mysqli_fetch_assoc($result)) {
+                                        if ($result = mysqli_query($connection, $sql)) 
+										{
+                                            while ($row = mysqli_fetch_assoc($result)) 
+											{
                                                 echo '<li>';
                                                 echo '<a href="#">';
                                                 echo '<img src="' . $row['imagePath'] . '" data-large="' . $row['imagePath'] . '" alt="' . $row['imageName'] . '" data-title="' . $row['imageName'] . '"/>';

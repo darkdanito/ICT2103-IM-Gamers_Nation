@@ -39,11 +39,21 @@
 					$imageYearReleased = $row['Year_Released'];
 					$imagePlatform = $row['Platform'];
 					$imageRegion = $row['Region'];
-//					$imageStock = $row['Stock'];
 					$imagePrice = $row['Price'];
 				}
 			}
-	
+			
+			$sql = "SELECT Stock FROM supplier_own_game WHERE GameID = " . $imageid;
+			if ($result = mysqli_query($connection, $sql)) 
+			{
+				while ($row = mysqli_fetch_assoc($result)) 
+				{
+					$imageStock = $row['Stock'];
+				}
+			}			
+			
+			
+			
 			if (empty($imagename)) 
 			{
 				header('Location: explore.php');
@@ -78,6 +88,20 @@
                                                         
                             </br>
 
+							<li>Stock: 
+                            	<strong> 
+									<?php 
+										if(!empty($imageStock))
+										{
+											echo $imageStock;
+										}
+										else
+										{
+											echo "Out of Stock";
+										}
+									?>
+                                </strong>
+                            </li>
                             <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
                         </ul>
                     </div>
