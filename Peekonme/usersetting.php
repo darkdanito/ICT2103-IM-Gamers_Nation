@@ -14,7 +14,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <title>ICT 1004 - Web Systems & Technologies</title>
+        <title>Gamers Nation</title>
         
         <link href="css/bootstrap.min.css" rel="stylesheet">        
         <link href="css/main.css" rel="stylesheet"/>
@@ -27,18 +27,14 @@
             <?php
 				include '/include/userdetail.inc.php';
 				
-				$emailErr = $webpageErr = "";
+				$emailErr = "";
 	
-				$emailvalid = $webpagevalid = $namevalid = $aboutvalid = $dobvalid = true;
+				$emailvalid = true;
 	
 				if ($_SERVER["REQUEST_METHOD"] == "POST") 
 				{
-					$name = test_input($_POST["name"]);
 					$email = test_input($_POST["email"]);
-					$dob = test_input($_POST["dob"]);
-					$about = test_input($_POST["about"]);
-					$webpage = test_input($_POST["webpage"]);
-	
+
 					if (!empty($email)) 
 					{
 						if (!preg_match("/^(.+)@([^\.].*)\.([a-z]{2,})$/", $email)) 
@@ -47,24 +43,15 @@
 							$emailvalid = false;
 						}
 					}
-	
-					if (!empty($webpage)) 
-					{
-						if (!preg_match('/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/', $webpage)) 
-						{
-							$webpageErr = "Please enter a valid Webpage URL.";
-							$webpagevalid = false;
-						}
-					}
-	
+
 					//If all valid it will goes to welcome.php
-					if ($emailvalid && $webpagevalid && $namevalid && $aboutvalid) 
+					if ($emailvalid) 
 					{
-						$sql = "UPDATE users SET name = ?, email = ?, dob = ?, about = ?, webpage = ? WHERE userName=\"" . $username . "\"";
+						$sql = "UPDATE user SET Email = ? WHERE UserID =\"" . $username . "\"";
 						
 						if ($statement = mysqli_prepare($connection, $sql)) 
 						{
-							mysqli_stmt_bind_param($statement, 'sssss', $name, $email, $dob, $about, $webpage);
+							mysqli_stmt_bind_param($statement, 's', $email);
 							mysqli_stmt_execute($statement);
 						}
 	
@@ -89,18 +76,6 @@
                 <h1>Update your Profile
                     <span>Let others know more about you.</span></h1>
                 <form class="form-horizontal" id="Updatedetail" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="name">Name</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" type="text" id="name" name="name" 
-                                   value="<?php
-                                   if ($namevalid) 
-								   {
-                                       echo htmlspecialchars($name);
-                                   }
-                                   ?>">
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">Email Address</label>
@@ -119,49 +94,6 @@
                                    }
                                    ?>"
                                    pattern="^(.+)@([^\.].*)\.([a-z]{2,})$">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="dob" class="col-sm-2 control-label">Date of Birth</label>
-                        <div class="col-sm-8">
-                            <input type="date" name="dob" id="dob" min="1900-01-02"
-                                   value="<?php
-                                   if ($dobvalid) {
-                                       echo htmlspecialchars($dob);
-                                   }
-                                   ?>">
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="about" class="col-sm-2 control-label">About Me</label>
-                        <div class="col-sm-8">
-                            <textarea rows="4" cols="50" id="about" name="about" form="Updatedetail" maxlength="1000" style="color: #606060"><?php
-                                if ($aboutvalid) {
-                                    echo htmlspecialchars($about);
-                                }
-                                ?>
-                            </textarea>       
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="webpage" class="col-sm-2 control-label">Webpage Link</label>
-                        <div class="col-sm-8">
-                            <input name="webpage" type="text" class="form-control" id="webpage" 
-                                   value="<?php
-                                   if ($webpagevalid && $webpageErr == "") {
-                                       echo htmlspecialchars($webpage);
-                                   }
-                                   ?>"
-                                   placeholder="<?php
-                                   if ($webpageErr != "") {
-                                       echo $webpageErr;
-                                   }
-                                   ?>"
-                                   pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$">
                         </div>
                     </div>
 

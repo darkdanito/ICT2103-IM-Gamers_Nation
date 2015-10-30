@@ -45,13 +45,13 @@
 						$unamevalid = false;
 					} else 
 					{
-						$sql = "SELECT userName FROM users";
+						$sql = "SELECT UserID FROM user";
 						if ($result = mysqli_query($connection, $sql)) 
 						{
 							$unamevalid = true; //Needed when there is no entry in the table yet
 							while ($row = mysqli_fetch_assoc($result)) 
 							{
-								if ($row['userName'] == $uname) 
+								if ($row['UserID'] == $uname) 
 								{
 									$unameErr = "Username had been taken";
 									$unamevalid = false;
@@ -113,7 +113,7 @@
 						/* randomly generate 12-byte salt */
 						$salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
 						$hashpwd = hash('sha256', $pword1 . $salt);
-						$sql = "INSERT INTO users (userName,password,salt,email) VALUES (?,?,?,?)";
+						$sql = "INSERT INTO user (UserID,Hashed_Password,Salt,Email) VALUES (?,?,?,?)";
 						if ($statement = mysqli_prepare($connection, $sql)) 
 						{
 							mysqli_stmt_bind_param($statement, 'ssss', $uname, $hashpwd, $salt,$email);

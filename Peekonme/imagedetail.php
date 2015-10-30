@@ -20,21 +20,35 @@
 
         if (isset($_GET['id'])) {
             $imageid = $_GET['id'];
-        } else {
+        } else 
+		{
             header('Location: explore.php');
         }
-        $sql = "SELECT * FROM userimages WHERE image_ID = " . $imageid;
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $author = $row['user_name'];
-                $imagename = $row['imageName'];
+		
+        $sql = "SELECT * FROM game WHERE GameID = " . $imageid;
+        if ($result = mysqli_query($connection, $sql)) 
+		{
+            while ($row = mysqli_fetch_assoc($result)) 
+			{
+//                $author = $row['user_name'];
+                $imagename = $row['title'];
                 $imagesrc = $row['imagePath'];
-                $imagedesc = $row['imageDesc'];
-                $imagelikes = $row['imageLikes'];
+//                $imagedesc = $row['imageDesc'];
+//                $imagelikes = $row['imageLikes'];
+				
+				$imagePublisher = $row['Publisher'];
+				$imageYearReleased = $row['YearReleased'];
+				$imagePlatform = $row['Platform'];
+				$imageRating = $row['Rating'];
+				$imageRegion = $row['Region'];
+//				$imageReviewRating = $row['ReviewRating'];
+//				$imageStock = $row['Stock'];
+				$imagePrice = $row['Price'];
             }
         }
 
-        if (empty($imagename)) {
+        if (empty($imagename)) 
+		{
             header('Location: explore.php');
         }
         ?>
@@ -57,22 +71,33 @@
                                     <strong><?php echo $author ?></strong>
                                 </a>
                             </li>
+                            
+                            </br>
+                            
                             <li>Game Name: <strong><?php echo $imagename ?></strong></li>
+
+                            </br>
                             
 							<?php if(!empty($imagedesc)) { ?>
                             <li>Description: <strong><?php echo $imagedesc ?></strong></li>
                             <?php } ?>
+							
+                            </br>
                             
+                            <li>Publisher: <strong> <?php echo $imagePublisher ?></strong></li>
+                            <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
+                            <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
+                            <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
                             
-                            <li>Romanized Title: <strong> XXXXX</strong></li>
-                            <li>Publisher: <strong> XXXXX</strong></li>
-                            <li>Year Released: <strong> XXXXX</strong></li>
-                            <li>Platform: <strong> XXXXX</strong></li>
-                            <li>Rating: <strong> XXXXX</strong></li>
-                            <li>Region: <strong> XXXXX</strong></li>
-                            <li>Review Rating: <strong> XXXXX</strong></li>
-                            <li>Stock: <strong> XXXXX</strong></li>
-                            <li>Price: <strong> XXXXX</strong></li>
+                            </br>
+                            
+                            <li>Rating: <strong> <?php echo $imageRating ?></strong></li>
+                            <li>Review Rating: <strong> <?php echo $imageReviewRating ?></strong></li>
+                            
+                            </br>
+                            
+                            <li>Stock: <strong> <?php echo $imageStock ?></strong></li>
+                            <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
                             
                             
                             <li><br></li>

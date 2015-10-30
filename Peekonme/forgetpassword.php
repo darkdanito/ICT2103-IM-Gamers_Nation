@@ -24,17 +24,15 @@
             </div>
             <?php
             // define variables and set to empty values
-            $username = $pword1 = $pword2 = $email = "";
+            $username = $email = "";
 
-            $usernameErr = $pword1Err = $pword2Err = $emailErr = "";
+            $usernameErr = $emailErr = "";
 
             $usernamevalid = $pword1valid = $pword2valid = $emailvalid = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") 
 			{
                 $username = test_input($_POST["username"]);
-//              $pword1 = test_input($_POST["pword1"]);
-//              $pword2 = test_input($_POST["pword2"]);
 				$email = test_input($_POST["email"]);
 
                 if (empty($username)) 
@@ -44,13 +42,13 @@
                 } 
 				else 
 				{
-                    $sql = "SELECT userName FROM users";
+                    $sql = "SELECT UserID FROM user";
                     if ($result = mysqli_query($connection, $sql)) 
 					{
                         $usernamevalid = true; //Needed when there is no entry in the table yet
                         while ($row = mysqli_fetch_assoc($result)) 
 						{
-                            if ($row['userName'] == $username) 
+                            if ($row['UserID'] == $username) 
 							{
                                 $usernameErr = "";
                                 $usernamevalid = true;
@@ -71,46 +69,10 @@
                 } 
 				else 
 				{
-                        $emailvalid = true;
+					$emailvalid = true;
                 }
-				
-                if (empty($pword1)) 
-				{
-                    $pword1Err = "Please do not leave your Password empty.";
-                    $pword1valid = false;
-                } 
-				else 
-				{
-                    if (!preg_match("/^\w{8,}$/", $pword1)) 
-					{
-                        $pword1Err = "Please enter a Password with at least 8 alphanumeric characters.";
-                        $pword1valid = false;
-                    } else 
-					{
-                        $pword1valid = true;
-                    }
-                }
-
-                if (empty($pword2)) 
-				{
-                    $pword2Err = "Please do not leave you Password Confirm empty.";
-                    $pword2valid = false;
-                } 
-				else 
-				{
-                    if ($pword2 != $pword1) 
-					{
-                        $pword2Err = "Please enter a matching Password as above.";
-                        $pword2valid = false;
-                    } 
-					else 
-					{
-                        $pword2valid = true;
-                    }
-                }
-
+			
                 //If all valid it will goes to welcome.php
-//              if ($usernamevalid && $pword1valid && $pword2valid) 
 				if ($usernamevalid && $emailvalid)
 				{
 // Start of dummy code
@@ -132,9 +94,6 @@
 					// the finished password
 					$pw = str_shuffle($pw);
 					
-					
-					
-					
 					//SMTP needs accurate times, and the PHP time zone MUST be set
 					//This should be done in your php.ini, but this is how to do it if you don't have access to that
 					date_default_timezone_set('Etc/UTC');
@@ -151,7 +110,7 @@
 					// 0 = off (for production use)
 					// 1 = client messages
 					// 2 = client and server messages
-					$mail->SMTPDebug = 2;
+					$mail->SMTPDebug = 0;
 					
 					//Ask for HTML-friendly debug output
 					$mail->Debugoutput = 'html';
@@ -216,10 +175,9 @@
 					
 					
                     $salt = bin2hex(mcrypt_create_iv(12, MCRYPT_DEV_URANDOM));
-//                  $hashpwd = hash('sha256', $pword1 . $salt);
 					$hashpwd = hash('sha256', $pw . $salt);
 					
-                    $sql = "UPDATE users SET password = ?, salt = ? WHERE userName=\"" . $username . "\"";
+                    $sql = "UPDATE user SET Hashed_Password = ?, Salt = ? WHERE UserID =\"" . $username . "\"";
                     if ($statement = mysqli_prepare($connection, $sql)) 
 					{
                         mysqli_stmt_bind_param($statement, 'ss', $hashpwd, $salt);
@@ -302,58 +260,7 @@
                                        }
                         ?>" required>
                             </div>
-                        </div>
-                        
-                        
-                        
-                        
-<!--                        
-                        
-                        <div class=" form-group <xxx
-                        if ($pword1valid) 
-						{
-                            echo $validbox;
-                        } if ($pword1Err != "") 
-						{
-                            echo $invalidbox;
-                        }
-                        ?>">
-                            <label class="col-sm-3 control-label" for="pword1">Password</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" type="password" name="pword1" id="pword1"
-                                       placeholder="<xxx
-                                       if ($pword1Err != "") 
-									   {
-                                           echo $pword1Err;
-                                       }
-                        ?>" required
-                                       pattern="^\w{8,}$" title="Password must at least 8 alphanumeric characters">
-                            </div>
-                        </div>
-                        
-                        
-                        <div class=" form-group <xxx
-                        if ($pword2valid) 
-						{
-                            echo $validbox;
-                        } if ($pword2Err != "") 
-						{
-                            echo $invalidbox;
-                        }
-                        ?>">
-                            <label class="col-sm-3 control-label" for="pword2">Password Confirm</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" type="password" name="pword2" id="pword2"
-                                       placeholder="<xxx
-                                       if ($pword2Err != "") 
-									   {
-                                           echo $pword2Err;
-                                       }
-                        ?>" required>
-                            </div>
-                        </div>
-                        
--->                        
+                        </div> 
                         
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
