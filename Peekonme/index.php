@@ -2,6 +2,11 @@
 	session_start();
 ?>
 
+<!--
+<php
+phpinfo();
+?>
+-->
 <!DOCTYPE html>
 
 <html>
