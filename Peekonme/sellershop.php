@@ -41,7 +41,6 @@
 //        }
 // need implement count         
 
-
 //        $sql2 = "SELECT * FROM game WHERE GameID = " . $gameID;
 //        if ($result2 = mysqli_query($connection, $sql2)) {
 //            while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -53,24 +52,45 @@
 
         ?>
         <div class="container" style="margin: 4em auto;">
-            <table>
-                <?php
+            <div class="panel panel-transparent col-md-4">
+                <br><br><br>
+                
+                <table>
+                    <?php
+                    $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid . "'";
 
-
-                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = ' " . $shopid   .  " ' ";
-                        if ($result = mysqli_query($connection, $sql)) {
-                            echo $shopid;
-                            while($row = mysqli_fetch_assoc($result))
-                {
-                            echo $shopid;
+                    if ($result = mysqli_query($connection, $sql)) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $sql2 = "SELECT * FROM game WHERE GameID = " . $row['GameID'];
+                            if ($result2 = mysqli_query($connection, $sql2)) {
+                                $row4 = mysqli_fetch_assoc($result2);
+                            }
+                            echo '<tr>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row4['Title'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row4['Price'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
                             echo $row['Stock'];
-                           
-                }
-                }
-
-                ?>
-            </table>
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo '<input type="text" class="form-control" placeholder="amount">';
+                            echo '</td>';
+                            echo '</tr>';
+                        }
+                    }
+                    ?>
+                    <td><button class="btn btn-info">Pay Now</button></td>
+                </table>
+            </div>
+            <div class="panel panel-transparent col-md-6">
+                <h1> <strong><?php echo $shopid; ?> </strong></h1>
+               
+            </div>
         </div>
+
   
     <?php include 'footer.inc.php'; ?>
     </body>

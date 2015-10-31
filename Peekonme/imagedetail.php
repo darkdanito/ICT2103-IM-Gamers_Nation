@@ -217,7 +217,7 @@
                             echo '</td>';
                             echo '<td style="width: 100px"> ';
                             echo '<a class="btn btn-warning" href="sellershop.php?id=' . $row['Supplier_UserID'] . '">Buy</a></td>';
-                            echo '</td>';
+                            echo '</tr>';
                         }
                         }                          
                             ?>
