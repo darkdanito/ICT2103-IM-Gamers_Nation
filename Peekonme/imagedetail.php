@@ -62,19 +62,22 @@
 				header('Location: explore.php');
 			}
                         
-            function test_input($data) {
+            function test_input($data) 
+			{
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
                 return $data;
             }
             
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") 
+			{
                 $gameComment = test_input($_POST["gameComment"]);
                 $gameRating = $_POST["gameRating"];                
                 $currentdt = date('Y-m-d H:i:s');
                 $sql = "INSERT INTO review_have (GameID,UserID,Rating,Comment,TimeStamp) VALUES (?,?,?,?,?)";
-                if ($statement = mysqli_prepare($connection, $sql)) {
+                if ($statement = mysqli_prepare($connection, $sql)) 
+				{
                     mysqli_stmt_bind_param($statement, 'sssss', $imageid, $_SESSION['username'], $gameRating, $gameComment, $currentdt);
                     mysqli_stmt_execute($statement);
                 }                
