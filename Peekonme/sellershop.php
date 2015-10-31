@@ -16,8 +16,11 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/star-rating.min.js" type="text/javascript"></script>        
     </head>
+    
     <?php include 'header.inc.php'; ?>
+    
     <body>
+        
         <?php
 
 
@@ -27,14 +30,14 @@
             header('Location: imagedetail.php');
         }
         
-        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $gameID = $row['GameID'];
-                $gameStock = $row['Stock'];
-            }
-        }
-        
+//        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
+//        if ($result = mysqli_query($connection, $sql)) {
+//            while ($row = mysqli_fetch_assoc($result)) {
+//                $gameID = $row['GameID'];
+//                $gameStock = $row['Stock'];
+//            }
+//        }
+// need implement count         
 //        $sql2 = "SELECT * FROM game WHERE GameID = " . $gameID;
 //        if ($result2 = mysqli_query($connection, $sql2)) {
 //            while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -49,19 +52,17 @@
             <table>
                 <?php
 
-                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
-                if ($result = mysqli_query($connection, $sql)) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr>';
-                        echo '<td style="width: 125px"> ';
-                        echo $row1['Supplier_UserID'];
-                        echo '</td>';
-                        echo '<td style="width: 100px"> ';
-                        echo $row1['Stock'];
-                        echo '</td>';
-                        echo '</tr>';
-                    }
+                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = ' " . $shopid   .  " ' ";
+                        if ($result = mysqli_query($connection, $sql)) {
+                            echo $shopid;
+                            while($row = mysqli_fetch_assoc($result))
+                {
+                            echo $shopid;
+                            echo $row['Stock'];
+                           
                 }
+                }
+
                 ?>
             </table>
         </div>
