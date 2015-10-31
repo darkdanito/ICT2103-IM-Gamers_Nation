@@ -56,9 +56,7 @@
                                         $imageTotalStock = $imageTotalStock + $imageStock;
 				}
 			}
-                        
-                        
-			
+               			
 			if (empty($imagename)) 
 			{
 				header('Location: explore.php');
@@ -218,12 +216,13 @@
                             echo $imagePrice;
                             echo '</td>';
                             echo '<td style="width: 100px"> ';
-                            echo '<button>Buy</button></td>';
+                            echo '<a class="btn btn-warning" href="sellershop.php?id=' . $row['Supplier_UserID'] . '">Buy</a></td>';
                             echo '</td>';
                         }
                         }                          
                             ?>
                         </table>
+                        <a class="btn-group-sm"></a>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

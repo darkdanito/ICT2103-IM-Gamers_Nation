@@ -18,8 +18,52 @@
     </head>
     <?php include 'header.inc.php'; ?>
     <body>
+        <?php
+
+
+        if (isset($_GET['id'])) {
+            $shopid = $_GET['id'];
+        } else {
+            header('Location: imagedetail.php');
+        }
+        
+        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
+        if ($result = mysqli_query($connection, $sql)) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $gameID = $row['GameID'];
+                $gameStock = $row['Stock'];
+            }
+        }
+        
+//        $sql2 = "SELECT * FROM game WHERE GameID = " . $gameID;
+//        if ($result2 = mysqli_query($connection, $sql2)) {
+//            while ($row2 = mysqli_fetch_assoc($result2)) {
+//                $gameName = $row['Title'];
+//                $gamePrice = $row['Price'];
+//
+//            }
+//        }
+
+        ?>
         <div class="container" style="margin: 4em auto;">
-           
+            <table>
+                <?php
+
+                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
+                if ($result = mysqli_query($connection, $sql)) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td style="width: 125px"> ';
+                        echo $row1['Supplier_UserID'];
+                        echo '</td>';
+                        echo '<td style="width: 100px"> ';
+                        echo $row1['Stock'];
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+                }
+                ?>
+            </table>
         </div>
   
     <?php include 'footer.inc.php'; ?>
