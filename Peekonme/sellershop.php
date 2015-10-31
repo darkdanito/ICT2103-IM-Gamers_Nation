@@ -57,7 +57,7 @@
                 <?php
 
 
-                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = ' " . $shopid   .  " ' ";
+                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid   .  "'";
                         if ($result = mysqli_query($connection, $sql)) {
                             echo $shopid;
                             while($row = mysqli_fetch_assoc($result))
