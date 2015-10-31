@@ -49,11 +49,15 @@
 			$sql = "SELECT Stock FROM supplier_own_game WHERE GameID = " . $imageid;
 			if ($result = mysqli_query($connection, $sql)) 
 			{
+                            $imageTotalStock = '0';
 				while ($row = mysqli_fetch_assoc($result)) 
 				{
 					$imageStock = $row['Stock'];
+                                        $imageTotalStock = $imageTotalStock + $imageStock;
 				}
-			}			
+			}
+                        
+                        
 			
 			if (empty($imagename)) 
 			{
@@ -103,7 +107,7 @@
 									<?php 
 										if(!empty($imageStock))
 										{
-											echo $imageStock;
+											echo $imageTotalStock;
 										}
 										else
 										{
@@ -113,6 +117,11 @@
                                 </strong>
                             </li>
                             <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
+                            <li>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#sellerList" >
+                                        Sellers <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </button>
+                                </li>
                         </ul>
                     </div>
                 </div>  
@@ -175,6 +184,52 @@
 					</ul>
             	</div>
 			</div>                           
+        </div>
+        
+        
+        <div class="modal fade" id="sellerList" tabindex="-1" role="dialog" aria-labelledby="sellerList" style="left: -50%; width: auto; color: black;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <table class="modal-title" id="myModalLabel">
+                                <tr>
+                                    <td style="width: 125px">Seller's Username</td>
+                                    <td style="width: 100px">Stock Left</td>
+                                    <td style="width: 100px">Price</td>
+                                    <td style="width: 100px">Purchase now!</td>
+                                </tr>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <?php
+                        $sql="SELECT * FROM supplier_own_game WHERE GameID = " . $imageid;
+                        if ($result = mysqli_query($connection, $sql)) {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo '<tr>';
+                            echo '<td style="width: 125px"> ';
+                            echo $row['Supplier_UserID'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row['Stock'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo $imagePrice;
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo '<button>Buy</button></td>';
+                            echo '</td>';
+                        }
+                        }                          
+                            ?>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <?php include 'footer.inc.php'; ?>
