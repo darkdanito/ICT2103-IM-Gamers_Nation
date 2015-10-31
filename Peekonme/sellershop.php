@@ -16,16 +16,12 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/star-rating.min.js" type="text/javascript"></script>        
     </head>
-<<<<<<< HEAD
+
     
     <?php include 'header.inc.php'; ?>
     
     <body>
         
-=======
-    <?php include 'header.inc.php'; ?>
-    <body>
->>>>>>> origin/master
         <?php
 
 
@@ -35,7 +31,7 @@
             header('Location: imagedetail.php');
         }
         
-<<<<<<< HEAD
+
 //        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
 //        if ($result = mysqli_query($connection, $sql)) {
 //            while ($row = mysqli_fetch_assoc($result)) {
@@ -44,16 +40,8 @@
 //            }
 //        }
 // need implement count         
-=======
-        $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
-        if ($result = mysqli_query($connection, $sql)) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $gameID = $row['GameID'];
-                $gameStock = $row['Stock'];
-            }
-        }
-        
->>>>>>> origin/master
+
+
 //        $sql2 = "SELECT * FROM game WHERE GameID = " . $gameID;
 //        if ($result2 = mysqli_query($connection, $sql2)) {
 //            while ($row2 = mysqli_fetch_assoc($result2)) {
@@ -68,7 +56,7 @@
             <table>
                 <?php
 
-<<<<<<< HEAD
+
                 $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = ' " . $shopid   .  " ' ";
                         if ($result = mysqli_query($connection, $sql)) {
                             echo $shopid;
@@ -80,29 +68,12 @@
                 }
                 }
 
-=======
-                $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = " . $shopid;
-                if ($result = mysqli_query($connection, $sql)) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<tr>';
-                        echo '<td style="width: 125px"> ';
-                        echo $row1['Supplier_UserID'];
-                        echo '</td>';
-                        echo '<td style="width: 100px"> ';
-                        echo $row1['Stock'];
-                        echo '</td>';
-                        echo '</tr>';
-                    }
-                }
->>>>>>> origin/master
                 ?>
             </table>
         </div>
   
     <?php include 'footer.inc.php'; ?>
     </body>
-<<<<<<< HEAD
+
 </html>
-=======
-</html>
->>>>>>> origin/master
+
