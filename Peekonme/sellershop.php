@@ -56,6 +56,14 @@
                 <br><br><br>
                 
                 <table>
+                    <thead>
+                        <tr>
+                            <th><strong>Game Name</strong></th>
+                            <th><strong>Price</strong></th>
+                            <th><strong>Stock Left</strong></th>
+                        </tr>
+                    </thead>
+                    
                     <?php
                     $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid . "'";
 
