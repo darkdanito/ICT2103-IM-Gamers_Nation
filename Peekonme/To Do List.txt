@@ -19,3 +19,10 @@ Nice to have but not important:
 -	Change index.php background image to something that suit the theme
 -	Change signup.php picture and word to suit the theme
 -	Login and forgetPassword to change the image to suit the theme
+
+
+For sellershop.php
+- use POST method to get input
+- pass input to modal and display summary (also calculate total total cost)
+- pay now button will   -minus seller's stock and delete if 0
+                        -increase seller's total sales
