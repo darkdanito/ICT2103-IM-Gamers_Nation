@@ -136,21 +136,22 @@
 			<div class="panel panel-transparent col-md-4">
 				<div class="panel-body">
 					<ul class="list-unstyled">
-                    	<li><strong>Review:</strong></li>
+                    	<li><strong>Reviews:</strong></li>
 						<li>
 							<div>
+                            		</br>
                                     <?php
                                     $sql = "SELECT * FROM review_have WHERE GameID = \"" . $imageid . "\"";
                                     if ($result = mysqli_query($connection, $sql)) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             echo '<div>';
-											echo $row['Rating'] .' / 5';
+											echo 'Rating: '. $row['Rating'] .' / 5';
                                             echo '<br>';
-                                            echo '['. $row['TimeStamp'] .'] ';
+                                            echo 'Commented on: ['. $row['TimeStamp'] .'] ';
 											echo '<br>';
-                                            echo 'By <strong>'. $row['UserID']. ':</strong>';
+                                            echo 'By: <strong>'. $row['UserID']. ':</strong>';
                                             echo '<br>';
-                                            echo $row['Comment'];
+                                            echo 'Comment: '. $row['Comment'];
                                             echo '</div>';
                                             echo '<hr>';
                                         }
