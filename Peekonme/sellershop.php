@@ -49,12 +49,22 @@
 //
 //            }
 //        }
-
+//$chosenQuantity =0;
+//        if ($_SERVER["REQUEST_METHOD"] == "GET") 
+//			{
+////                $chosenName = $_GET["Name"];
+////                $chosenPrice = $_GET["Price"]; 
+////                $chosenQuantity = $_GET["row2"];
+//            for ($x = 0; $x < $rowCounter; $x++){
+//                $chosenQuantity = $_GET["row' .$x. '"];
+//            }
+//                        }
         ?>
         <div class="container" style="margin: 4em auto;">
 
             <div class="panel panel-transparent col-md-4">
                 <br><br><br>
+
                 <table>
                     <thead>
                         <tr>
@@ -68,11 +78,13 @@
                     $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid . "'";
 
                     if ($result = mysqli_query($connection, $sql)) {
+                        $rowCounter = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
                             $sql2 = "SELECT * FROM game WHERE GameID = " . $row['GameID'];
                             if ($result2 = mysqli_query($connection, $sql2)) {
                                 $row4 = mysqli_fetch_assoc($result2);
                             }
+                            $rowCounter++;
                             echo '<tr>';
                             echo '<td style="width: 100px"> ';
                             echo $row4['Title'];
@@ -84,14 +96,18 @@
                             echo $row['Stock'];
                             echo '</td>';
                             echo '<td style="width: 100px"> ';
-                            echo '<input type="text" class="form-control" placeholder="amount">';
+                            echo '<input type="text" class="form-control" placeholder="amount" method="get" name="row ' .$rowCounter. '">';
+                            //$chosenQuantity =  $_GET["row$rowCounter"];
+                            //echo $rowCounter;
+                            //echo $chosenQuantity;
                             echo '</td>';
                             echo '</tr>';
                         }
                     }
                     ?>
-                    <td><button class="btn btn-info" data-toggle="modal" data-target="#viewcart" >View Cart</button></td>
+                    <td><button class="btn btn-info" data-toggle="modal" data-target="#viewcart" type="submit" >View Cart</button></td>
                 </table>
+
             </div>
 
             <div class="panel panel-transparent col-md-6">
@@ -119,6 +135,7 @@
                     <div class="modal-body">
                         <table>
                             <p>content here</p>
+                            <?php $chosenQuantity ?>
                             
                             <tr>
                                 <td><button class="btn btn-info">Pay Now</button></td>
