@@ -80,7 +80,7 @@
 
                     <?php
                     $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid . "'";
-
+                    $_SESSION['supplier_userid'] = $shopid;
                     if ($result = mysqli_query($connection, $sql)) {
                         $rowCounter = 0;
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -99,8 +99,8 @@
                             echo '<td style="width: 100px"> ';
                             echo $row['Stock'];
                             echo '</td>';
-                            echo '<td style="width: 150px"> ';
-                            echo '<input type="text" class="form-control" placeholder="amount" id="row' .$rowCounter. '" name="row' .$rowCounter. '">';
+                            echo '<td style="width: 190px"> ';
+                            echo '<input type="text" class="form-control" placeholder="Quantity" id="row' .$rowCounter. '" name="row' .$rowCounter. '">';
                             echo '</td>';
                             echo '</tr>';
                         }
@@ -140,9 +140,11 @@
                                         $x++;
                                         $chosenQuantity = $_POST['row'.$x.''];
                                         if ($chosenQuantity > 0 ){
+                                        echo '<form action="processtransaction.php" method="post">'; 
                                         echo '<tr>';
                                         echo '<td style="width: 100px"> ';
                                         echo $row4['Title'];
+                                       // echo $row4['Supplier_userid'];
                                         echo '</td>';
                                         echo '<td style="width: 100px"> ';
                                         echo $row4['Price'];
@@ -152,6 +154,10 @@
                                         echo '</td>';
                                         echo '</tr>';
                                         $totalcost =  $row4['Price'] * $chosenQuantity + $totalcost;
+                                        $_SESSION['gametitle'] = $row4['Title'];
+                                        $_SESSION['totalcost'] = $totalcost;
+                                        $_SESSION['chosenquantity'] = $chosenQuantity;
+                                        $_SESSION['gameid'] = $row4['GameID'];
                                         }
                                     }
                                     echo '<tr><td></td><td></td><td></td><td>';
@@ -163,13 +169,21 @@
                             }
                             ?>   
                         </table>
-                    </div>
+                   </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Pay now</button>
+                        
+                        <input type="submit" value="Pay now" class="btn btn-primary"/>
+                        <?php echo '</form>' ?>        
+                                
+                   
+                
+
                     </div>
-                </div> 
+                    </div>
             </div>
-	</div>
+                </div> 
+            
+	
   
     <?php include 'footer.inc.php'; ?>
         
