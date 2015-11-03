@@ -42,9 +42,9 @@ $j(document).ready(function() {
                 <li><a href="explore.php"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
 					<li>
 					<div>
-            <form class="navbar-form" role="search" action='' method='post'>
+            <form class="navbar-form" role="search" action='searchresults.php' method='post'>
               <div class="input-group">
-                <input type="text" class="form-control typeahead tt-query auto" placeholder="search" name="typeahead" id="search-term">
+                <input type="text" class="form-control typeahead tt-query auto" placeholder="Search for game titles" name="typeahead" id="search-term">
                 <div class="input-group-btn">
                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
