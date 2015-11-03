@@ -25,13 +25,14 @@
 //build our query based on what they entered in the form
 $con=mysql_connect("localhost","root","");
 $db=mysql_select_db("gamernationdb",$con);
-$sql = "select distinct g.*, r1.*, avg(r1.rating) as Avg_Rating 
-from review_have r1, review_have r2, game g";
+$sql = "select g.*, avg(r1.rating) as Avg_Rating 
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+";
 
 if (isset($_POST['typeahead']))
    $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";
-   $sql .= " and  g.gameid = r1.gameid";
-   $sql .= " group by r1.GameID, r2.userid";
+   $sql .= "group by g.gameid";
 
 
 
