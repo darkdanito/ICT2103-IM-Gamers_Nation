@@ -25,9 +25,10 @@
 //build our query based on what they entered in the form
 $con=mysql_connect("localhost","root","");
 $db=mysql_select_db("gamernationdb",$con);
-$sql = "select g.*, avg(r1.rating) as Avg_Rating 
+$sql = "select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment 
 from review_have r1
 right outer join game g on g.gameid = r1.gameid
+left outer join review_have r2 on r1.gameid = r2.gameid
 ";
 
 if (isset($_POST['typeahead']))
@@ -48,6 +49,7 @@ echo "
         <th><strong>Platform</strong></th>
         <th><strong>Price</strong></th>
 		<th><strong>Average Rating</strong></th>
+		<th><strong>Most Recent Comment</strong></th>
       </tr>
     </thead>
     <tbody>";
@@ -59,6 +61,7 @@ while ($record = mysql_fetch_assoc($loop)){
    <td>{$record['Platform']}</td>
    <td>\${$record['Price']}</td>
    <td>{$record['Avg_Rating']}</td>
+   <td>{$record['Recent_Comment']}</td>
    </tr>";
    //echo "<br/>{$record['Title']} ";
    
