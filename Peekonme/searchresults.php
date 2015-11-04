@@ -44,6 +44,7 @@
                 <thead>
                     <tr>
                         <th><strong>Title</strong></th>
+						<th><strong>Image</strong></th>
                         <th><strong>Platform</strong></th>
                         <th><strong>Price</strong></th>
                         <th><strong>Average Rating</strong></th>
@@ -61,11 +62,11 @@
 							echo '<td>';
 							echo '<a href="imagedetail.php?id=' . $record['GameID'] . '">';
 //							echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
-//                    		echo '<img src="' . $row3['ImagePath'] . '" />';
                     		echo $record['Title'];
 							echo '</a>';
-
-//							
+							echo '</td>';
+							echo '<td>';
+							echo '<img src="' . $record['ImagePath'] . '" width="20%"/>';
 							echo '</td>';
 							echo '<td>';
 							echo $record['Platform'];
