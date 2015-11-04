@@ -105,7 +105,7 @@
 							
 												INSERT INTO `game`
 												(
-						   							`Title`, `imagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
+						   							`Title`, `ImagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
 							 					)
 												VALUES 
 												(
