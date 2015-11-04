@@ -57,7 +57,11 @@
 //						echo "<br/>{$record['id']}) " . stripslashes($record['username']) . " - {$record['email']}";
                         echo 
                        "<tr>
-                           <td>{$record['Title']}</td>
+                           <td>
+						   		<a href='imagedetail.php?id='1''>
+                    				{$record['Title']}
+                    			</a>
+						   </td>
                            <td>{$record['Platform']}</td>
                            <td>\${$record['Price']}</td>
                            <td>{$record['Avg_Rating']}</td>
