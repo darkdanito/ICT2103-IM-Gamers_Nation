@@ -37,7 +37,7 @@
 				while ($row = mysqli_fetch_assoc($result)) 
 				{
 					$imagename = $row['Title'];
-					$imagesrc = $row['imagePath'];
+					$imagesrc = $row['ImagePath'];
 					$imagePublisher = $row['Publisher'];
 					$imageYearReleased = $row['Year_Released'];
 					$imagePlatform = $row['Platform'];

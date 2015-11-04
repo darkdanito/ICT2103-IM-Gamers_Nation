@@ -77,7 +77,7 @@
 							Default was at 50%. Temp Fix for the larger than normal image size							
 							echo '<img class="center-block" style="width: 50%" src="' . $row3['imagePath'] . '"/>';
 */                            
-							echo '<img class="center-block" style="width: 25%" src="' . $row3['imagePath'] . '"/>';
+							echo '<img class="center-block" style="width: 25%" src="' . $row3['ImagePath'] . '"/>';
                             echo '</div>';
                             $count2++;
                         }
@@ -106,7 +106,7 @@
 				{
                     echo '<div class="col-xs-6 col-md-3">';
                     echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
-                    echo '<img src="' . $row3['imagePath'] . '" />';
+                    echo '<img src="' . $row3['ImagePath'] . '" />';
                     echo '</a>';
                     echo '</div>';
                 }
