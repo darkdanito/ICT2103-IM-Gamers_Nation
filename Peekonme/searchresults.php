@@ -54,20 +54,32 @@
                 <tbody>";
                     while ($record = mysql_fetch_assoc($loop))
                     {
+						echo($record['GameID']);
 //						echo "<br/>{$record['id']}) " . stripslashes($record['username']) . " - {$record['email']}";
-                        echo 
-                       "<tr>
-                           <td>
-						   		<a href='imagedetail.php?id='1''>
-                    				{$record['Title']}
-                    			</a>
-						   </td>
-                           <td>{$record['Platform']}</td>
-                           <td>\${$record['Price']}</td>
-                           <td>{$record['Avg_Rating']}</td>
-                           <td>{$record['Recent_Comment']}</td>
-                        </tr>";
-    //					echo "<br/>{$record['Title']} ";
+
+				            echo '<tr>';
+							echo '<td>';
+							echo '<a href="imagedetail.php?id=' . $record['GameID'] . '">';
+//							echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
+//                    		echo '<img src="' . $row3['ImagePath'] . '" />';
+                    		echo $record['Title'];
+							echo '</a>';
+
+//							
+							echo '</td>';
+							echo '<td>';
+							echo $record['Platform'];
+							echo '</td>';
+							echo '<td>$';
+							echo $record['Price'];
+							echo '</td>';
+							echo '<td>';
+							echo $record['Avg_Rating'];
+							echo '</td>';
+							echo '<td>';
+							echo $record['Recent_Comment'];
+							echo '</td>';
+							echo '</tr>';
                     }
                 echo "
                 </tbody>
