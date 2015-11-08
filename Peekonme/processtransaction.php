@@ -34,10 +34,12 @@ $sql = "UPDATE SUPPLIER_OWN_GAME SET STOCK = STOCK - ".$chosenQuantity[$i]." WHE
 
 if ($result = mysqli_query($connection, $sql)) {
     $row = mysql_num_rows($result);
+//    $row = mysqli_fetch_assoc($result);
 }
 }
 
     if ($row = 1) {
+      
     ?>
 <?php
  
@@ -46,15 +48,16 @@ if ($result = mysqli_query($connection, $sql)) {
              $row2 = mysql_num_rows($result2);
              if ($row2 = 1) {
                  $_SESSION["purchasesuccess"] = "Purchase Successful !";
-                            }  
-                                                        }   
+                       }   
     }
     else {
-        $_SESSION["purchasefailed"] = "Purchase failed ! Please try again !";
-          }
+        //do nothing    
+//       
+    }  
+                         
         header('Location: explore.php');
     
-
+    }
 include 'footer.inc.php';
 ?>
 

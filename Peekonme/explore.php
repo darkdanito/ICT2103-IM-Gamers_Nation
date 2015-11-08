@@ -1,5 +1,8 @@
 <?php
 	session_start();
+        $success_message = $_SESSION['purchasesuccess'];
+
+       
 ?>
 
 <!DOCTYPE html>
@@ -13,10 +16,13 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/star-rating.min.js" type="text/javascript"></script>        
+              
     </head>
     
     <?php include 'header.inc.php'; ?>
+   
     
     <body>
         <div class="container-fluid" style="margin-top: 4em;">
@@ -77,7 +83,7 @@
 							Default was at 50%. Temp Fix for the larger than normal image size							
 							echo '<img class="center-block" style="width: 50%" src="' . $row3['imagePath'] . '"/>';
 */                            
-							echo '<img class="center-block" style="width: 25%" src="' . $row3['ImagePath'] . '"/>';
+							echo '<img class="center-block" style="width: 25%" src="' . $row3['imagePath'] . '"/>';
                             echo '</div>';
                             $count2++;
                         }
@@ -106,13 +112,36 @@
 				{
                     echo '<div class="col-xs-6 col-md-3">';
                     echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
-                    echo '<img src="' . $row3['ImagePath'] . '" />';
+                    echo '<img src="' . $row3['imagePath'] . '" />';
                     echo '</a>';
                     echo '</div>';
                 }
             }
             ?>
-
+            
+            
+           
+           <?php
+           
+         if(isset($_SESSION['purchasesuccess'])) {  
+           if (isset($_SESSION['purchasesuccess'])) {
+//               echo $test;
+               echo '<script language="javascript">';
+               echo 'alert("'.$success_message.'")';
+               echo '</script>';
+           }
+           
+           else {
+               echo '<script language="javascript">';
+               echo 'alert("Purchase failed. Please try again")';
+               echo '</script>';
+           }
+         }
+           session_unset();
+           ?>
+            
+            
+        
         </div>
         <?php include 'footer.inc.php'; ?>
     </body>
