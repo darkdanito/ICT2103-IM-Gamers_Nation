@@ -4,79 +4,143 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css" />
+<title>Gamers Nation</title>
+</head>
+<?php include 'header.inc.php'; ?>
 
-				<link href="css/bootstrap.min.css" rel="stylesheet">
-					<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-						<link rel="stylesheet" href="css/main.css" />
+<body>
+<div class="container" style="margin-top: 4em ">
+<table class='table'>
+<thead>
+<tr>
+<th>Filter platform by:</th>
+<th>Filter review rating by:</th>
+<th>Filter review comment by:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<form id="form" action"" method="post">
+<select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
+        <option selected="selected" disabled hidden value=''></option>
+        <?php
+        // A sample product array
+        $platformCriteria = array(
+		"XBOX" => "Show only XBOX games",
+		"PC" => "Show only PC games",
+		"All" => "Show all platform games" 
+		);
+        // Iterating through the product array
+        foreach($platformCriteria as $key => $item){
+        ?>
+        <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['pFilter'])){$_POST['pFilter'] = "All";}
+		//update newly selected value		
+		if(((isset($_POST['pFilter'])) && (strcasecmp($key, $_POST['pFilter']) == 0))) echo "selected"; ?>>
+        <?php echo $item; ?></option>
+        <?php
+        }
+        ?>
+    </select>
+    <?php if(isset($_POST['pFilter']))echo ($_POST['pFilter']) ?>
+</td>
+<td>
 
-						<title>Gamers Nation</title>
-					</head>
+<select class="dropDownFilter" name="rFilter" onchange="form.submit()">
+        <option selected="selected" disabled hidden value=''></option>
+        <?php
+        // A sample product array
+        $ratingCriteria = array(
+		"3" =>"Show average rating based on rating made in the last 3 months",
+		"6" => "Show average rating based on rating made in the last 6 months", 
+		"12" => "Show average rating based on rating made in the last 12 months", 
+		"All" => "Show average rating based on rating made from all time");
+        
+        // Iterating through the product array
+        foreach($ratingCriteria as $key => $item){
+        ?>
+        <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['rFilter'])){$_POST['rFilter'] = "All";}
+		//update newly selected value		
+		if(((isset($_POST['rFilter'])) && (strcasecmp($key, $_POST['rFilter']) == 0))) echo "selected"; ?>>
+        <?php echo $item; ?></option>
+        <?php
+        }
+        ?>
+    </select>
 
-					<?php include 'header.inc.php'; ?>
+    <?php if(isset($_POST['rFilter']))echo $_POST['rFilter'] ?>
+</td>
+<td>
 
-					<body>
-						<div class="container" style="margin-top: 4em ">
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" id="commentFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Review comment filter criteria:
-									<span class="caret"/>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="commentFilter">
-									<li>
-										<a href="#">Show most recent review comment</a>
-									</li>
-									<li>
-										<a href="#">Show earliest review comment</a>
-									</li>
-									<li>
-										<a href="#">Show highest rated comment</a>
-									</li>
-									<li>
-										<a href="#">Show lowest rated comment</a>
-									</li>
-								</ul>
-								<p>place holder for selected dropdown value</p>
-							</div>
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" id="ratingFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Review rating filter criteria:
-									<span class="caret"/>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="commentFilter">
-									<li>
-										<a href="#">Show average rating based on rating made in the last 3 months</a>
-									</li>
-									<li>
-										<a href="#">Show average rating based on rating made in the last 6 months</a>
-									</li>
-									<li>
-										<a href="#">Show average rating based on rating made in the last 12 months</a>
-									</li>
-									<li>
-										<a href="#">Show average rating based on rating made from all time</a>
-									</li>
-								</ul>
-								<p>place holder for selected dropdown value</p>
-							</div>
-							<div class="row">
+<select class="dropDownFilter" name="cFilter" onchange="form.submit()">
+        <option selected="selected" disabled hidden value=''></option>
+        <?php
+        // A sample product array
+        $commentCriteria = array(
+		"Lowest" => "Show lowest rated comment",
+		"Highest" => "Show highest rated comment", 
+		"Earliest" => "Show earliest review comment", 
+		"Recent" => "Show most recent review comment"
+		);
+   
+        // Iterating through the product array
+        foreach($commentCriteria as $key => $item){
+        ?>
+        <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['cFilter'])){$_POST['cFilter'] = "Recent";}
+		//update newly selected value		
+		if(((isset($_POST['cFilter'])) && (strcasecmp($key, $_POST['cFilter']) == 0))) echo "selected"; ?>>
+		<?php echo $item; ?></option>
+        <?php
+        }
+        ?>
+    </select>
+    </form>
+    <?php if(isset($_POST['cFilter']))echo $_POST['cFilter'] ?>
 
-								<?php
+</td>
+</tr>
+</tbody>
+</table>
+
+ 
+
+ 
+   
+  
+    
+<div class="row">
+  <?php
             //	Display Search Results Below Here
         
             //	Build our query based on what they entered in the form
+			$platform = ($_POST['pFilter']);
             $con = mysql_connect("localhost","root","");
             $db=mysql_select_db("gamernationdb",$con);
             $sql = "select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment from review_have r1
             right outer join game g on g.gameid = r1.gameid
             left outer join review_have r2 on r1.gameid = r2.gameid
             ";
-        
-            if (isset($_POST['typeahead']))
-            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";
-            $sql .= "group by g.gameid";
+            if (isset($_POST['typeahead'])){
+            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";}
+			if ($_POST['pFilter'] != 'All'){
+			$sql .= " where g.platform ='". $_POST['pFilter']."'";}
+
+            $sql .= " group by g.gameid";
     
             $loop = mysql_query($sql)
             or die ('cannot run the query because: ' . mysql_error());
@@ -101,7 +165,7 @@
 <strong>Average Rating</strong>
 </th>
                         <th>
-<strong>Most Recent Comment</strong>
+<strong>Comment</strong>
 </th>
                     </tr>
                 </thead>
@@ -169,10 +233,8 @@
         }
           
         ?>
-							</div>
-						</div>
-
-						<?php include 'footer.inc.php'; ?>
-
-					</body>
-				</html>
+</div>
+</div>
+<?php include 'footer.inc.php'; ?>
+</body>
+</html>
