@@ -135,11 +135,13 @@
             right outer join game g on g.gameid = r1.gameid
             left outer join review_have r2 on r1.gameid = r2.gameid
             ";
+			//search based on similar game title
             if (isset($_POST['typeahead'])){
             $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";}
+			//filter by platform
 			if ($_POST['pFilter'] != 'All'){
 			$sql .= " where g.platform ='". $_POST['pFilter']."'";}
-
+			//group by gameid
             $sql .= " group by g.gameid";
     
             $loop = mysql_query($sql)

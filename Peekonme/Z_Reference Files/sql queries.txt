@@ -1,0 +1,58 @@
+(select avg(r.Rating)
+from review_have r
+where r.GameID = g.GameID)
+
+
+select * from game g1, review_have r where (g1.title like '%diablo%' and g1.gameid=r.gameid where (select avg(r2.rating) from review_have r2));
+
+select distinct r2.GameID, avg(r2.rating) from review_have r2
+
+select r1.* from review_have r1, review_have r2 where r1.GameID = r2.GameID
+
+
+//avg rating
+select r1.*, avg(r1.rating) as avgrating from review_have r1, review_have r2 where r1.GameID = r2.GameID and r1.userid <> r2.userid
+
+select r3.* from review_have r3 where not in (select r1.*, avg(r1.rating) as avgrating from review_have r1, review_have r2 where r1.GameID = r2.GameID and r1.userid <> r2.userid)
+
+//avg rating view
+create view avg_rating as
+select r1.*, avg(r1.rating) as avgrating from review_have r1, review_have r2 where (r1.GameID = r2.GameID and r1.userid <> r2.userid) or (r1.GameID = r2.GameID and r1.userid = r2.userid)
+
+
+//FINAL AVG Rating
+select distinct r1.*, avg(r1.rating) as avgrating 
+from review_have r1, review_have r2
+group by r1.GameID, r2.userid
+
+//FINAL
+select distinct g.*, r1.*, avg(r1.rating) as avgrating 
+from review_have r1, review_have r2, game g
+where g.gameid = r1.gameid
+group by r1.GameID, r2.userid
+
+select g.* from game g
+union
+select r1.* from review_have r1
+union
+select r1.*, avg(r1.rating) as avgrating from review_have r1, review_have r2 where r1.GameID = r2.GameID and r1.userid <> r2.userid
+
+
+select g.*, avg(r1.rating) as Avg_Rating 
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+group by g.gameid
+
+
+select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment 
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+inner join review_have r2
+group by g.gameid 
+
+
+select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment 
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+left outer join review_have r2 on r1.gameid = r2.gameid
+group by g.gameid 
