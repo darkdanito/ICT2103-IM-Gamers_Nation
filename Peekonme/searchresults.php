@@ -19,6 +19,7 @@
   <table class='table'>
     <thead>
       <tr>
+      	<th>Search term:</th>
         <th>Filter platform by:</th>
         <th>Filter review rating by:</th>
         <th>Filter review comment by:</th>
@@ -26,8 +27,14 @@
     </thead>
     <tbody>
       <tr>
+      
+      <td>
+      <?php 
+	  echo $_GET['typeahead'];
+	  ?>
+     </td>
           <td>
-        <form id="form" action"" method="post">
+        <form action='' method='post'>
           <select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
             <option selected="selected" disabled hidden value=''></option>
             <?php
@@ -138,11 +145,11 @@
         echo "Unexpected case, selection not captured!";
 }
 			//search based on similar game title
-            if (isset($_POST['typeahead'])){
-            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";}
+            if (isset($_GET['typeahead'])){
+            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_GET['typeahead']). "%" . "'";}
 			//filter by platform
 			if ($_POST['pFilter'] != 'All'){
-			$sql .= " where g.platform ='". $_POST['pFilter']."'";}
+			$sql .= " and g.platform ='". $_POST['pFilter']."'";}
 			//group by gameid
             $sql .= " group by g.gameid";
     		echo $sql;

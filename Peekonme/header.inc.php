@@ -42,7 +42,7 @@ $j(document).ready(function() {
                 <li><a href="explore.php"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
 					<li>
 					<div>
-            <form class="navbar-form" role="search" action='searchresults.php' method='post'>
+            <form class="navbar-form" role="search" action='searchresults.php' method='get'>
               <div class="input-group">
                 <input type="text" class="form-control typeahead tt-query auto" placeholder="Search for game titles" name="typeahead" id="search-term">
                 <div class="input-group-btn">
