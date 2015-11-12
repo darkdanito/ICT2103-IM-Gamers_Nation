@@ -51,8 +51,47 @@ inner join review_have r2
 group by g.gameid 
 
 
-select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment 
+select g.*, avg(r1.rating) as Avg_Rating, r1.comment 
 from review_have r1
 right outer join game g on g.gameid = r1.gameid
 left outer join review_have r2 on r1.gameid = r2.gameid
+where
 group by g.gameid 
+
+select * from review_have r1
+where r1.gameid = '1' and r1.TimeStamp = 
+(select min(r2.timestamp) from review_have r2 
+where r1.gameid = r2.gameid)
+
+select * from review_have r1
+where r1.TimeStamp = 
+(select max(r2.timestamp) from review_have r2 
+where r1.gameid = r2.gameid)
+group by r1.gameid
+
+select * from game inner join review_have on game.gameid = review_have.gameid group by review_have.gameid
+
+//filter by platform
+select * from game, review_have
+where game.platform = 'PC' 
+
+
+//earliest comment
+select g.*, avg(r1.rating) as Avg_Rating, r1.comment, r1.timestamp
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+left outer join review_have r2 on r1.gameid = r2.gameid and r1.timestamp < r2.timestamp
+group by g.gameid
+
+
+select g.*, avg(r1.rating) as Avg_Rating, r1.comment, r1.timestamp
+from review_have r1
+right outer join game g on g.gameid = r1.gameid
+left outer join review_have r2 on r1.gameid = r2.gameid and r1.rating < r2.rating
+group by g.gameid
+
+select g.*, avg(r1.rating) as Avg_Rating, r1.comment, r1.timestamp
+from review_have r1
+right outer join game g on g.gameid = r1.gameid and r1.timestamp >= NOW() - INTERVAL 1 DAY
+left outer join review_have r2 on r1.gameid = r2.gameid and r1.rating < r2.rating
+group by g.gameid

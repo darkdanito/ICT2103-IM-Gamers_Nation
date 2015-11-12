@@ -16,21 +16,21 @@
 
 <body>
 <div class="container" style="margin-top: 4em ">
-<table class='table'>
-<thead>
-<tr>
-<th>Filter platform by:</th>
-<th>Filter review rating by:</th>
-<th>Filter review comment by:</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<form id="form" action"" method="post">
-<select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
-        <option selected="selected" disabled hidden value=''></option>
-        <?php
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Filter platform by:</th>
+        <th>Filter review rating by:</th>
+        <th>Filter review comment by:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td>
+        <form id="form" action"" method="post">
+          <select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
+            <option selected="selected" disabled hidden value=''></option>
+            <?php
         // A sample product array
         $platformCriteria = array(
 		"XBOX" => "Show only XBOX games",
@@ -40,24 +40,21 @@
         // Iterating through the product array
         foreach($platformCriteria as $key => $item){
         ?>
-        <option value="<?php echo ($key); ?>" 
+            <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['pFilter'])){$_POST['pFilter'] = "All";}
 		//update newly selected value		
-		if(((isset($_POST['pFilter'])) && (strcasecmp($key, $_POST['pFilter']) == 0))) echo "selected"; ?>>
-        <?php echo $item; ?></option>
-        <?php
+		if(((isset($_POST['pFilter'])) && (strcasecmp($key, $_POST['pFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+            <?php
         }
         ?>
-    </select>
-    <?php if(isset($_POST['pFilter']))echo ($_POST['pFilter']) ?>
-</td>
-<td>
-
-<select class="dropDownFilter" name="rFilter" onchange="form.submit()">
-        <option selected="selected" disabled hidden value=''></option>
-        <?php
+          </select>
+          <?php if(isset($_POST['pFilter']))echo ($_POST['pFilter']) ?>
+            </td>
+          <td><select class="dropDownFilter" name="rFilter" onchange="form.submit()">
+              <option selected="selected" disabled hidden value=''></option>
+              <?php
         // A sample product array
         $ratingCriteria = array(
 		"3" =>"Show average rating based on rating made in the last 3 months",
@@ -68,25 +65,20 @@
         // Iterating through the product array
         foreach($ratingCriteria as $key => $item){
         ?>
-        <option value="<?php echo ($key); ?>" 
+              <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['rFilter'])){$_POST['rFilter'] = "All";}
 		//update newly selected value		
-		if(((isset($_POST['rFilter'])) && (strcasecmp($key, $_POST['rFilter']) == 0))) echo "selected"; ?>>
-        <?php echo $item; ?></option>
-        <?php
+		if(((isset($_POST['rFilter'])) && (strcasecmp($key, $_POST['rFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+              <?php
         }
         ?>
-    </select>
-
-    <?php if(isset($_POST['rFilter']))echo $_POST['rFilter'] ?>
-</td>
-<td>
-
-<select class="dropDownFilter" name="cFilter" onchange="form.submit()">
-        <option selected="selected" disabled hidden value=''></option>
-        <?php
+            </select>
+            <?php if(isset($_POST['rFilter']))echo $_POST['rFilter'] ?></td>
+          <td><select class="dropDownFilter" name="cFilter" onchange="form.submit()">
+              <option selected="selected" disabled hidden value=''></option>
+              <?php
         // A sample product array
         $commentCriteria = array(
 		"Lowest" => "Show lowest rated comment",
@@ -98,43 +90,53 @@
         // Iterating through the product array
         foreach($commentCriteria as $key => $item){
         ?>
-        <option value="<?php echo ($key); ?>" 
+              <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['cFilter'])){$_POST['cFilter'] = "Recent";}
 		//update newly selected value		
-		if(((isset($_POST['cFilter'])) && (strcasecmp($key, $_POST['cFilter']) == 0))) echo "selected"; ?>>
-		<?php echo $item; ?></option>
-        <?php
+		if(((isset($_POST['cFilter'])) && (strcasecmp($key, $_POST['cFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+              <?php
         }
         ?>
-    </select>
-    </form>
-    <?php if(isset($_POST['cFilter']))echo $_POST['cFilter'] ?>
-
-</td>
-</tr>
-</tbody>
-</table>
-
- 
-
- 
-   
-  
-    
-<div class="row">
-  <?php
+            </select>
+        </form>
+        <?php if(isset($_POST['cFilter']))echo $_POST['cFilter'] ?>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <?php
             //	Display Search Results Below Here
         
             //	Build our query based on what they entered in the form
 			$platform = ($_POST['pFilter']);
             $con = mysql_connect("localhost","root","");
             $db=mysql_select_db("gamernationdb",$con);
-            $sql = "select g.*, avg(r1.rating) as Avg_Rating, max(r2.timestamp) as Most_Recent, r1.comment as Recent_Comment from review_have r1
-            right outer join game g on g.gameid = r1.gameid
-            left outer join review_have r2 on r1.gameid = r2.gameid
-            ";
+            $sql = "select g.*, avg(r1.rating) as Avg_Rating, r1.comment as Comment from review_have r1
+            right outer join game g on g.gameid = r1.gameid";
+			//filter by rating made in the last x months
+			if ($_POST['rFilter'] != 'All'){
+			$sql.=" and r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			$sql.=" left outer join review_have r2 on r1.gameid = r2.gameid";
+			//filter by when comment was made
+			switch ($_POST['cFilter']) {
+    case "Lowest":
+        $sql.= " and r1.rating < r2.rating";
+        break;
+    case "Highest":
+        $sql .= " and r1.rating > r2.rating";
+        break;
+    case "Earliest":
+        $sql .= " and r1.timestamp < r2.timestamp";
+        break;
+		case "Recent":
+        $sql .= " and r1.timestamp > r2.timestamp";
+        break;
+    default:
+        echo "Unexpected case, selection not captured!";
+}
 			//search based on similar game title
             if (isset($_POST['typeahead'])){
             $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_POST['typeahead']). "%" . "'";}
@@ -143,7 +145,7 @@
 			$sql .= " where g.platform ='". $_POST['pFilter']."'";}
 			//group by gameid
             $sql .= " group by g.gameid";
-    
+    		echo $sql;
             $loop = mysql_query($sql)
             or die ('cannot run the query because: ' . mysql_error());
         	
@@ -197,7 +199,7 @@
 							echo $record['Avg_Rating'];
 							echo '</td>';
 							echo '<td>';
-							echo $record['Recent_Comment'];
+							echo $record['Comment'];
 							echo '</td>';
 							echo '</tr>';
                     }
@@ -235,7 +237,7 @@
         }
           
         ?>
-</div>
+  </div>
 </div>
 <?php include 'footer.inc.php'; ?>
 </body>
