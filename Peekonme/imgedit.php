@@ -167,14 +167,17 @@ Start of Code
                         <input type="text" name="Region" id="Region" form="Updateimage" value="<?php echo ($imgRegion );?>">      
                     </div>
                 </div>
- <!--               
+                               
                 <div class="form-group">
                     <label for="Stock" class="col-sm-2 control-label">Stock</label>
                     <div class="col-sm-8">
+                        <!--
                         <input type="text" name="Stock" id="Stock" form="Updateimage" value="<php echo ($imgStock );?>">      
+                    	-->
+                        <input type="text" name="Stock" id="Stock" form="Updateimage" value="Not yet done">  
                     </div>
                 </div>
-   -->             
+                             
  				<div class="form-group">
                     <label for="Price" class="col-sm-2 control-label">Price</label>
                     <div class="col-sm-8">
