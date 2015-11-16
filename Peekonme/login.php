@@ -17,7 +17,11 @@
         <?php include 'header.inc.php'; ?>
         <div class="container" style="margin-top: 4em ">
             <div class="row">
+                
+                <h1>Gamers Nation</h1>
+                <!--
                 <img src="Images/PeekonME.png" alt="PeekOnMe" class="img-responsive center-block"/>
+            	-->
             </div>
             <?php
             // define variables and set to empty values

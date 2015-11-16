@@ -21,7 +21,7 @@
             <!--<div class="row">-->
             <div class="col-xs-6 col-md-4">
                 <img src="Images/cute-baby.jpg" alt="Cute Baby" class="img-responsive img-circle"/>
-                <h1 class="text-center" id="ready">Ready to peek?</h1>
+                <h1 class="text-center" id="ready">Time to Game</h1>
             </div>
             
 			<?php
