@@ -81,37 +81,28 @@
                     <?php
                     $sql = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = '" . $shopid . "'";
                     $_SESSION['supplier_userid'] = $shopid;
-                    if ($result = mysqli_query($connection, $sql)) 
-					{
+                    if ($result = mysqli_query($connection, $sql)) {
                         $rowCounter = 0;
-                        while ($row = mysqli_fetch_assoc($result)) 
-						{
+                        while ($row = mysqli_fetch_assoc($result)) {
                             $sql2 = "SELECT * FROM game WHERE GameID = " . $row['GameID'];
-                            if ($result2 = mysqli_query($connection, $sql2)) 
-							{
+                            if ($result2 = mysqli_query($connection, $sql2)) {
                                 $row4 = mysqli_fetch_assoc($result2);
                             }
-							
-							if($row['Stock'] != 0)
-							{
-								$rowCounter++;
-								echo '<tr>';
-								echo '<td style="width: 100px"> ';
-								echo $row4['Title'];
-								echo '</td>';
-								echo '<td style="width: 100px"> ';
-								echo $row4['Price'];
-								echo '</td>';
-								echo '<td style="width: 100px"> ';
-								echo $row['Stock'];
-								echo '</td>';
-								echo '<td style="width: 190px"> ';
-								echo '<input type="text" class="form-control" placeholder="Quantity" id="row' .$rowCounter. '" name="row' .$rowCounter. '">';
-								echo '</td>';
-								echo '</tr>';
-							}
-							
-                            
+                            $rowCounter++;
+                            echo '<tr>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row4['Title'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row4['Price'];
+                            echo '</td>';
+                            echo '<td style="width: 100px"> ';
+                            echo $row['Stock'];
+                            echo '</td>';
+                            echo '<td style="width: 190px"> ';
+                            echo '<input type="text" class="form-control" placeholder="Quantity" id="row' .$rowCounter. '" name="row' .$rowCounter. '">';
+                            echo '</td>';
+                            echo '</tr>';
                         }
                     }
                     ?>
@@ -138,39 +129,34 @@
                                 </tr>
                             <?php 
                             
-                            if ($_SERVER["REQUEST_METHOD"] == "POST") 
-							{
-                            	if ($result = mysqli_query($connection, $sql)) 
-								{
-                                	$x = 0;
+                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                
+                                if ($result = mysqli_query($connection, $sql)) {
+                                    $x = 0;
                                     $i = 0;
                                     $totalcost = 0;
-									
-                                    while ($row = mysqli_fetch_assoc($result)) 
-									{
+                                    while ($row = mysqli_fetch_assoc($result)) {
                                         $sql2 = "SELECT * FROM game WHERE GameID = " . $row['GameID'];
-                                        if ($result2 = mysqli_query($connection, $sql2)) 
-										{
+                                        if ($result2 = mysqli_query($connection, $sql2)) {
                                             $row4 = mysqli_fetch_assoc($result2);
                                         }
                                         
                                         $x++;
                                         $chosenQuantity = $_POST['row'.$x.''];
-                                        if ($chosenQuantity > 0 )
-										{
-											echo '<form action="processtransaction.php" method="post">'; 
-											echo '<tr>';
-											echo '<td style="width: 100px"> ';
-											echo $row4['Title'];
-										 // echo $row4['Supplier_userid'];
-											echo '</td>';
-											echo '<td style="width: 100px"> ';
-											echo $row4['Price'];
-											echo '</td>';
-											echo '<td>';
-											echo $chosenQuantity;
-											echo '</td>';
-											echo '</tr>';
+                                        if ($chosenQuantity > 0 ){
+                                        echo '<form action="processtransaction.php" method="post">'; 
+                                        echo '<tr>';
+                                        echo '<td style="width: 100px"> ';
+                                        echo $row4['Title'];
+                                       // echo $row4['Supplier_userid'];
+                                        echo '</td>';
+                                        echo '<td style="width: 100px"> ';
+                                        echo $row4['Price'];
+                                        echo '</td>';
+                                        echo '<td>';
+                                        echo $chosenQuantity;
+                                        echo '</td>';
+                                        echo '</tr>';
                                         $totalcost =  $row4['Price'] * $chosenQuantity + $totalcost;
 //                                        $_SESSION['gametitle'] = $row4['Title'];
 //                                        $_SESSION['totalcost'] = $totalcost;
