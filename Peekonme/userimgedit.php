@@ -50,11 +50,6 @@
                                                 Edit <span class="glyphicon glyphicon-edit"></span>
                                             </a>
                                           </td>';
-                                    echo '<td style="padding: 5;">'
-                                    . '     <a class="btn btn-danger" type="button" href="imgdelete.php?id='. $row['GameID'].'">
-                                                Delete <span class="glyphicon glyphicon-trash"></span>
-                                            </a>
-                                          </td>';
                                     echo '</tr>';
                                 }
                             }
