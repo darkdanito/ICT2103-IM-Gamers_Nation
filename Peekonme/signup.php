@@ -137,7 +137,27 @@
 							mysqli_stmt_bind_param($statement, 'ssss', $uname, $hashpwd, $salt, $email);
 							mysqli_stmt_execute($statement);
 						}
-	
+						
+						$amount = 0;
+						
+						$sql2 = "INSERT INTO buyer (UserID, Total_Expenditure) VALUES (?,?)";
+						
+						if ($statement = mysqli_prepare($connection, $sql2)) 
+						{
+							mysqli_stmt_bind_param($statement, 'ss', $uname, $amount);
+							mysqli_stmt_execute($statement);
+						}
+						
+						$sql3 = "INSERT INTO supplier (UserID, Total_Sales) VALUES (?,?)";
+						
+						if ($statement = mysqli_prepare($connection, $sql3)) 
+						{
+							mysqli_stmt_bind_param($statement, 'ss', $uname, $amount);
+							mysqli_stmt_execute($statement);
+						}
+						
+						
+						
 						$_SESSION['username'] = $uname;
 	
 						header('Location: usergallery.php');

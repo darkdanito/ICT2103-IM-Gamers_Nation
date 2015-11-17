@@ -75,27 +75,32 @@
             <div class="content">
                 <h1>Update your Profile
                     <span>Let others know more about you.</span></h1>
-                <form class="form-horizontal" id="Updatedetail" role="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+       
+                	<form class="form-horizontal" id="Updatedetail" role="form" method="post" 
+                    	action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2 control-label">Email Address</label>
-                        <div class="col-sm-8">
-                            <input name="email" type="text" class="form-control" id="email" 
-                                   value="<?php
-                                   if ($emailvalid) 
-								   {
-                                       echo htmlspecialchars($email);
-                                   }
-                                   ?>"
-                                   placeholder="<?php
-                                   if ($emailErr != "") 
-								   {
-                                       echo $emailErr;
-                                   }
-                                   ?>"
-                                   pattern="^(.+)@([^\.].*)\.([a-z]{2,})$">
+                        <div class="form-group">
+                        	
+                            <label for="email" class="col-sm-2 control-label">Email Address</label>
+                            
+                            <div class="col-sm-8">
+                                <input name="email" type="text" class="form-control" id="email" value="
+									<?php
+										if ($emailvalid) 
+										{
+                                        	echo htmlspecialchars($email);
+										}
+									?>"
+                                       placeholder="
+									   <?php
+                                       if ($emailErr != "") 
+                                       {
+                                           echo $emailErr;
+                                       }
+                                       ?>"
+                                       pattern="^(.+)@([^\.].*)\.([a-z]{2,})$">
+                            </div>
                         </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8">
