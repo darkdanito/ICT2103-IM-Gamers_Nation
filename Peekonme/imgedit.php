@@ -92,7 +92,7 @@
         
         <div class="container">
         	<div class="content">
-            	<h1>Edit your Games
+            	<h1>Edit Game Information
                 	<span>Here, We have the flexibility to edit your Image Properties.</span>
                 </h1>
             
