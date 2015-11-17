@@ -44,10 +44,13 @@
                 <h1>Your listed items for sale<span>A Place For you to sell your games</span></h1>
                 <!--Display all picture-->
                 <?php
-                if ($count != 0) {
-                    $sql3 = "SELECT * FROM supplier_own_game WHERE Supplier_UserID = \"" . $username . "\"";
-                    if ($result3 = mysqli_query($connection, $sql3)) {
-                        while ($row3 = mysqli_fetch_assoc($result3)) {
+                if ($count != 0) 
+				{
+                    $sql3 = "SELECT * FROM supplier_own_game S, game G WHERE S.GameID = G.GameID AND S.Supplier_UserID = \"" . $username . "\"";
+                    if ($result3 = mysqli_query($connection, $sql3)) 
+					{
+                        while ($row3 = mysqli_fetch_assoc($result3)) 
+						{
                             echo '<div class="col-xs-6 col-md-3">';
                             echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
                             echo '<img src="' . $row3['ImagePath'] . '" />';
