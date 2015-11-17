@@ -13,6 +13,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css"/>
         <link href="css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="js/star-rating.min.js" type="text/javascript"></script>        
     </head>
@@ -26,12 +27,14 @@
 			if (isset($_GET['id'])) 
 			{
 				$imageid = $_GET['id'];
-			} else 
+			} 
+			else 
 			{
 				header('Location: explore.php');
 			}
 			
 			$sql = "SELECT * FROM game WHERE GameID = " . $imageid;
+			
 			if ($result = mysqli_query($connection, $sql)) 
 			{
 				while ($row = mysqli_fetch_assoc($result)) 
@@ -49,11 +52,12 @@
 			$sql = "SELECT Stock FROM supplier_own_game WHERE GameID = " . $imageid;
 			if ($result = mysqli_query($connection, $sql)) 
 			{
-                            $imageTotalStock = '0';
+				$imageTotalStock = '0';
+				
 				while ($row = mysqli_fetch_assoc($result)) 
 				{
 					$imageStock = $row['Stock'];
-                                        $imageTotalStock = $imageTotalStock + $imageStock;
+					$imageTotalStock = $imageTotalStock + $imageStock;
 				}
 			}
                			
@@ -67,6 +71,7 @@
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
+				
                 return $data;
             }
             
@@ -75,7 +80,9 @@
                 $gameComment = test_input($_POST["gameComment"]);
                 $gameRating = $_POST["gameRating"];                
                 $currentdt = date('Y-m-d H:i:s');
+				
                 $sql = "INSERT INTO review_have (GameID,UserID,Rating,Comment,TimeStamp) VALUES (?,?,?,?,?)";
+				
                 if ($statement = mysqli_prepare($connection, $sql)) 
 				{
                     mysqli_stmt_bind_param($statement, 'sssss', $imageid, $_SESSION['username'], $gameRating, $gameComment, $currentdt);
@@ -86,83 +93,88 @@
         
         <div class="container" style="margin: 4em auto;">
 			<div class="panel panel-transparent col-md-2">
-                    <div class="panel-body">
-                        <ul class="list-unstyled">
-                            <li>Game Title: <strong><?php echo $imagename ?></strong></li>
-
-							<?php if(!empty($imagedesc)) { ?>
-                            <li>Description: <strong><?php echo $imagedesc ?></strong></li>
-                            <?php } ?>
-							
-                            </br>
-                            
-                            <li>Publisher: <strong> <?php echo $imagePublisher ?></strong></li>
-                            <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
-                            <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
-                            <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
-                                                        
-                            </br>
-
-							<li>Stock: 
-                            	<strong> 
-									<?php 
-										if(!empty($imageStock))
-										{
-											echo $imageTotalStock;
-										}
-										else
-										{
-											echo "Out of Stock";
-										}
-									?>
-                                </strong>
-                            </li>
-                            <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
-                            <li>
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#sellerList" >
-                                        Sellers <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    </button>
-                                </li>
-                        </ul>
-                    </div>
-                </div>  
-            <div class="col-md-6 text-center">
-                <!---
-                Possible bug fix for the larger than normal image size
-                <img src="<php echo $imagesrc ?>" width="100%"/>
-                -->               
+				<div class="panel-body">
+                    <ul class="list-unstyled">
+                        <li>Game Title: <strong><?php echo $imagename ?></strong></li>
+    
+                        <?php if(!empty($imagedesc)) { ?>
+                        <li>Description: <strong><?php echo $imagedesc ?></strong></li>
+                        <?php } ?>
+                        
+                        </br>
+                        
+                        <li>Publisher: <strong> <?php echo $imagePublisher ?></strong></li>
+                        <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
+                        <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
+                        <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
+                                                    
+                        </br>
+    
+                        <li>Stock: 
+                            <strong> 
+                                <?php 
+                                    if(!empty($imageStock))
+                                    {
+                                        echo $imageTotalStock;
+                                    }
+                                    else
+                                    {
+                                        echo "Out of Stock";
+                                    }
+                                ?>
+                            </strong>
+                        </li>
+                        <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
+                        <li>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#sellerList">
+                                Sellers <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </button>
+                        </li>
+                    </ul>
+				</div>
+			</div>
+                  
+            <div class="col-md-6 text-center">       
                 <img src="<?php echo $imagesrc ?>" width="65%"/>
             </div>
-			<div class="panel panel-transparent col-md-4">
+			
+            <div class="panel panel-transparent col-md-4">
 				<div class="panel-body">
 					<ul class="list-unstyled">
                     	<li><strong>Reviews:</strong></li>
 						<li>
 							<div>
-                            		</br>
-                                    <?php
-                                    $sql = "SELECT * FROM review_have WHERE GameID = \"" . $imageid . "\"";
-                                    if ($result = mysqli_query($connection, $sql)) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo '<div>';
-											echo 'Rating: '. $row['Rating'] .' / 5';
-                                            echo '<br>';
-                                            echo 'Commented on: ['. $row['TimeStamp'] .'] ';
-											echo '<br>';
-                                            echo 'By: <strong>'. $row['UserID']. ':</strong>';
-                                            echo '<br>';
-                                            echo 'Comment: '. $row['Comment'];
-                                            echo '</div>';
-                                            echo '<hr>';
-                                        }
+							
+                            </br>
+                            
+							<?php
+                                $sql = "SELECT * FROM review_have WHERE GameID = \"" . $imageid . "\"";
+                                if ($result = mysqli_query($connection, $sql)) 
+                                {
+                                    while ($row = mysqli_fetch_assoc($result)) 
+                                    {
+                                        echo '<div>';
+                                        echo 'Rating: '. $row['Rating'] .' / 5';
+                                        echo '<br>';
+                                        echo 'Commented on: ['. $row['TimeStamp'] .'] ';
+                                        echo '<br>';
+                                        echo 'By: <strong>'. $row['UserID']. ':</strong>';
+                                        echo '<br>';
+                                        echo 'Comment: '. $row['Comment'];
+                                        echo '</div>';
+                                        echo '<hr>';
                                     }
-                                    ?>
+                                }
+                            ?>
+                            
                         	</div>
 						</li>
-						<li><br></li>
+						
 							<?php
-                            if ((isset($_SESSION['username']))) {
-                                if(isset($_POST["gameComment"])){
+                            if (isset($_SESSION['username'])) 
+							{
+                                if(isset($_POST["gameComment"]))
+								{
                             ?>
                             <li style="color: #3ADF00;"><strong>Successfully posted the comment!</strong></li>
                             <?php } ?>
@@ -206,28 +218,33 @@
                     <div class="modal-body">
                         <table>
                             <?php
-                        $sql="SELECT * FROM supplier_own_game WHERE GameID = " . $imageid;
-                        if ($result = mysqli_query($connection, $sql)) {
-                        while($row = mysqli_fetch_assoc($result)) {
-                            echo '<tr>';
-                            echo '<td style="width: 125px"> ';
-                            echo $row['Supplier_UserID'];
-                            echo '</td>';
-                            echo '<td style="width: 100px"> ';
-                            echo $row['Stock'];
-                            echo '</td>';
-                            echo '<td style="width: 100px"> ';
-                            echo $imagePrice;
-                            echo '</td>';
-                            echo '<td style="width: 100px"> ';
-                            echo '<a class="btn btn-warning" href="sellershop.php?id=' . $row['Supplier_UserID'] . '">Buy</a></td>';
-                            echo '</tr>';
-                        }
-                        }                          
+                        
+							$sql="SELECT * FROM supplier_own_game WHERE GameID = " . $imageid;
+							
+							if ($result = mysqli_query($connection, $sql)) 
+							{
+								while($row = mysqli_fetch_assoc($result)) 
+								{
+									echo '<tr>';
+									echo '<td style="width: 125px"> ';
+									echo $row['Supplier_UserID'];
+									echo '</td>';
+									echo '<td style="width: 100px"> ';
+									echo $row['Stock'];
+									echo '</td>';
+									echo '<td style="width: 100px"> ';
+									echo $imagePrice;
+									echo '</td>';
+									echo '<td style="width: 100px"> ';
+									echo '<a class="btn btn-warning" href="sellershop.php?id=' . $row['Supplier_UserID'] . '">Buy</a></td>';
+									echo '</tr>';
+								}
+							}                          
                             ?>
                         </table>
-                        <a class="btn-group-sm"></a>
+                        
                     </div>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
