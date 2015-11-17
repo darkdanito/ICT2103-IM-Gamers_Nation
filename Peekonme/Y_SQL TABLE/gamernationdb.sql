@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 04:26 AM
+-- Generation Time: Nov 17, 2015 at 07:59 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -214,25 +214,6 @@ INSERT INTO `game` (`GameID`, `Title`, `Publisher`, `Year_Released`, `Platform`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `imagetype`
---
-
-CREATE TABLE `imagetype` (
-  `typeID` int(11) NOT NULL,
-  `typeName` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `imagetype`
---
-
-INSERT INTO `imagetype` (`typeID`, `typeName`) VALUES
-(0, 'PUBLIC'),
-(1, 'PRIVATE');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ordered_product`
 --
 
@@ -276,9 +257,11 @@ CREATE TABLE `review_have` (
 --
 
 INSERT INTO `review_have` (`GameID`, `UserID`, `Rating`, `Comment`, `TimeStamp`) VALUES
+(1, 'necrodiver', 5, 'Comment 2', '2015-02-17 00:00:00'),
 (1, 'necrodiverTesting', 3.5, 'Gaaaaa', '2015-10-31 08:32:07'),
 (1, 'necrodiverTesting2', 3, 'OMT', '2015-10-31 08:35:22'),
-(1, 'necrodiverTesting3', 0, 'hmmm', '2015-10-31 08:55:21');
+(1, 'necrodiverTesting3', 0, 'Latest Comment', '2015-10-31 08:55:21'),
+(1, 'pewpewbeam', 2, 'Oldest Comment', '2012-11-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -297,8 +280,8 @@ CREATE TABLE `supplier` (
 
 INSERT INTO `supplier` (`UserID`, `Total_Sales`) VALUES
 ('necrodiver', 2),
-('necrodiverTesting', 102700),
-('pewpewbeam', 1);
+('necrodiverTesting', 103200),
+('pewpewbeam', 201);
 
 -- --------------------------------------------------------
 
@@ -323,10 +306,11 @@ INSERT INTO `supplier_own_game` (`Supplier_UserID`, `GameID`, `Stock`) VALUES
 ('necrodiver', 4, 100),
 ('necrodiver', 10, 100),
 ('necrodiver', 20, 400),
-('necrodiverTesting', 1, 5),
+('necrodiver', 21, 20),
+('necrodiverTesting', 1, 0),
 ('necrodiverTesting', 2, 0),
 ('pewpewbeam', 1, 40),
-('pewpewbeam', 2, 20),
+('pewpewbeam', 2, 18),
 ('pewpewbeam', 4, 20),
 ('pewpewbeam', 6, 20),
 ('pewpewbeam', 8, 40);
@@ -371,12 +355,6 @@ ALTER TABLE `buyer`
 ALTER TABLE `game`
   ADD PRIMARY KEY (`GameID`),
   ADD UNIQUE KEY `GameID` (`GameID`);
-
---
--- Indexes for table `imagetype`
---
-ALTER TABLE `imagetype`
-  ADD PRIMARY KEY (`typeID`);
 
 --
 -- Indexes for table `ordered_product`
