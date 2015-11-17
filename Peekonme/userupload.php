@@ -91,26 +91,22 @@
                                                 $imageExts = array_pop($imageBroken);
                                                 $imageNoExts = implode('.', $imageBroken);
 
-												$imageName = test_input($_POST['imageName']);
-												$imagePublisher = test_input($_POST['imagePublisher']);
-												$imageYearReleased = test_input($_POST['imageYearReleased']);
-												$imagePlatform = test_input($_POST['imagePlatform']);
-												$imageRegion = test_input($_POST['imageRegion']);
-//												$imageStock = test_input($_POST['imageStock']);
-												$imagePrice = test_input($_POST['imagePrice']);
+												$userID = $_SESSION['username'];		
+												$gameID = test_input($_POST['gameID']);
+												$gameStock = test_input($_POST['gameStock']);
+												
 		
                                                 // Create the SQL query
                                                 $query = "
 							
 							
-												INSERT INTO `game`
+												INSERT INTO `supplier_own_game`
 												(
-						   							`Title`, `ImagePath`, `Publisher`, `Year_Released`, `Platform`, `Region` , `Price`
+						   							`Supplier_UserID`, `GameID`, `Stock`
 							 					)
 												VALUES 
 												(
-						   						'{$imageName}', '{$image}', '{$imagePublisher}','{$imageYearReleased}', '{$imagePlatform}',
-													'{$imageRegion}', '{$imagePrice}'
+						   						'{$userID}', '{$gameID}', '{$gameStock}'
 												)";
 
                                                 // Execute the query
@@ -151,56 +147,22 @@
 						<div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
- 								 <input type="text" name="imageName" id="imageName" placeholder="Game Name">
+ 								 <input type="text" name="gameID" id="gameID" placeholder="Game ID">
                             </div>
                         </div>
                         
 						<div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
- 								 <input type="text" name="imagePublisher" id="imagePublisher" placeholder="Publisher">
+ 								 <input type="text" name="gameStock" id="gameStock" placeholder="Game Stock">
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imageYearReleased" id="imageYearReleased" placeholder="Year Released">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imagePlatform" id="imagePlatform" placeholder="Platform">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imageRegion" id="imageRegion" placeholder="Region">
-                            </div>
-                        </div>
-<!--                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imageStock" id="imageStock" placeholder="Game Stock">
-                            </div>
-                        </div>
--->                        
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"></label>
-                            <div class="col-sm-4">
- 								 <input type="text" name="imagePrice" id="imagePrice" placeholder="Game Price">
-                            </div>
-                        </div>
+
 
                         <div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
-                                <input class="col-lg-12" type="submit" value="Upload Game" name="submit">    
+                                <input class="col-lg-12" type="submit" value="Sell Game" name="submit">    
                             </div>
                         </div>
                         
