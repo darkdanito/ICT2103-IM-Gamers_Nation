@@ -194,22 +194,26 @@
             $sql = "select g.*, avg(r1.rating) as Avg_Rating, r3.comment as Comment from review_have r1
             right outer join game g on g.gameid = r1.gameid
 			";
+			//filter by rating made in the last x months
+			if ($_POST['rFilter'] != 'All'){
+			$sql.=" ".$_POST['o2Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
 			$sql.=" left outer join review_have r2 on r1.gameid = r2.gameid";
+			
 			$sql.=" left outer join review_have r3 on r2.gameid = r3.gameid";
 			$sql.=" left outer join(select gameid, min(rating) as minRating, max(rating) as maxRating, min(timestamp) as minTimestamp, max(timestamp) as maxTimestamp from review_have)r4 on r3.gameid=r4.gameid";
 			//filter by when comment was made
 			switch ($_POST['cFilter']) {
     case "Lowest":
-        $sql.= " ".$_POST['o2Filter']." r4.minRating = r3.rating";
+        $sql.= " ".$_POST['o3Filter']." r4.minRating = r3.rating";
         break;
     case "Highest":
-        $sql .= " ".$_POST['o2Filter']." r4.maxRating = r3.rating";
+        $sql .= " ".$_POST['o3Filter']." r4.maxRating = r3.rating";
         break;
     case "Earliest":
-        $sql .=" ".$_POST['o2Filter']." r4.minTimestamp = r3.timestamp";
+        $sql .=" ".$_POST['o3Filter']." r4.minTimestamp = r3.timestamp";
         break;
 		case "Recent":
-        $sql .=" ".$_POST['o2Filter']." r4.maxTimestamp = r3.timestamp";
+        $sql .=" ".$_POST['o3Filter']." r4.maxTimestamp = r3.timestamp";
         break;
     default:
         echo "Unexpected case, selection not captured!";
@@ -221,9 +225,7 @@
 			//filter by platform
 			if ($_POST['pFilter'] != 'All'){
 			$sql .= " ".	$_POST['o1Filter']." g.platform ='". $_POST['pFilter']."'";}
-			//filter by rating made in the last x months
-			if ($_POST['rFilter'] != 'All'){
-			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			
 			
 			//group by gameid
             $sql .= " group by g.gameid";
