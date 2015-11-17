@@ -60,24 +60,6 @@
 										{
                                             die("MySQL connection failed: " . mysqli_connect_error());
                                         }
-
-                                        // Gather all required data
-//                                      $imageName = $dbLink->real_escape_string($_FILES['fileToUpload']['name']);
-	                                    $imageType = $dbLink->real_escape_string($_FILES['fileToUpload']['type']);
-                                     	$imageData = $dbLink->real_escape_string(file_get_contents($_FILES['fileToUpload']['tmp_name']));
-                                        $imageSize = intval($_FILES['fileToUpload']['size']);
-
-	                                    $imageExt = strtolower(end(explode('.', $_FILES['fileToUpload']['name'])));
-                                        $extensions = array("jpeg", "jpg", "png");
-
-                                        if (in_array($imageExt, $extensions) == false) 
-										{
-                                            $msgEx = "Extension not allowed, please choose a JPEG or PNG file.";
-                                            echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgEx . '</div>';
-                                        } elseif (in_array($imageExt, $extensions) == True) 
-										{
-                                            
-											
 												$userID = $_SESSION['username'];		
 												$gameID = test_input($_POST['gameID']);
 												$gameStock = test_input($_POST['gameStock']);
@@ -108,14 +90,7 @@
                                                     $msgErrorInsert1 = 'Error! Failed to add the game' . "<pre>{$dbLink->error}</pre>";
                                                     echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert1 . '</div>';
                                                 }
-											
-											
-                                        } else 
-										{
-                                            $msgErrorUpload = 'An error accured while the game was being uploaded. '
-                                                    . 'Error code: ' . intval($_FILES['fileToUpload']['error']);
-                                            echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorUpload . '</div>';
-                                        }
+												
                                     } else 
 									{
                                         $msgErrorInsert2 = 'Error! Failed to insert the game';
