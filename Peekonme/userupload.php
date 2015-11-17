@@ -76,21 +76,8 @@
                                             echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgEx . '</div>';
                                         } elseif (in_array($imageExt, $extensions) == True) 
 										{
-                                            if ($imageSize > 2097152) 
-											{
-                                                $msgFile = 'File size must be exactly 2 MB or smaller';
-                                                echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgFile . '</div>';
-                                            } else 
-											{
-                                                $imageDir = 'Picture/';
-                                                $image = $imageDir . $_FILES['fileToUpload']['name'];
-                                                move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imageDir . $_FILES['fileToUpload']['name']);
-
-
-                                                $imageBroken = explode('.', $_FILES['fileToUpload']['name']);
-                                                $imageExts = array_pop($imageBroken);
-                                                $imageNoExts = implode('.', $imageBroken);
-
+                                            
+											
 												$userID = $_SESSION['username'];		
 												$gameID = test_input($_POST['gameID']);
 												$gameStock = test_input($_POST['gameStock']);
@@ -98,7 +85,6 @@
 		
                                                 // Create the SQL query
                                                 $query = "
-							
 							
 												INSERT INTO `supplier_own_game`
 												(
@@ -111,6 +97,7 @@
 
                                                 // Execute the query
                                                 $result = $dbLink->query($query);
+												
                                                 // Check if it was successfull
                                                 if ($result) 
 												{
@@ -121,7 +108,8 @@
                                                     $msgErrorInsert1 = 'Error! Failed to add the game' . "<pre>{$dbLink->error}</pre>";
                                                     echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert1 . '</div>';
                                                 }
-                                            }
+											
+											
                                         } else 
 										{
                                             $msgErrorUpload = 'An error accured while the game was being uploaded. '
