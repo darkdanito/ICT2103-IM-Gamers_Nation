@@ -191,35 +191,38 @@
 			$platform = ($_POST['pFilter']);
             $con = mysql_connect("localhost","root","");
             $db=mysql_select_db("gamernationdb",$con);
-            $sql = "select g.*, avg(r1.rating) as Avg_Rating, r1.comment as Comment from review_have r1
-            right outer join game g on g.gameid = r1.gameid";
-			//filter by rating made in the last x months
-			if ($_POST['rFilter'] != 'All'){
-			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+            $sql = "select g.*, avg(r1.rating) as Avg_Rating, r3.comment as Comment from review_have r1
+            right outer join game g on g.gameid = r1.gameid
+			";
 			$sql.=" left outer join review_have r2 on r1.gameid = r2.gameid";
-			//filter by when comment was made
-			switch ($_POST['cFilter']) {
-    case "Lowest":
-        $sql.= " ".$_POST['o2Filter']." r1.rating < r2.rating";
-        break;
-    case "Highest":
-        $sql .= " ".$_POST['o2Filter']." r1.rating > r2.rating";
-        break;
-    case "Earliest":
-        $sql .=" ".$_POST['o2Filter']." r1.timestamp < r2.timestamp";
-        break;
-		case "Recent":
-        $sql .=" ".$_POST['o2Filter']." r1.timestamp > r2.timestamp";
-        break;
-    default:
-        echo "Unexpected case, selection not captured!";
-}
+			$sql.=" left outer join review_have r3 on r2.gameid = r3.gameid";
+			
 			//search based on similar game title
             if (isset($_GET['typeahead'])){
             $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_GET['typeahead']). "%" . "'";}
 			//filter by platform
 			if ($_POST['pFilter'] != 'All'){
 			$sql .= " ".	$_POST['o1Filter']." g.platform ='". $_POST['pFilter']."'";}
+			//filter by rating made in the last x months
+			if ($_POST['rFilter'] != 'All'){
+			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			////filter by when comment was made
+//			switch ($_POST['cFilter']) {
+//    case "Lowest":
+//        $sql.= " ".$_POST['o2Filter']." r1.rating < r2.rating";
+//        break;
+//    case "Highest":
+//        $sql .= " ".$_POST['o2Filter']." r1.rating > r2.rating";
+//        break;
+//    case "Earliest":
+//        $sql .=" ".$_POST['o2Filter']." r1.timestamp < r2.timestamp";
+//        break;
+//		case "Recent":
+//        $sql .=" ".$_POST['o2Filter']." r1.timestamp > r2.timestamp";
+//        break;
+//    default:
+//        echo "Unexpected case, selection not captured!";
+//}
 			//group by gameid
             $sql .= " group by g.gameid";
     		echo $sql;
