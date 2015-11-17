@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 07:59 AM
+-- Generation Time: Nov 17, 2015 at 09:07 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -30,6 +30,18 @@ CREATE TABLE `buyer` (
   `UserID` varchar(255) NOT NULL DEFAULT '',
   `Total_Expenditure` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `buyer`
+--
+
+INSERT INTO `buyer` (`UserID`, `Total_Expenditure`) VALUES
+('meatshield', 0),
+('necrodiver', 0),
+('necrodiverTesting', 0),
+('necrodiverTesting2', 0),
+('necrodiverTesting3', 0),
+('pewpewbeam', 0);
 
 -- --------------------------------------------------------
 
@@ -279,8 +291,11 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`UserID`, `Total_Sales`) VALUES
-('necrodiver', 2),
+('meatshield', 10000),
+('necrodiver', 1002),
 ('necrodiverTesting', 103200),
+('necrodiverTesting2', 0),
+('necrodiverTesting3', 0),
 ('pewpewbeam', 201);
 
 -- --------------------------------------------------------
@@ -300,7 +315,8 @@ CREATE TABLE `supplier_own_game` (
 --
 
 INSERT INTO `supplier_own_game` (`Supplier_UserID`, `GameID`, `Stock`) VALUES
-('necrodiver', 1, 20),
+('meatshield', 1, 100),
+('necrodiver', 1, 10),
 ('necrodiver', 2, 5),
 ('necrodiver', 3, 50),
 ('necrodiver', 4, 100),
@@ -333,6 +349,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Hashed_Password`, `Email`, `Salt`) VALUES
+('meatshield', '451c4b9028640ab91ee7adea0ffb81b4a2fbb6c81a4b822387ad60072bb666e3', 'daere@gotmail.com', '36343b77b2bb99a438054b45'),
 ('necrodiver', '3587ed34811992df70eaa554448bdb3684efd8ed8353a2644f27f3e44889ecd2', 'mehmeh@gmail.com', '9c914132540914a5c34c807d'),
 ('necrodiverTesting', 'a3c69166757134256ac5b9ea63bc9900fe80698f283e122db12327b86402852a', 'darkdanito@hotmail.com', '25cbdda0f4273d4a3a683522'),
 ('necrodiverTesting2', '3c02876333e088bcbefbc741a73b07157dd0bc9ae9088d3e5886501ce66c8f1a', 'sadasdas@erewrw.com', 'd54c6968645e7d48b6da60fb'),
