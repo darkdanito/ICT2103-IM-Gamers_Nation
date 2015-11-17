@@ -48,62 +48,52 @@
                                 }
                                 
                                 // Check if a file has been uploaded
-                                if (isset($_FILES['fileToUpload'])) 
+                                if (isset($_POST['gameID'])) 
 								{
-                                    // Connect to the database
-                                    $dbLink = new mysqli('127.0.0.1', 'root', '', 'gamernationdb');
-                                    
-									// Make sure the file was sent without errors
-                                    if ($_FILES['fileToUpload']['error'] == 0) 
+												
+									// Connect to the database
+									$dbLink = new mysqli('127.0.0.1', 'root', '', 'gamernationdb');
+						
+									if (mysqli_connect_errno()) 
 									{
-                                        if (mysqli_connect_errno()) 
-										{
-                                            die("MySQL connection failed: " . mysqli_connect_error());
-                                        }
-												$userID = $_SESSION['username'];		
-												$gameID = test_input($_POST['gameID']);
-												$gameStock = test_input($_POST['gameStock']);
-												
-		
-                                                // Create the SQL query
-                                                $query = "
-							
-												INSERT INTO `supplier_own_game`
-												(
-						   							`Supplier_UserID`, `GameID`, `Stock`
-							 					)
-												VALUES 
-												(
-						   						'{$userID}', '{$gameID}', '{$gameStock}'
-												)";
-
-                                                // Execute the query
-                                                $result = $dbLink->query($query);
-												
-                                                // Check if it was successfull
-                                                if ($result) 
-												{
-                                                    $msgSuccess = 'Success! Your game was successfully added!';
-                                                    echo '<div class="alert alert-success col-lg-12" role="alert">' . $msgSuccess . '</div>';
-                                                } else 
-												{
-                                                    $msgErrorInsert1 = 'Error! Failed to add the game' . "<pre>{$dbLink->error}</pre>";
-                                                    echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert1 . '</div>';
-                                                }
-												
-                                    } else 
+										die("MySQL connection failed: " . mysqli_connect_error());
+									}
+									
+									$userID = $_SESSION['username'];		
+									$gameID = test_input($_POST['gameID']);
+									$gameStock = test_input($_POST['gameStock']);
+	
+									// Create the SQL query
+									$query = "
+				
+									INSERT INTO `supplier_own_game`
+									(
+										`Supplier_UserID`, `GameID`, `Stock`
+									)
+									VALUES 
+									(
+									'{$userID}', '{$gameID}', '{$gameStock}'
+									)";
+	
+									// Execute the query
+									$result = $dbLink->query($query);
+									
+									// Check if it was successfull
+									if ($result) 
 									{
-                                        $msgErrorInsert2 = 'Error! Failed to insert the game';
-                                        echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert2 . '</div>';
-                                    }
+										$msgSuccess = 'Success! Your game was successfully added!';
+										echo '<div class="alert alert-success col-lg-12" role="alert">' . $msgSuccess . '</div>';
+									} else 
+									{
+										$msgErrorInsert1 = 'Error! Failed to add the game' . "<pre>{$dbLink->error}</pre>";
+										echo '<div class="alert alert-danger col-lg-12" role="alert">' . $msgErrorInsert1 . '</div>';
+									}
 
                                     // Close the mysql connection
                                     $dbLink->close();
                                 }
                                 ?>
-                                
-                                <input class="col-lg-12" type="file" name="fileToUpload" id="fileToUpload">
-                                
+                            
                             </div>
                         </div>
                                  
