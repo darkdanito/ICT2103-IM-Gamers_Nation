@@ -19,25 +19,47 @@
   <table class='table'>
     <thead>
       <tr>
-      	<th>Search term:</th>
+        <th>Search term:</th>
+        <th>Operator:</th>
         <th>Filter platform by:</th>
+        <th>Operator:</th>
         <th>Filter review rating by:</th>
+        <th>Operator:</th>
         <th>Filter review comment by:</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-      
-      <td>
-      <?php 
+        <td><?php 
 	  echo $_GET['typeahead'];
-	  ?>
-     </td>
+	  ?></td>
           <td>
         <form action='' method='post'>
-          <select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
-            <option selected="selected" disabled hidden value=''></option>
+          <select class="dropDownFilter"  name="o1Filter" onchange="form.submit()">
             <?php
+        // A sample product array
+        $o1Criteria = array(
+		"AND" => "AND",
+		"OR" => "OR" 
+		);
+      	// Iterating through the product array
+        foreach($o1Criteria as $key => $item){
+        ?>
+            <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['o1Filter'])){$_POST['o1Filter'] = "AND";}
+		//update newly selected value		
+		if(((isset($_POST['o1Filter'])) && (strcasecmp($key, $_POST['o1Filter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+            <?php
+        }
+        ?>
+          </select>
+          <?php if(isset($_POST['o1Filter']))echo ($_POST['o1Filter']) ?>
+            </td>
+          <td><select class="dropDownFilter"  name="pFilter" onchange="form.submit()">
+              <option selected="selected" disabled hidden value=''></option>
+              <?php
         // A sample product array
         $platformCriteria = array(
 		"XBOX" => "Show only XBOX games",
@@ -47,21 +69,44 @@
         // Iterating through the product array
         foreach($platformCriteria as $key => $item){
         ?>
-            <option value="<?php echo ($key); ?>" 
+              <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['pFilter'])){$_POST['pFilter'] = "All";}
 		//update newly selected value		
 		if(((isset($_POST['pFilter'])) && (strcasecmp($key, $_POST['pFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+              <?php
+        }
+        ?>
+            </select>
+            <?php if(isset($_POST['pFilter']))echo ($_POST['pFilter']) ?></td>
+            <td>
+          <select class="dropDownFilter"  name="o2Filter" onchange="form.submit()">
+            <?php
+        // A sample product array
+        $o2Criteria = array(
+		"AND" => "AND",
+		"OR" => "OR" 
+		);
+      	// Iterating through the product array
+        foreach($o2Criteria as $key => $item){
+        ?>
+            <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['o2Filter'])){$_POST['o2Filter'] = "AND";}
+		//update newly selected value		
+		if(((isset($_POST['o2Filter'])) && (strcasecmp($key, $_POST['o2Filter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
             <?php
         }
         ?>
           </select>
-          <?php if(isset($_POST['pFilter']))echo ($_POST['pFilter']) ?>
+          <?php if(isset($_POST['o2Filter']))echo ($_POST['o2Filter']) ?>
             </td>
-          <td><select class="dropDownFilter" name="rFilter" onchange="form.submit()">
-              <option selected="selected" disabled hidden value=''></option>
-              <?php
+              <td>
+              <select class="dropDownFilter" name="rFilter" onchange="form.submit()">
+            <option selected="selected" disabled hidden value=''></option>
+            <?php
         // A sample product array
         $ratingCriteria = array(
 		"3" =>"Show average rating based on rating made in the last 3 months",
@@ -72,20 +117,45 @@
         // Iterating through the product array
         foreach($ratingCriteria as $key => $item){
         ?>
-              <option value="<?php echo ($key); ?>" 
+            <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['rFilter'])){$_POST['rFilter'] = "All";}
 		//update newly selected value		
 		if(((isset($_POST['rFilter'])) && (strcasecmp($key, $_POST['rFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
-              <?php
+            <?php
         }
         ?>
-            </select>
-            <?php if(isset($_POST['rFilter']))echo $_POST['rFilter'] ?></td>
-          <td><select class="dropDownFilter" name="cFilter" onchange="form.submit()">
-              <option selected="selected" disabled hidden value=''></option>
-              <?php
+          </select>
+          <?php if(isset($_POST['rFilter']))echo $_POST['rFilter'] ?>
+            </td>
+                        <td>
+          <select class="dropDownFilter"  name="o3Filter" onchange="form.submit()">
+            <?php
+        // A sample product array
+        $o3Criteria = array(
+		"AND" => "AND",
+		"OR" => "OR" 
+		);
+      	// Iterating through the product array
+        foreach($o3Criteria as $key => $item){
+        ?>
+            <option value="<?php echo ($key); ?>" 
+		<?php
+		//set post to default value
+		if(!isset($_POST['o3Filter'])){$_POST['o3Filter'] = "AND";}
+		//update newly selected value		
+		if(((isset($_POST['o3Filter'])) && (strcasecmp($key, $_POST['o3Filter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
+            <?php
+        }
+        ?>
+          </select>
+          <?php if(isset($_POST['o3Filter']))echo ($_POST['o3Filter']) ?>
+            </td>
+              <td>
+              <select class="dropDownFilter" name="cFilter" onchange="form.submit()">
+            <option selected="selected" disabled hidden value=''></option>
+            <?php
         // A sample product array
         $commentCriteria = array(
 		"Lowest" => "Show lowest rated comment",
@@ -97,16 +167,16 @@
         // Iterating through the product array
         foreach($commentCriteria as $key => $item){
         ?>
-              <option value="<?php echo ($key); ?>" 
+            <option value="<?php echo ($key); ?>" 
 		<?php
 		//set post to default value
 		if(!isset($_POST['cFilter'])){$_POST['cFilter'] = "Recent";}
 		//update newly selected value		
 		if(((isset($_POST['cFilter'])) && (strcasecmp($key, $_POST['cFilter']) == 0))) echo "selected"; ?>> <?php echo $item; ?></option>
-              <?php
+            <?php
         }
         ?>
-            </select>
+          </select>
         </form>
         <?php if(isset($_POST['cFilter']))echo $_POST['cFilter'] ?>
           </td>
@@ -125,21 +195,21 @@
             right outer join game g on g.gameid = r1.gameid";
 			//filter by rating made in the last x months
 			if ($_POST['rFilter'] != 'All'){
-			$sql.=" and r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
 			$sql.=" left outer join review_have r2 on r1.gameid = r2.gameid";
 			//filter by when comment was made
 			switch ($_POST['cFilter']) {
     case "Lowest":
-        $sql.= " and r1.rating < r2.rating";
+        $sql.= " ".$_POST['o2Filter']." r1.rating < r2.rating";
         break;
     case "Highest":
-        $sql .= " and r1.rating > r2.rating";
+        $sql .= " ".$_POST['o2Filter']." r1.rating > r2.rating";
         break;
     case "Earliest":
-        $sql .= " and r1.timestamp < r2.timestamp";
+        $sql .=" ".$_POST['o2Filter']." r1.timestamp < r2.timestamp";
         break;
 		case "Recent":
-        $sql .= " and r1.timestamp > r2.timestamp";
+        $sql .=" ".$_POST['o2Filter']." r1.timestamp > r2.timestamp";
         break;
     default:
         echo "Unexpected case, selection not captured!";
@@ -149,7 +219,7 @@
             $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_GET['typeahead']). "%" . "'";}
 			//filter by platform
 			if ($_POST['pFilter'] != 'All'){
-			$sql .= " and g.platform ='". $_POST['pFilter']."'";}
+			$sql .= " ".	$_POST['o1Filter']." g.platform ='". $_POST['pFilter']."'";}
 			//group by gameid
             $sql .= " group by g.gameid";
     		echo $sql;

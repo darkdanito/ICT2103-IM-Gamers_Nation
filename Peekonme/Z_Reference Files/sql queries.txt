@@ -95,3 +95,14 @@ from review_have r1
 right outer join game g on g.gameid = r1.gameid and r1.timestamp >= NOW() - INTERVAL 1 DAY
 left outer join review_have r2 on r1.gameid = r2.gameid and r1.rating < r2.rating
 group by g.gameid
+
+
+
+select *, avg(r1.rating) from game g1 inner join review_have r1 on g1.gameid = r1.gameid where g1.Platform = 'PC'AND r1.timestamp >= NOW() - INTERVAL 12 MONTH
+
+
+select g.*, avg(r1.rating) as Avg_Rating, r3.comment as Comment from review_have r1 right outer join game g on g.gameid = r1.gameid left outer join review_have r2 on r1.gameid = r2.gameid left outer join review_have r3 on r2.gameid = r3.gameid where g.title like '%%%' and g.platform = 'PC' group by g.gameid
+
+
+
+
