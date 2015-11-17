@@ -31,7 +31,7 @@
 			{
                 while ($row3 = mysqli_fetch_assoc($result3)) 
 				{
-                    echo '<div class="col-xs-6 col-md-3">';
+                    echo '<div class="col-xs-6 col-md-2">';
                     echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
                     echo '<img src="' . $row3['ImagePath'] . '" />';
                     echo '</a>';
