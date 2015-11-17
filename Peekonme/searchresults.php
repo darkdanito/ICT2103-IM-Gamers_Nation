@@ -196,17 +196,7 @@
 			";
 			$sql.=" left outer join review_have r2 on r1.gameid = r2.gameid";
 			$sql.=" left outer join review_have r3 on r2.gameid = r3.gameid";
-			$sql.=" inner join(select gameid, min(rating) as minRating, max(rating) as maxRating, min(timestamp) as minTimestamp, max(timestamp) as maxTimestamp from review_have)r4 on r3.gameid=r4.gameid";
-			
-			//search based on similar game title
-            if (isset($_GET['typeahead'])){
-            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_GET['typeahead']). "%" . "'";}
-			//filter by platform
-			if ($_POST['pFilter'] != 'All'){
-			$sql .= " ".	$_POST['o1Filter']." g.platform ='". $_POST['pFilter']."'";}
-			//filter by rating made in the last x months
-			if ($_POST['rFilter'] != 'All'){
-			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			$sql.=" left outer join(select gameid, min(rating) as minRating, max(rating) as maxRating, min(timestamp) as minTimestamp, max(timestamp) as maxTimestamp from review_have)r4 on r3.gameid=r4.gameid";
 			//filter by when comment was made
 			switch ($_POST['cFilter']) {
     case "Lowest":
@@ -224,6 +214,17 @@
     default:
         echo "Unexpected case, selection not captured!";
 }
+			
+			//search based on similar game title
+            if (isset($_GET['typeahead'])){
+            $sql .= " where g.title like '" . "%" . mysql_real_escape_string($_GET['typeahead']). "%" . "'";}
+			//filter by platform
+			if ($_POST['pFilter'] != 'All'){
+			$sql .= " ".	$_POST['o1Filter']." g.platform ='". $_POST['pFilter']."'";}
+			//filter by rating made in the last x months
+			if ($_POST['rFilter'] != 'All'){
+			$sql.=" ".$_POST['o3Filter']." r1.timestamp >= NOW() - INTERVAL ". $_POST['rFilter'] ." MONTH";}
+			
 			//group by gameid
             $sql .= " group by g.gameid";
     		echo $sql;
