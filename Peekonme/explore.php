@@ -25,7 +25,6 @@
     <body>
         <div class="container-fluid" style="margin-top: 4em;">
             <!--Display all picture-->
-
             <?php
             $sql3 = "SELECT * FROM game";
             if ($result3 = mysqli_query($connection, $sql3)) 
@@ -36,12 +35,12 @@
                     echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
                     echo '<img src="' . $row3['ImagePath'] . '" />';
                     echo '</a>';
+                    echo '<p class="caption text-center">'. $row3['Title'] .'</p>';
+                    echo '</br>';
                     echo '</div>';
                 }
             }
-            ?>
-            
-            
+            ?>                       
            
            <?php
            

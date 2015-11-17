@@ -67,9 +67,9 @@ $j(document).ready(function() {
                     <li class="dropdown">
                         <a href="usergallery.php" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username'] ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="usergallery.php"><span class="glyphicon glyphicon-picture"></span> My Image</a></li>
+                            <li><a href="usergallery.php"><span class="glyphicon glyphicon-picture"></span> My Listed Items</a></li>
                             <li><a href="userimgedit.php"><span class="glyphicon glyphicon-edit"></span> Edit</a></li>
-                            <li><a href="userupload.php"><span class="glyphicon glyphicon-save"></span> Upload</a></li>
+                            <li><a href="userupload.php"><span class="glyphicon glyphicon-save"></span> Sell Games</a></li>
                             <li><a href="usersetting.php"><span class="glyphicon glyphicon-wrench"></span> Settings</a></li>
                             <li class="divider"><li>
                             <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
