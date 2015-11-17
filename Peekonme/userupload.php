@@ -30,7 +30,7 @@
             
             </div>
                 <div class="content">
-                    <h1>Upload your Games <span>Share with the rest of the world your amazing game!<br>
+                    <h1>Sell your Games <span>Share with the rest of the world your amazing game!<br>
                         </span></h1>
 
                     <form class="form-horizontal" id="imageDesc" method="POST" action="userupload.php" enctype="multipart/form-data">
@@ -98,16 +98,17 @@
                         </div>
                                  
 						<div class="form-group">
+                            
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
- 								 <input type="text" name="gameID" id="gameID" placeholder="Game ID">
+ 								 Game ID: <input type="text" name="gameID" id="gameID" placeholder="Game ID">
                             </div>
                         </div>
                         
 						<div class="form-group">
                             <label class="col-sm-4 control-label"></label>
                             <div class="col-sm-4">
- 								 <input type="text" name="gameStock" id="gameStock" placeholder="Game Stock">
+ 								 Game Stock: <input type="text" name="gameStock" id="gameStock" placeholder="Game Stock">
                             </div>
                         </div>
 

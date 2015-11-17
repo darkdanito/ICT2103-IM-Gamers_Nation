@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 03:56 AM
+-- Generation Time: Nov 17, 2015 at 04:26 AM
 -- Server version: 10.1.8-MariaDB
 -- PHP Version: 5.6.14
 
@@ -317,7 +317,12 @@ CREATE TABLE `supplier_own_game` (
 --
 
 INSERT INTO `supplier_own_game` (`Supplier_UserID`, `GameID`, `Stock`) VALUES
+('necrodiver', 1, 20),
+('necrodiver', 2, 5),
+('necrodiver', 3, 50),
+('necrodiver', 4, 100),
 ('necrodiver', 10, 100),
+('necrodiver', 20, 400),
 ('necrodiverTesting', 1, 5),
 ('necrodiverTesting', 2, 0),
 ('pewpewbeam', 1, 40),

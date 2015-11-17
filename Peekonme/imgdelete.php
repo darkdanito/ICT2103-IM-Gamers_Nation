@@ -10,6 +10,8 @@
 	
 	$imgid = $_GET['id'];
 	
+	echo "Need to code this part out";
+	
 	$sql = "DELETE FROM game WHERE GameID = " . $imgid;
 	if (mysqli_query($connection, $sql)) 
 	{
