@@ -20,7 +20,7 @@
         <div class="container " style="margin: 4em auto;">
             <!--<div class="row">-->
             <div class="col-xs-6 col-md-4">
-                <img src="Images/cute-baby.jpg" alt="Cute Baby" class="img-responsive img-circle"/>
+                <img src="Images/console.jpg" alt="gameon" class="img-responsive img-circle center-block"/>
                 <h1 class="text-center" id="ready">Time to Game</h1>
             </div>
             
