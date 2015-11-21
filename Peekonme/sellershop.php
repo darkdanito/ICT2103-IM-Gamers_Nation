@@ -75,7 +75,7 @@
                     <tbody>
                     <?php
 //                    $_SESSION['supplier_userid'] = $shopid;
-                    $sql = "SELECT SOG.GameID,SOG.Stock,SOG.price,G.Title FROM supplier_own_game SOG,game G WHERE SOG.GameID = G.GameID AND SOG.Supplier_UserID ='" .$shopid . "' AND G.GameID='". $gameid . "'";
+                    $sql = "SELECT SOG.GameID,SOG.Stock,G.Price,G.Title FROM supplier_own_game SOG,game G WHERE SOG.GameID = G.GameID AND SOG.Supplier_UserID ='" .$shopid . "' AND SOG.GameID ='" .$gameid . "'";
                     if ($result = mysqli_query($connection, $sql)) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>';
@@ -83,11 +83,11 @@
                             echo $row['Title'];
                             echo '</td>';
                             echo '<td><input type="hidden" name="title" value="'.$row['Title'].'"></td>';
-                            echo '<td style="width: 100px"> ';
-                            echo $row['price'];                            
+                            echo '<td style="width: 100px" class="text-center"> ';
+                            echo $row['Price'];                            
                             echo '</td>';
-                            echo '<td><input type="hidden" name="price" value="'.$row['price'].'"></td>';
-                            echo '<td style="width: 100px"> ';
+                            echo '<td><input type="hidden" name="price" value="'.$row['Price'].'"></td>';
+                            echo '<td style="width: 100px" class="text-center"> ';
                             echo $row['Stock'];
                             echo '</td>';
                             echo '<td><input type="hidden" name="stock" value="'.$row['Stock'].'"></td>';

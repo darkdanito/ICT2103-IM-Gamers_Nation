@@ -84,9 +84,9 @@ if ((!isset($_SESSION['username']))) {
                                 if ($result2 = mysqli_query($connection, $sql2)) {
                                     $row2 = mysqli_fetch_assoc($result2);
                                     if($row2['num_rows'] == 0){                                        
-                                        $sql2 = "INSERT INTO supplier_own_game (Supplier_UserID,GameID,Stock,price) VALUES (?,?,?,?)";
+                                        $sql2 = "INSERT INTO supplier_own_game (Supplier_UserID,GameID,Stock) VALUES (?,?,?)";
                                         if ($statement = mysqli_prepare($connection, $sql2)) {
-                                            mysqli_stmt_bind_param($statement, 'ssss', $_SESSION['username'], $gameID, $gameStock, $gamePrice);
+                                            mysqli_stmt_bind_param($statement, 'ssss', $_SESSION['username'], $gameID, $gameStock);
                                             $result = mysqli_stmt_execute($statement);
                                             if ($result) {
                                                 echo '<p style="color: #38d29a;">Item had been successfully listed! </p>';

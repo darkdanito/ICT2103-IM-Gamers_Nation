@@ -45,7 +45,7 @@
 					$imageYearReleased = $row['Year_Released'];
 					$imagePlatform = $row['Platform'];
 					$imageRegion = $row['Region'];
-//					$imagePrice = $row['Price'];
+					$imagePrice = $row['Price'];
 				}
 			}
 			
@@ -244,7 +244,7 @@
 									echo $row['Stock'];
 									echo '</td>';
 									echo '<td style="width: 100px"> $';
-									echo $row['price'];
+									echo $imagePrice;
 									echo '</td>';
 									echo '<td style="width: 100px"> ';
 									echo '<a class="btn btn-warning" href="sellershop.php?id='.$row['Supplier_UserID'].'&game='.$imageid.'">Visit Seller Shop</a></td>';
