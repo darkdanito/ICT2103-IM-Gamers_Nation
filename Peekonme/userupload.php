@@ -49,6 +49,8 @@ if ((!isset($_SESSION['username']))) {
                         if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $gameTitle = test_input($_POST["gameTitle"]);
                             $gameStock = test_input($_POST["gameStock"]);
+                            $gamePrice = test_input($_POST["gamePrice"]);
+                            
 
                             $gametitlevalid = $gamestockvalid = "";
 
@@ -82,9 +84,9 @@ if ((!isset($_SESSION['username']))) {
                                 if ($result2 = mysqli_query($connection, $sql2)) {
                                     $row2 = mysqli_fetch_assoc($result2);
                                     if($row2['num_rows'] == 0){                                        
-                                        $sql2 = "INSERT INTO supplier_own_game (Supplier_UserID,GameID,Stock) VALUES (?,?,?)";
+                                        $sql2 = "INSERT INTO supplier_own_game (Supplier_UserID,GameID,Stock,price) VALUES (?,?,?,?)";
                                         if ($statement = mysqli_prepare($connection, $sql2)) {
-                                            mysqli_stmt_bind_param($statement, 'sss', $_SESSION['username'], $gameID, $gameStock);
+                                            mysqli_stmt_bind_param($statement, 'ssss', $_SESSION['username'], $gameID, $gameStock, $gamePrice);
                                             $result = mysqli_stmt_execute($statement);
                                             if ($result) {
                                                 echo '<p style="color: #38d29a;">Item had been successfully listed! </p>';
@@ -105,7 +107,6 @@ if ((!isset($_SESSION['username']))) {
                             }
                         }
                         ?>
-
                     </div>
                 </div>
 
@@ -121,6 +122,13 @@ if ((!isset($_SESSION['username']))) {
                     <label class="col-sm-4 control-label">Game Stock:</label>
                     <div class="col-sm-4">                        
                         <input type="text" class="form-control" name="gameStock" id="gameStock" placeholder="Game Stock">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Game Price:</label>
+                    <div class="col-sm-4">                        
+                        <input type="text" class="form-control" name="gamePrice" id="gamePrice" placeholder="Game Price">
                     </div>
                 </div>
 

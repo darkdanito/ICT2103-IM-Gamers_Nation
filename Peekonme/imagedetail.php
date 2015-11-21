@@ -45,7 +45,7 @@
 					$imageYearReleased = $row['Year_Released'];
 					$imagePlatform = $row['Platform'];
 					$imageRegion = $row['Region'];
-					$imagePrice = $row['Price'];
+//					$imagePrice = $row['Price'];
 				}
 			}
 			
@@ -133,7 +133,7 @@
                                 ?>
                             </strong>
                         </li>
-                        <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
+<!--                        <li>Price: <strong> <?php echo $imagePrice ?></strong></li>-->
                         <li><br></li>
                         <li>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#sellerList">
@@ -244,10 +244,10 @@
 									echo $row['Stock'];
 									echo '</td>';
 									echo '<td style="width: 100px"> $';
-									echo $imagePrice;
+									echo $row['price'];
 									echo '</td>';
 									echo '<td style="width: 100px"> ';
-									echo '<a class="btn btn-warning" href="sellershop.php?id='.$row['Supplier_UserID'].'&game='.$imageid.'">Buy</a></td>';
+									echo '<a class="btn btn-warning" href="sellershop.php?id='.$row['Supplier_UserID'].'&game='.$imageid.'">Visit Seller Shop</a></td>';
 									echo '</tr>';
 								}
 							}                          
