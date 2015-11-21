@@ -124,14 +124,6 @@ if ((!isset($_SESSION['username']))) {
                         <input type="text" class="form-control" name="gameStock" id="gameStock" placeholder="Game Stock">
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">Game Price:</label>
-                    <div class="col-sm-4">                        
-                        <input type="text" class="form-control" name="gamePrice" id="gamePrice" placeholder="Game Price">
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <label class="col-sm-4 control-label"></label>
