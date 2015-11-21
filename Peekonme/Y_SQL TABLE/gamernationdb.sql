@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2015 at 10:09 AM
--- Server version: 10.1.8-MariaDB
--- PHP Version: 5.6.14
+-- Generation Time: Nov 21, 2015 at 03:31 AM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `buyer`
 --
 
-CREATE TABLE `buyer` (
+CREATE TABLE IF NOT EXISTS `buyer` (
   `UserID` varchar(255) NOT NULL DEFAULT '',
   `Total_Expenditure` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -36,6 +36,7 @@ CREATE TABLE `buyer` (
 --
 
 INSERT INTO `buyer` (`UserID`, `Total_Expenditure`) VALUES
+('Hu0xing', 0),
 ('meatshield', 0),
 ('necrodiver', 0),
 ('necrodiverTesting', 0),
@@ -49,7 +50,7 @@ INSERT INTO `buyer` (`UserID`, `Total_Expenditure`) VALUES
 -- Table structure for table `game`
 --
 
-CREATE TABLE `game` (
+CREATE TABLE IF NOT EXISTS `game` (
   `GameID` int(11) NOT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `Publisher` varchar(255) DEFAULT NULL,
@@ -58,17 +59,17 @@ CREATE TABLE `game` (
   `Region` varchar(255) DEFAULT NULL,
   `Price` float DEFAULT NULL,
   `ImagePath` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `game`
 --
 
 INSERT INTO `game` (`GameID`, `Title`, `Publisher`, `Year_Released`, `Platform`, `Region`, `Price`, `ImagePath`) VALUES
-(1, 'Diablo 3', 'Blizzard', 2015, 'PC', 'Asia', 1000, 'Picture/diablo_3.jpg'),
-(2, 'SC2', 'Blizzard', 2000, 'PC', 'US', 100, 'Picture/SC2_Heart_of_the_Swarm_cover.jpg'),
-(3, 'Total War Rome', 'No idea', 2000, 'PC', 'Europe', 200, 'Picture/Total_War_Rome_II_cover.jpg'),
-(4, 'Airline Tycoon', 'No idea too', 5021, 'XBOX', 'SG', 60000, 'Picture/Airline_Tycoon_2_Gold_Edition_Cover.jpg'),
+(1, 'DIABLO 3', 'BLIZZARD', 2015, 'PC', 'ASIA', 1000, 'Picture/diablo_3.jpg'),
+(2, 'STARCRAFT 2', 'BLIZZARD', 2000, 'PC', 'US', 100, 'Picture/SC2_Heart_of_the_Swarm_cover.jpg'),
+(3, 'TOTAL WAR ROME', 'SEGA EUROPE', 2000, 'PC', 'EURO', 200, 'Picture/Total_War_Rome_II_cover.jpg'),
+(4, 'AIRLINE TYCOON 2', ' KALYPSO MEDIA DIGITAL', 5021, 'XBOX', 'SG', 60000, 'Picture/Airline_Tycoon_2_Gold_Edition_Cover.jpg'),
 (6, 'ARMA III', 'BOHEMIA INTERACTIVE', 2013, 'PC', 'ASIA', 0, 'Picture/no_image_available.jpg'),
 (7, 'TOTAL WAR: SHOGUN 2 GOLD EDITION', 'SEGA EUROPE', 2013, 'PC', 'EURO', 0, 'Picture/no_image_available.jpg'),
 (8, 'COMPANY OF HEROES 2', 'SEGA EUROPE', 2013, 'PC', 'ASIA', 0, 'Picture/no_image_available.jpg'),
@@ -198,11 +199,11 @@ INSERT INTO `game` (`GameID`, `Title`, `Publisher`, `Year_Released`, `Platform`,
 -- Table structure for table `ordered_product`
 --
 
-CREATE TABLE `ordered_product` (
-  `Supplier_UserID` varchar(255) NOT NULL DEFAULT '',
-  `GameID` int(11) NOT NULL,
-  `OrderID` varchar(255) NOT NULL DEFAULT '',
-  `Buyer_UserID` varchar(255) NOT NULL DEFAULT '',
+CREATE TABLE IF NOT EXISTS `ordered_product` (
+  `OrderedProductID` int(11) NOT NULL,
+  `Supplier_UserID` varchar(255) DEFAULT NULL,
+  `GameID` int(11) DEFAULT NULL,
+  `OrderID` int(11) DEFAULT NULL,
   `Quantity` int(11) DEFAULT NULL,
   `Price` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -213,8 +214,8 @@ CREATE TABLE `ordered_product` (
 -- Table structure for table `order_make`
 --
 
-CREATE TABLE `order_make` (
-  `OrderID` varchar(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `order_make` (
+  `OrderID` int(11) NOT NULL,
   `Buyer_UserID` varchar(255) DEFAULT NULL,
   `Purchare_Time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -225,7 +226,7 @@ CREATE TABLE `order_make` (
 -- Table structure for table `review_have`
 --
 
-CREATE TABLE `review_have` (
+CREATE TABLE IF NOT EXISTS `review_have` (
   `GameID` int(11) NOT NULL,
   `UserID` varchar(255) NOT NULL DEFAULT '',
   `Rating` float DEFAULT NULL,
@@ -251,7 +252,7 @@ INSERT INTO `review_have` (`GameID`, `UserID`, `Rating`, `Comment`, `TimeStamp`)
 -- Table structure for table `supplier`
 --
 
-CREATE TABLE `supplier` (
+CREATE TABLE IF NOT EXISTS `supplier` (
   `UserID` varchar(255) NOT NULL DEFAULT '',
   `Total_Sales` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -261,8 +262,9 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`UserID`, `Total_Sales`) VALUES
+('Hu0xing', 0),
 ('meatshield', 10000),
-('necrodiver', 1002),
+('necrodiver', 1402),
 ('necrodiverTesting', 103200),
 ('necrodiverTesting2', 0),
 ('necrodiverTesting3', 0),
@@ -274,7 +276,7 @@ INSERT INTO `supplier` (`UserID`, `Total_Sales`) VALUES
 -- Table structure for table `supplier_own_game`
 --
 
-CREATE TABLE `supplier_own_game` (
+CREATE TABLE IF NOT EXISTS `supplier_own_game` (
   `Supplier_UserID` varchar(255) NOT NULL DEFAULT '',
   `GameID` int(11) NOT NULL,
   `Stock` int(11) DEFAULT NULL
@@ -285,17 +287,18 @@ CREATE TABLE `supplier_own_game` (
 --
 
 INSERT INTO `supplier_own_game` (`Supplier_UserID`, `GameID`, `Stock`) VALUES
-('meatshield', 1, 100),
-('necrodiver', 1, 10),
+('Hu0xing', 1, 5),
+('meatshield', 1, 3),
+('necrodiver', 1, 3),
 ('necrodiver', 2, 5),
-('necrodiver', 3, 50),
-('necrodiver', 4, 100),
+('necrodiver', 3, 48),
+('necrodiver', 4, 2),
 ('necrodiver', 10, 100),
-('necrodiverTesting', 1, 0),
+('necrodiverTesting', 1, 3),
 ('necrodiverTesting', 2, 0),
-('pewpewbeam', 1, 40),
+('pewpewbeam', 1, 3),
 ('pewpewbeam', 2, 18),
-('pewpewbeam', 4, 20),
+('pewpewbeam', 4, 2),
 ('pewpewbeam', 6, 20),
 ('pewpewbeam', 8, 40);
 
@@ -305,10 +308,10 @@ INSERT INTO `supplier_own_game` (`Supplier_UserID`, `GameID`, `Stock`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `UserID` varchar(255) NOT NULL,
   `Hashed_Password` varchar(255) DEFAULT NULL,
-  `Email` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) NOT NULL,
   `Salt` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -317,6 +320,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Hashed_Password`, `Email`, `Salt`) VALUES
+('Hu0xing', '6f8583f7eb6709746ba67ad619750a083873226cf30e4299c48eff52a54f4bf5', 'elson_ho@hotmail.com', '6f0d79f093cdae2750e51732'),
 ('meatshield', '451c4b9028640ab91ee7adea0ffb81b4a2fbb6c81a4b822387ad60072bb666e3', 'daere@gotmail.com', '36343b77b2bb99a438054b45'),
 ('necrodiver', '3587ed34811992df70eaa554448bdb3684efd8ed8353a2644f27f3e44889ecd2', 'mehmeh@gmail.com', '9c914132540914a5c34c807d'),
 ('necrodiverTesting', 'a3c69166757134256ac5b9ea63bc9900fe80698f283e122db12327b86402852a', 'darkdanito@hotmail.com', '25cbdda0f4273d4a3a683522'),
@@ -345,9 +349,10 @@ ALTER TABLE `game`
 -- Indexes for table `ordered_product`
 --
 ALTER TABLE `ordered_product`
-  ADD PRIMARY KEY (`Supplier_UserID`,`GameID`,`OrderID`,`Buyer_UserID`),
-  ADD KEY `OrderID` (`OrderID`),
-  ADD KEY `Buyer_UserID` (`Buyer_UserID`);
+  ADD PRIMARY KEY (`OrderedProductID`),
+  ADD UNIQUE KEY `OrderedProductID` (`OrderedProductID`),
+  ADD KEY `Supplier_UserID` (`Supplier_UserID`,`GameID`),
+  ADD KEY `OrderID` (`OrderID`);
 
 --
 -- Indexes for table `order_make`
@@ -381,8 +386,7 @@ ALTER TABLE `supplier_own_game`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`UserID`),
-  ADD UNIQUE KEY `UserID` (`UserID`),
-  ADD UNIQUE KEY `Email` (`Email`);
+  ADD UNIQUE KEY `UserID` (`UserID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -392,7 +396,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
-  MODIFY `GameID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `GameID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=159;
+--
+-- AUTO_INCREMENT for table `ordered_product`
+--
+ALTER TABLE `ordered_product`
+  MODIFY `OrderedProductID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `order_make`
+--
+ALTER TABLE `order_make`
+  MODIFY `OrderID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -407,7 +421,8 @@ ALTER TABLE `buyer`
 -- Constraints for table `ordered_product`
 --
 ALTER TABLE `ordered_product`
-  ADD CONSTRAINT `ordered_product_ibfk_1` FOREIGN KEY (`Supplier_UserID`,`GameID`) REFERENCES `supplier_own_game` (`Supplier_UserID`, `GameID`);
+  ADD CONSTRAINT `ordered_product_ibfk_1` FOREIGN KEY (`Supplier_UserID`, `GameID`) REFERENCES `supplier_own_game` (`Supplier_UserID`, `GameID`) ON DELETE NO ACTION,
+  ADD CONSTRAINT `ordered_product_ibfk_2` FOREIGN KEY (`OrderID`) REFERENCES `order_make` (`OrderID`) ON DELETE NO ACTION;
 
 --
 -- Constraints for table `order_make`
