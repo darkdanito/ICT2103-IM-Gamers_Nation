@@ -229,7 +229,7 @@
                         <table>
                             <?php
                         
-							$sql="SELECT * FROM supplier_own_game WHERE GameID = " . $imageid;
+							$sql="SELECT * FROM supplier_own_game WHERE GameID = '" . $imageid."' AND Stock > 0";
 							
 							if ($result = mysqli_query($connection, $sql)) 
 							{
@@ -242,11 +242,11 @@
 									echo '<td style="width: 100px"> ';
 									echo $row['Stock'];
 									echo '</td>';
-									echo '<td style="width: 100px"> ';
+									echo '<td style="width: 100px"> $';
 									echo $imagePrice;
 									echo '</td>';
 									echo '<td style="width: 100px"> ';
-									echo '<a class="btn btn-warning" href="sellershop.php?id=' . $row['Supplier_UserID'] . '">Buy</a></td>';
+									echo '<a class="btn btn-warning" href="sellershop.php?id='.$row['Supplier_UserID'].'&game='.$imageid.'">Buy</a></td>';
 									echo '</tr>';
 								}
 							}                          

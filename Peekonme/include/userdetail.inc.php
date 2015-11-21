@@ -12,8 +12,8 @@ if ($result = mysqli_query($connection, $sql))
     while ($row = mysqli_fetch_assoc($result)) 
 	{
         $email = $row['Email'];
-		$totalSales = $row['Total_Sales'];
-		$totalExpenditure = $row['Total_Expenditure'];
+        $totalSales = $row['Total_Sales'];
+	$totalExpenditure = $row['Total_Expenditure'];
     }
 }
 ?>
@@ -36,7 +36,7 @@ if ((!empty($name)) || (!empty($email)) || (!empty($webpage)) || (!empty($about)
 				{
                     ?>
                     <li>
-                        <label class="col-xs-6 col-md-5">Total Expenditure : <strong style="color: #ff3366;"><?php echo " \$  ".$totalSales ?></strong></label>                                                
+                        <label class="col-xs-6 col-md-5">Total Expenditure : <strong style="color: #ff3366;"><?php echo " \$  ".$totalExpenditure ?></strong></label>                                                
                     </li>
                     <?php
 					
@@ -48,7 +48,7 @@ if ((!empty($name)) || (!empty($email)) || (!empty($webpage)) || (!empty($about)
 					
 					?>
                     <li>
-                        <label class="col-xs-6 col-md-5">Total Sales : <strong style="color: #ff3366;"><?php echo " \$  ".$totalExpenditure ?></strong></label>                                                
+                        <label class="col-xs-6 col-md-5">Total Sales : <strong style="color: #ff3366;"><?php echo " \$  ".$totalSales ?></strong></label>                                                
                     </li>
                     <?php
                 }

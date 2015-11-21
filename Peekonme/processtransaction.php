@@ -1,64 +1,70 @@
 <?php
+
+require_once('protected/config1.php');
+$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
+if (mysqli_connect_errno()) {     // mysqli_connect_errno returns the last error code
+    die(mysqli_connect_error());   // die() is equivalent to exit()	
+}
 session_start();
-include 'header.inc.php';
 
-$arraysize =  $_SESSION['arraysize'];
-$supplier_userid = $_SESSION['supplier_userid'];
-$totalCost = $_SESSION['totalcost'];
+$gameid = $shopid = $gametitle = $gameprice = $gamequantity = $orderid = "";
 
-for ($i=0; $i < $arraysize; $i++) {
-    $chosenQuantity[$i] = $_SESSION['chosenquantity'][$i];
-    $gameID[$i] = $_SESSION['gameid'][$i];
-    $gameTitle[$i] = $_SESSION['gametitle'][$i];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-
-//echo '<br>';
-//echo 'Chosen Quantity: ' ;
-//echo $chosenQuantity[$i];
-//echo '<br>';
-//echo 'Chosen gametitle: ' ;
-//echo $gameTitle[$i];
-////echo '<br>';
-////echo 'Supplier ID: ' ;
-////cho $supplier_userid;
-//echo '<br>';
-//echo 'Game ID: ';
-//echo $gameID[$i];
-//echo '<br>';
-
-
-//echo 'Total cost: '; 
-//echo $totalCost;
-$sql = "UPDATE SUPPLIER_OWN_GAME SET STOCK = STOCK - ".$chosenQuantity[$i]." WHERE SUPPLIER_USERID = '".$supplier_userid."' AND GAMEID = " .$gameID[$i];
-
-
-if ($result = mysqli_query($connection, $sql)) {
-    $row = mysql_num_rows($result);
-//    $row = mysqli_fetch_assoc($result);
-}
-}
-
-    if ($row = 1) {
-      
-    ?>
-<?php
- 
-         $sql = "UPDATE SUPPLIER SET TOTAL_SALES = TOTAL_SALES + ".$totalCost." WHERE USERID = '".$supplier_userid."'";
-         if($result2 = mysqli_query($connection,$sql)) {
-             $row2 = mysql_num_rows($result2);
-             if ($row2 = 1) {
-                 $_SESSION["purchasesuccess"] = "Purchase Successful !";
-                       }   
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
-    else {
-        //do nothing    
-//       
-    }  
-                         
-        header('Location: explore.php');
+
+    $uname = $_SESSION['username'];
+    $gameid = test_input($_POST["gameid"]);
+    $shopid = test_input($_POST["shopid"]);
+    $gametitle = test_input($_POST["title"]);
+    $gameprice = test_input($_POST["price"]);
+    $gamequantity = test_input($_POST["quantity"]);
+
+    //Insert to Order make
+    $currentdt = date('Y-m-d H:i:s');
+    $sql = "INSERT INTO order_make (Buyer_UserID,Purchare_Time) VALUES (?,?)";
+    if ($statement = mysqli_prepare($connection, $sql)) {
+        mysqli_stmt_bind_param($statement, 'ss', $uname, $currentdt);
+        mysqli_stmt_execute($statement);
+    }
     
-    }
-include 'footer.inc.php';
-?>
+    //Remove the stock from supplier
+    $sql = "UPDATE supplier_own_game SET Stock = Stock - ".$gamequantity." WHERE Supplier_UserID = '".$shopid."' AND GameID = '".$gameid."'";
+    $result = mysqli_query($connection, $sql);
+    
+    //increase Sale
+    $totalcost = $gameprice * $gamequantity;
+    $sql = "UPDATE supplier SET Total_Sales = Total_Sales + ".$totalcost." WHERE UserID = '".$shopid."'";
+    $result = mysqli_query($connection, $sql);
+    
+    //increase Expenditure
+    $sql = "UPDATE buyer SET Total_Expenditure = Total_Expenditure + ".$totalcost." WHERE UserID = '".$uname."'";
+    $result = mysqli_query($connection, $sql);
+    
+    //Get latest orderID
+    $sql = "SELECT OrderID FROM order_make ORDER BY OrderID DESC;";
 
-  
+    if ($result = mysqli_query($connection, $sql)) {
+        $row = mysqli_fetch_assoc($result);
+        // grab latest one (if need more just do for loop)
+        $orderid = $row['OrderID'];
+        echo $orderid;
+    }
+
+    //Insert to Order Product
+    $sql = "INSERT INTO ordered_product (Supplier_UserID,GameID,OrderID,Quantity,Price) VALUES (?,?,?,?,?)";
+    if ($statement = mysqli_prepare($connection, $sql)) {
+        mysqli_stmt_bind_param($statement, 'sssss', $shopid, $gameid, $orderid, $gamequantity, $gameprice);
+        mysqli_stmt_execute($statement);
+        
+        $_SESSION['purchasesuccess'] = "true";
+        header('Location: explore.php');
+    }
+}
+?>

@@ -1,6 +1,5 @@
 <?php
-	session_start();
-//        $success_message = $_SESSION['purchasesuccess'];       
+	session_start();       
 ?>
 
 <!DOCTYPE html>
@@ -44,20 +43,13 @@
            <?php
            
          if(isset($_SESSION['purchasesuccess'])) {  
-           if (isset($_SESSION['purchasesuccess'])) {
-//               echo $test;
+           if ($_SESSION['purchasesuccess'] == "true") {
                echo '<script language="javascript">';
-               echo 'alert("'.$success_message.'")';
+               echo 'alert("Purchase Successful !")';
                echo '</script>';
-           }
-           
-           else {
-               echo '<script language="javascript">';
-               echo 'alert("Purchase failed. Please try again")';
-               echo '</script>';
+               $_SESSION['purchasesuccess'] = "";
            }
          }
-//           session_unset();
            ?>
         </div>
         <?php include 'footer.inc.php'; ?>
