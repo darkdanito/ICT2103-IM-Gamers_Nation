@@ -14,8 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/main.css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="js/star-rating.min.js" type="text/javascript"></script>        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>    
               
     </head>
     

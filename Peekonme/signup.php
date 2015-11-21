@@ -104,24 +104,12 @@
 						$emailvalid = false;
 					} else 
 					{
-						$sql = "SELECT Email FROM user";
-						if ($result = mysqli_query($connection, $sql)) 
-						{
-							$emailvalid = true; //Needed when there is no entry in the table yet
-							while ($row = mysqli_fetch_assoc($result)) 
-							{
-								if ($row['Email'] == $email) 
-								{
-									$emailErr = "Email had been taken";
-									$emailvalid = false;
-									break;
-								} else 
-								{
-									$emailErr = "";
-									$emailvalid = true;
-								}
-							}
-						}
+                                            if (preg_match("/^(.+)@([^\.].*)\.([a-z]{2,})$/", $email)){
+                                                $emailvalid = true;
+                                            }else{
+                                                $emailErr = "Invalid email address.";
+						$emailvalid = false;
+                                            }
 					}
 	
 					//If all valid it will goes to welcome.php

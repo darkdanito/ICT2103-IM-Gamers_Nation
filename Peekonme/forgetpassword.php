@@ -20,20 +20,19 @@
         
         <div class="container" style="margin-top: 4em ">
             <div class="row">
-                <img src="Images/PeekonME.png" alt="PeekOnMe" class="img-responsive center-block"/>
+                <img src="Images/logo.png" alt="gamersnation" class="img-responsive center-block"/>
             </div>
             <?php
             // define variables and set to empty values
             $username = $email = "";
 
-            $usernameErr = $emailErr = "";
+            $usernameErr = "";
 
-            $usernamevalid = $pword1valid = $pword2valid = $emailvalid = "";
+            $usernamevalid = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") 
 			{
                 $username = test_input($_POST["username"]);
-				$email = test_input($_POST["email"]);
 
                 if (empty($username)) 
 				{
@@ -42,16 +41,16 @@
                 } 
 				else 
 				{
-                    $sql = "SELECT UserID FROM user";
+                    $sql = "SELECT UserID,Email FROM user";
                     if ($result = mysqli_query($connection, $sql)) 
 					{
                         $usernamevalid = true; //Needed when there is no entry in the table yet
-                        while ($row = mysqli_fetch_assoc($result)) 
-						{
-                            if ($row['UserID'] == $username) 
-							{
+                        while ($row = mysqli_fetch_assoc($result)){                            
+                            if ($row['UserID'] == $username) {
                                 $usernameErr = "";
                                 $usernamevalid = true;
+                                $email = $row['Email'];
+                                break;
                             } 
 							else 
 							{
@@ -61,19 +60,9 @@
                         }
                     }
                 }
-				
-				if (empty($email)) 
-				{
-                    $emailErr = "Please do not leave your email empty.";
-                    $emailvalid = false;
-                } 
-				else 
-				{
-					$emailvalid = true;
-                }
 			
                 //If all valid it will goes to welcome.php
-				if ($usernamevalid && $emailvalid)
+				if ($usernamevalid)
 				{
 // Start of dummy code
 
@@ -128,13 +117,13 @@
 					$mail->SMTPAuth = true;
 					
 					//Username to use for SMTP authentication - use full email address for gmail
-					$mail->Username = "noreply.makanexpress@gmail.com";
+					$mail->Username = "noreply.gamersnation@gmail.com";
 					
 					//Password to use for SMTP authentication
-					$mail->Password = "asdf1234!";
+					$mail->Password = "GMadmin12345";
 					
 					//Set who the message is to be sent from
-					$mail->setFrom('noreply@makanexpress.com', 'Gamers Nation');
+					$mail->setFrom('noreply@gamersnation.com', 'Gamers Nation');
 					
 					//Set who the message is to be sent to
 //					$mail->addAddress($_SESSION['email']);
@@ -147,7 +136,7 @@
 					//convert HTML into a basic plain-text alternative body
 					
 					//Replace the plain text body with one created manually
-					$mail->AltBody = 'Ahoy from Makan Express!';
+					$mail->AltBody = 'Ahoy from Gamers Nation!';
 					
 					$mail->isHTML(true);                                  // Set email format to HTML
 					
@@ -231,36 +220,6 @@
                         ?>" required>
                             </div>
                         </div>
-                        
-                        
-                        
-                        
-                        <div class="form-group <?php
-                        if ($emailvalid) 
-						{
-                            echo $validbox;
-                        } if ($emailErr != "") 
-						{
-                            echo $invalidbox;
-                        }
-                        ?>">
-                            <label class="col-sm-3 control-label" for="email">Email</label>
-                            <div class="col-sm-6">
-                                <input class="form-control" type="email" id="email" name="email"
-                                       value="<?php
-                        if ($emailvalid) 
-						{
-                            echo htmlspecialchars($email);
-                        }
-                        ?>"
-                                       placeholder="<?php
-                                       if ($emailErr != "") 
-									   {
-                                           echo $emailErr;
-                                       }
-                        ?>" required>
-                            </div>
-                        </div> 
                         
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">

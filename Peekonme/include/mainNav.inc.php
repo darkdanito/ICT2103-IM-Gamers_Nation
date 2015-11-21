@@ -18,7 +18,7 @@
 	{
         echo 'class="active"';
     }
-    ?> role="presentation"><a href="userupload.php"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> List New Items</a></li>
+    ?> role="presentation"><a href="userupload.php"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> List New Items</a></li>
     <li <?php
     if ($currentPage == "usersetting.php") 
 	{

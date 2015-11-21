@@ -16,8 +16,7 @@
         
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="stylesheet" type="text/css" href="css/elastislide.css" />
+        <!--<link rel="stylesheet" type="text/css" href="css/style.css" />-->
 
     </head>
     <?php include 'header.inc.php'; ?>
@@ -51,7 +50,7 @@
 					{
                         while ($row3 = mysqli_fetch_assoc($result3)) 
 						{
-                            echo '<div class="col-xs-6 col-md-3">';
+                            echo '<div class="col-xs-6 col-md-2">';
                             echo '<a class="thumbnail" href="imagedetail.php?id=' . $row3['GameID'] . '">';
                             echo '<img src="' . $row3['ImagePath'] . '" />';
                             echo '</a>';
