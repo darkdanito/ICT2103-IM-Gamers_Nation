@@ -134,6 +134,7 @@
                             </strong>
                         </li>
                         <li>Price: <strong> <?php echo $imagePrice ?></strong></li>
+                        <li><br></li>
                         <li>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#sellerList">
                                 Sellers <span class="glyphicon glyphicon-thumbs-up"></span>

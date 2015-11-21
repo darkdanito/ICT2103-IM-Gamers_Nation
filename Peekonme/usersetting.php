@@ -105,7 +105,6 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8">
                             <input type="submit" value="Update" class="btn btn-primary"/>
-                            <a href="deleteacc.php" class="btn btn-danger" id="dela">Deactivate Account</a>
                         </div>
                     </div>
                 </form>
