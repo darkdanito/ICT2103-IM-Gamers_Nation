@@ -107,7 +107,16 @@
                         <li>Year Released: <strong> <?php echo $imageYearReleased ?></strong></li>
                         <li>Platform: <strong> <?php echo $imagePlatform ?></strong></li>
                         <li>Region: <strong> <?php echo $imageRegion ?></strong></li>
-                                                    
+                        <?php 
+                        $avgRating = 0;
+                        $sql = "SELECT AVG(Rating) AS AvgRating FROM review_have WHERE GameID = \"" . $imageid . "\"";
+                                if ($result = mysqli_query($connection, $sql)) 
+                                {
+                                    $row = mysqli_fetch_assoc($result);
+                                    $avgRating = $row['AvgRating'];     
+                                }
+                        ?>
+                        <li>Rating: <strong> <?php echo round((float)$avgRating,1); ?></strong></li>                            
                         </br>
     
                         <li>Stock: 
@@ -147,7 +156,7 @@
 							
                             </br>
                             
-							<?php
+							<?php                       
                                 $sql = "SELECT * FROM review_have WHERE GameID = \"" . $imageid . "\"";
                                 if ($result = mysqli_query($connection, $sql)) 
                                 {
@@ -164,6 +173,7 @@
                                         echo '</div>';
                                         echo '<hr>';
                                     }
+                                    
                                 }
                             ?>
                             
